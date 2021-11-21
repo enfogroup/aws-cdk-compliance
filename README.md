@@ -85,7 +85,7 @@ new Bucket(stack, 'MyBucket', S3Defaults)
 Using defaults but overwriting specific parts. Spread S3Defaults before the settings you want to overwrite.
 ```typescript
 import { S3Defaults } from '@enfo/rename-me'
-import { Bucket } from '@aws-cdk/aws-s3'
+import { Bucket, BucketEncryption } from '@aws-cdk/aws-s3'
 import { Stack } from '@aws-cdk/core'
 
 const stack = new Stack()
