@@ -1,6 +1,8 @@
 # Introduction
 
-This package is tied to Enfo and its customers. Enfo is a [Manager Service Provider](https://aws.amazon.com/partners/programs/msp/) for AWS. The package defines settings for our tagging and resource standards.
+Tagging and resource standards using the CDK.
+
+This package is tied to Enfo and its customers. Enfo is a [Manager Service Provider](https://aws.amazon.com/partners/programs/msp/) for AWS. You can of course use the package without being a customer, but the tagging parts might have no effect depending on your AWS organization setup.
 
 ## Installation
 
