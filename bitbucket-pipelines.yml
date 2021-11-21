@@ -1,0 +1,27 @@
+image: sleavely/node-awscli:14.x
+
+stepdefinitions:
+  - install: &install
+      name: Install dependencies
+      caches:
+        - node
+      script:
+        - npm install
+      artifacts:
+        - node_modules/**
+
+  - publish: &publish
+      name: Publish package
+      trigger: manual
+      script:
+        - npm run build
+        - npm publish
+
+pipelines:
+  branches:
+    master:
+      - step: *install
+      - step: *publish
+
+  default:
+    - step: *install

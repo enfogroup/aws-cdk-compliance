@@ -1,0 +1,43 @@
+{
+  "name": "@enfo/rename-me",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "author": {
+    "name": "Marvin team"
+  },
+  "scripts": {
+    "prepublishOnly": "npx pinst --disable",
+    "postpublish": "npx pinst --enable",
+    "postinstall": "npx husky install",
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "jest",
+    "lint": "npx eslint 'lib/**/*.ts' 'test/**/*.ts'",
+    "lint:fix": "npx eslint --fix 'lib/**/*.ts' 'test/**/*.ts'"
+  },
+  "devDependencies": {
+    "@aws-cdk/assert": "^1.133.0",
+    "@commitlint/cli": "^15.0.0",
+    "@commitlint/config-conventional": "^15.0.0",
+    "@types/jest": "^27.0.3",
+    "@types/node": "^16.11.9",
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
+    "aws-cdk": "^1.133.0",
+    "eslint": "^8.3.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.1",
+    "husky": "^7.0.4",
+    "jest": "^27.3.1",
+    "pinst": "^2.1.6",
+    "ts-jest": "^27.0.7",
+    "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-s3": "^1.133.0",
+    "@aws-cdk/core": "^1.133.0"
+  }
+}
