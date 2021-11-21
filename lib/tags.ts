@@ -11,7 +11,7 @@ export enum BackupPlan {
 }
 
 /**
- * Tags a CDK Construct to enable Enfo Standard Backup.
+ * Tags a CDK Construct to enable Enfo Standard Backups.
  * If an a stack is supplied this will be applied to all resources within the stack.
  * See README for examples
  *
@@ -32,6 +32,6 @@ export enum BackupPlan {
  * @param backupPlan
  * Which BackupPlan to use. Defaults to STANDARD
  */
-export const tagConstructForBackup = (construct: Construct, backupPlan: BackupPlan = BackupPlan.STANDARD): void => {
+export const enableBackups = (construct: Construct, backupPlan: BackupPlan = BackupPlan.STANDARD): void => {
   Tags.of(construct).add('BackupPlan', backupPlan)
 }

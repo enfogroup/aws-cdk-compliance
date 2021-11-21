@@ -12,51 +12,51 @@ npm install @enfo/rename-me --save
 
 ## Tagging
 
-If you are an Enfo customer you can enable backups of databases using tags. This can easily be achieved by sing tagConstructForBackup. This function can be applied on a Resource, Stack or App level.
+If you are an Enfo customer you can enable backups of databases using tags. This can easily be achieved by using the function **enableBackups**. This function can be applied on a Resource, Stack or App level.
 
-Tagging example of a single resource.
+Enabling backups of a single resource.
 
 ```typescript
-import { tagConstructForBackup } from '@enfo/rename-me'
+import { enableBackups } from '@enfo/rename-me'
 import { Stack } from '@aws-cdk/core'
 import { Table } from '@aws-cdk/aws-dynamodb'
 
 const stack = new Stack()
 const myTable = new Table(stack, ...)
-tagConstructForBackup(myTable)
+enableBackups(myTable)
 ```
 
-Tagging example of an entire stack.
+Enable backups of an entire stack.
 
 ```typescript
-import { tagConstructForBackup } from '@enfo/rename-me'
+import { enableBackups } from '@enfo/rename-me'
 import { Stack } from '@aws-cdk/core'
 
 const stack = new Stack()
-tagConstructForBackup(stack)
+enableBackups(stack)
 ```
 
-Tagging example of an entire app.
+Enable backups of an entire app.
 
 ```typescript
-import { tagConstructForBackup } from '@enfo/rename-me'
+import { enableBackups } from '@enfo/rename-me'
 import { App } from '@aws-cdk/core'
 
 const app = new App()
-tagConstructForBackup(app)
+enableBackups(app)
 ```
 
-Where backups are stored can be controlled via the second parameter, backupPlan. It defaults to STANDARD which FIXME
+Where backups are stored can be controlled via the second parameter, backupPlan. It defaults to **STANDARD** which FIXME
 FIXME
 FIXME
 FIXME
 
 ```typescript
-import { tagConstructForBackup, BackupPlan } from '@enfo/rename-me'
+import { enableBackups, BackupPlan } from '@enfo/rename-me'
 import { App } from '@aws-cdk/core'
 
 const app = new App()
-tagConstructForBackup(app, BackupPlan.STOCKHOLM)
+enableBackups(app, BackupPlan.STOCKHOLM)
 ```
 
 ## Resource specific settings

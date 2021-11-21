@@ -1,5 +1,5 @@
 // to be tested
-import { BackupPlan, tagConstructForBackup } from '../lib'
+import { BackupPlan, enableBackups } from '../lib'
 
 // tools
 import '@aws-cdk/assert/jest'
@@ -9,13 +9,13 @@ import { AttributeType, Table } from '@aws-cdk/aws-dynamodb'
 import { ABSENT } from '@aws-cdk/assert/lib/assertions/have-resource'
 
 describe('Tags', () => {
-  describe('tagConstructForBackup', () => {
+  describe('enableBackups', () => {
     it('should be able to tag all resources in a stack', () => {
       const stack = new Stack()
       new Bucket(stack, 'Bucket')
       new Table(stack, 'Table', { partitionKey: { name: 'pk', type: AttributeType.STRING } })
 
-      tagConstructForBackup(stack)
+      enableBackups(stack)
 
       expect(stack).toHaveResource('AWS::S3::Bucket', {
         Tags: [
@@ -42,7 +42,7 @@ describe('Tags', () => {
       const stackTwo = new Stack(app, 'two')
       new Table(stackTwo, 'Table', { partitionKey: { name: 'pk', type: AttributeType.STRING } })
 
-      tagConstructForBackup(app)
+      enableBackups(app)
 
       expect(stackOne).toHaveResource('AWS::S3::Bucket', {
         Tags: [
@@ -67,7 +67,7 @@ describe('Tags', () => {
       const bucket = new Bucket(stack, 'Bucket')
       new Table(stack, 'Table', { partitionKey: { name: 'pk', type: AttributeType.STRING } })
 
-      tagConstructForBackup(bucket)
+      enableBackups(bucket)
 
       expect(stack).toHaveResource('AWS::S3::Bucket', {
         Tags: [
@@ -86,7 +86,7 @@ describe('Tags', () => {
       const stack = new Stack()
       new Bucket(stack, 'Bucket')
 
-      tagConstructForBackup(stack, BackupPlan.IRELAND)
+      enableBackups(stack, BackupPlan.IRELAND)
 
       expect(stack).toHaveResource('AWS::S3::Bucket', {
         Tags: [
