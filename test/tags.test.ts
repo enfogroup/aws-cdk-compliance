@@ -3,7 +3,7 @@ import { BackupPlan, tagConstructForBackup } from '../lib'
 
 // tools
 import '@aws-cdk/assert/jest'
-import { Stack } from '@aws-cdk/core'
+import { App, Stack } from '@aws-cdk/core'
 import { Bucket } from '@aws-cdk/aws-s3'
 import { AttributeType, Table } from '@aws-cdk/aws-dynamodb'
 import { ABSENT } from '@aws-cdk/assert/lib/assertions/have-resource'
@@ -26,6 +26,33 @@ describe('Tags', () => {
         ]
       })
       expect(stack).toHaveResource('AWS::DynamoDB::Table', {
+        Tags: [
+          {
+            Key: 'BackupPlan',
+            Value: BackupPlan.STANDARD
+          }
+        ]
+      })
+    })
+
+    it('should tag all resources in an app', () => {
+      const app = new App()
+      const stackOne = new Stack(app, 'one')
+      new Bucket(stackOne, 'Bucket')
+      const stackTwo = new Stack(app, 'two')
+      new Table(stackTwo, 'Table', { partitionKey: { name: 'pk', type: AttributeType.STRING } })
+
+      tagConstructForBackup(app)
+
+      expect(stackOne).toHaveResource('AWS::S3::Bucket', {
+        Tags: [
+          {
+            Key: 'BackupPlan',
+            Value: BackupPlan.STANDARD
+          }
+        ]
+      })
+      expect(stackTwo).toHaveResource('AWS::DynamoDB::Table', {
         Tags: [
           {
             Key: 'BackupPlan',
