@@ -13,6 +13,7 @@ export enum BackupPlan {
 /**
  * Tags a CDK Construct to enable Enfo Standard Backup.
  * If an a stack is supplied this will be applied to all resources within the stack.
+ * See README for examples
  *
  * Backups only applies to databases. The following types of resources will be affected:
  * Aurora
