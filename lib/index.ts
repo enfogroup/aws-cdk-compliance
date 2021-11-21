@@ -1,1 +1,2 @@
-export { ExampleConstruct, ExampleConstructProps, applyBucketSettings } from './example'
+export { BackupPlan, tagConstructForBackup } from './tags'
+export { S3Defaults } from './s3'
