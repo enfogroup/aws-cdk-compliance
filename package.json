@@ -4,7 +4,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "author": {
-    "name": "Marvin team"
+    "name": "Urban Pettersson"
   },
   "scripts": {
     "prepublishOnly": "npx pinst --disable",
