@@ -29,7 +29,9 @@ export enum BackupPlan {
  *
  * @param construct
  * A CDK Construct
+ * @param backupPlan
+ * Which BackupPlan to use. Defaults to STANDARD
  */
-export const tagConstructForBackup = (construct: Construct, plan: BackupPlan = BackupPlan.STANDARD): void => {
-  Tags.of(construct).add('BackupPlan', plan)
+export const tagConstructForBackup = (construct: Construct, backupPlan: BackupPlan = BackupPlan.STANDARD): void => {
+  Tags.of(construct).add('BackupPlan', backupPlan)
 }
