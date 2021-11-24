@@ -1,11 +1,30 @@
-import { BlockPublicAccess, BucketEncryption, BucketProps } from '@aws-cdk/aws-s3'
+import { BlockPublicAccess, BucketEncryption, BucketProps, Bucket as S3Bucket } from '@aws-cdk/aws-s3'
+import { Construct } from '@aws-cdk/core'
 
 /**
- * Default settings for S3. Should be spread into S3 Bucket object as a part of creation.
- * See README for examples
+ * Default compliance settings for S3. Can be manually spread into a Bucket constructor.
+ *
+ * See README for usage examples
  */
 export const S3Defaults: Readonly<Pick<BucketProps, 'enforceSSL' | 'blockPublicAccess' | 'encryption'>> = {
   enforceSSL: true,
   blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
   encryption: BucketEncryption.S3_MANAGED
+}
+
+/**
+ * Compliant S3 bucket.
+ * SSL communication will be enforced.
+ * Public access will be blocked.
+ * S3 managed encryption will be enabled. This can be overwritten using the encryption key in props.
+ *
+ * See README for usage examples
+ */
+export class Bucket extends S3Bucket {
+  constructor (scope: Construct, id: string, props?: BucketProps) {
+    super(scope, id, {
+      ...S3Defaults,
+      ...props
+    })
+  }
 }
