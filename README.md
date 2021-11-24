@@ -137,7 +137,7 @@ new Bucket(stack, 'MyBucket', { bucketName: 'my-bucket', ...compliantBucketProps
 The following features are available for SNS. SNS requires a KMS Key Construct to be compliant.
 
 * Topic, compliant SNS Topic Construct
-* TopicProps, typescript type with compliant required keys present
+* TopicProps, modified version of TopicProps with the required keys for making the Topic compliant set to required
 
 Topic creation example. Please note that it uses our KMS Key Construct to ensure the Key is compliant as well.
 
