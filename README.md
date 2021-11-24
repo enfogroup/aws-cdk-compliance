@@ -146,9 +146,8 @@ import { Key, Topic, TopicProps } from '@enfo/rename-me'
 import { Stack } from '@aws-cdk/core'
 
 const stack = new Stack()
-const masterKey = new Key(stack, 'Key')
 const props: TopicProps = {
-  masterKey,
+  masterKey: new Key(stack, 'Key'),
   // other values you want to set
 }
 new Topic(stack, 'Topic', props)
