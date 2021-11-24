@@ -2,11 +2,11 @@ import { BlockPublicAccess, BucketEncryption, BucketProps, Bucket as S3Bucket } 
 import { Construct } from '@aws-cdk/core'
 
 /**
- * Default compliance settings for S3. Can be manually spread into a Bucket constructor.
+ * Compliant BucketProps. Can be manually spread into a Bucket constructor.
  *
  * See README for usage examples
  */
-export const compliantBucketProps: Readonly<Pick<BucketProps, 'enforceSSL' | 'blockPublicAccess' | 'encryption'>> = {
+export const compliantBucketProps: Readonly<Required<Pick<BucketProps, 'enforceSSL' | 'blockPublicAccess' | 'encryption'>>> = {
   enforceSSL: true,
   blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
   encryption: BucketEncryption.S3_MANAGED
