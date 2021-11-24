@@ -2,7 +2,7 @@
 
 Tagging and resource standards using the CDK.
 
-This package is tied to Enfo and its customers. Enfo is a [Managed Service Provider](https://aws.amazon.com/partners/programs/msp/) for AWS. You can of course use the package without being a customer, but the tagging parts might have no effect depending on your AWS organization setup.
+This package is tied to Enfo and its customers. Enfo is a [Managed Service Provider](https://aws.amazon.com/partners/programs/msp/) for AWS. You can of course use the package without being a customer, but the tags might have no effect depending on your AWS organization setup.
 
 ## Installation
 
@@ -63,37 +63,43 @@ enableBackups(app, BackupPlan.STOCKHOLM)
 
 ## Resource specific settings
 
-As a part of our compliance reports we send out information about resources that are non-compliant. As a part of this package we expose resource defaults that can be spread into the constructor props parameter.
+As a part of our compliance reports we send out information about resources that are non-compliant. This package exposes compliant Constructs which are extension of AWS Constructs. When possible the Props used to create the Construct is exposed as well.
 
 ### S3
 
-For S3 we recommend the following settings
+The following features are available for S3.
 
-* Enforce SSL for all communication with the bucket
-* Block public access. Use CloudFront and an [Origin Access Identity](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html) if you are building a site
-* Encryption of any sort
+* Bucket, compliant S3 Bucket Construct
+* compliantBucketProps, the BucketProps used to enforce compliance
 
-Example of full use of the default settings
+
+Bucket creation example
 
 ```typescript
-import { S3Defaults } from '@enfo/rename-me'
-import { Bucket } from '@aws-cdk/aws-s3'
+import { Bucket } from '@enfo/rename-me'
 import { Stack } from '@aws-cdk/core'
 
 const stack = new Stack()
-new Bucket(stack, 'MyBucket', S3Defaults)
+new Bucket(stack, 'MyBucket')
 ```
 
-Using defaults but overwriting specific parts. Spread **S3Defaults** before the settings you want to overwrite.
+Including more props
+
 ```typescript
-import { S3Defaults } from '@enfo/rename-me'
-import { Bucket, BucketEncryption } from '@aws-cdk/aws-s3'
+import { Bucket } from '@enfo/rename-me'
 import { Stack } from '@aws-cdk/core'
 
 const stack = new Stack()
-new Bucket(stack, 'MyBucket', {
-  ...S3Defaults,
-  encryption: BucketEncryption.KMS,
-  /* More settings */
-})
+new Bucket(stack, 'MyBucket', { bucketName: 'my-bucket' })
+```
+
+While we recommend using our Bucket Construct you can also create Buckets using the Construct from AWS.
+
+```typescript
+import { compliantBucketProps } from '@enfo/rename-me'
+import { Stack } from '@aws-cdk/core'
+import { Bucket } from '@aws-cdk/aws-s3'
+
+const stack = new Stack()
+new Bucket(stack, 'MyBucket', { bucketName: 'my-bucket', ...compliantBucketProps })
 ```
