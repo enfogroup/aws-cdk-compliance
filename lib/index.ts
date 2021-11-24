@@ -1,2 +1,2 @@
 export { BackupPlan, enableBackups } from './tags'
-export { S3Defaults } from './s3'
+export { compliantBucketProps as S3Defaults } from './s3'

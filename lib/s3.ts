@@ -6,7 +6,7 @@ import { Construct } from '@aws-cdk/core'
  *
  * See README for usage examples
  */
-export const S3Defaults: Readonly<Pick<BucketProps, 'enforceSSL' | 'blockPublicAccess' | 'encryption'>> = {
+export const compliantBucketProps: Readonly<Pick<BucketProps, 'enforceSSL' | 'blockPublicAccess' | 'encryption'>> = {
   enforceSSL: true,
   blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
   encryption: BucketEncryption.S3_MANAGED
@@ -23,7 +23,7 @@ export const S3Defaults: Readonly<Pick<BucketProps, 'enforceSSL' | 'blockPublicA
 export class Bucket extends S3Bucket {
   constructor (scope: Construct, id: string, props?: BucketProps) {
     super(scope, id, {
-      ...S3Defaults,
+      ...compliantBucketProps,
       ...props
     })
   }
