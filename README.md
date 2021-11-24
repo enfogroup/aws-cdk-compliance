@@ -65,6 +65,34 @@ enableBackups(app, BackupPlan.STOCKHOLM)
 
 As a part of our compliance reports we send out information about resources that are non-compliant. This package exposes compliant Constructs which are extension of AWS Constructs. When possible the Props used to create the Construct are exposed as well.
 
+### KMS
+
+The following features are available for KMS.
+
+* Key, compliant KMS Key Construct
+* compliantKeyProps, the KeyProps used to enforce compliance
+
+Key creation example
+
+```typescript
+import { Key } from '@enfo/rename-me'
+import { Stack } from '@aws-cdk/core'
+
+const stack = new Stack()
+new Key(stack, 'Key')
+```
+
+While we recommend using our Key Construct you can also create Keys using the Construct from AWS.
+
+```typescript
+import { compliantKeyProps } from '@enfo/rename-me'
+import { Stack } from '@aws-cdk/core'
+import { Key } from '@aws-cdk/aws-kms'
+
+const stack = new Stack()
+new Key(stack, 'Key', { description: 'My fancy key', ...compliantKeyProps })
+```
+
 ### S3
 
 The following features are available for S3.
