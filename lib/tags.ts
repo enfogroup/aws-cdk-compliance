@@ -1,3 +1,4 @@
+import { Table } from '@aws-cdk/aws-dynamodb'
 import { Construct, Tags } from '@aws-cdk/core'
 
 /**
@@ -34,4 +35,8 @@ export enum BackupPlan {
  */
 export const enableBackups = (construct: Construct, backupPlan: BackupPlan = BackupPlan.STANDARD): void => {
   Tags.of(construct).add('BackupPlan', backupPlan)
+}
+
+export const forceTagDynamoDBAsSafe = (construct: Table): void => {
+  Tags.of(construct).add('billingMode', 'Provisioned')
 }
