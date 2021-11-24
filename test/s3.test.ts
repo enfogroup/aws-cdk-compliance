@@ -7,7 +7,7 @@ import { Stack } from '@aws-cdk/core'
 import { Template, Match } from '@aws-cdk/assertions'
 
 describe('S3', () => {
-  describe('S3Defaults', () => {
+  describe('Bucket', () => {
     it('should enforce SSL', () => {
       const stack = new Stack()
 
