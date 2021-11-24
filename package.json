@@ -6,6 +6,10 @@
   "author": {
     "name": "Urban Pettersson"
   },
+  "license": "MIT",
+  "repository": {
+    "url": "https://github.com/enfogroup/rename-me"
+  },
   "scripts": {
     "prepublishOnly": "npx pinst --disable",
     "postpublish": "npx pinst --enable",
@@ -41,6 +45,7 @@
   "dependencies": {
     "@aws-cdk/aws-kms": "^1.134.0",
     "@aws-cdk/aws-s3": "^1.134.0",
+    "@aws-cdk/aws-sns": "^1.134.0",
     "@aws-cdk/core": "^1.134.0"
   }
 }

@@ -131,3 +131,24 @@ import { Bucket } from '@aws-cdk/aws-s3'
 const stack = new Stack()
 new Bucket(stack, 'MyBucket', { bucketName: 'my-bucket', ...compliantBucketProps })
 ```
+
+### SNS
+
+The following features are available for SNS. SNS requires a KMS Key Construct to be compliant.
+
+* Topic, compliant SNS Topic Construct
+* TopicProps, modified version of TopicProps with the required keys for making the Topic compliant set to required
+
+Topic creation example. Please note that it uses our KMS Key Construct to ensure the Key is compliant as well.
+
+```typescript
+import { Key, Topic, TopicProps } from '@enfo/rename-me'
+import { Stack } from '@aws-cdk/core'
+
+const stack = new Stack()
+const props: TopicProps = {
+  masterKey: new Key(stack, 'Key'),
+  // other values you want to set
+}
+new Topic(stack, 'Topic', props)
+```
