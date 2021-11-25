@@ -160,7 +160,7 @@ The following features are available for SQS. SQS requires a KMS Key Construct t
 * Queue, compliant SQS Queue Construct
 * QueueProps, modified version of QueueProps with the required keys for making the Queue compliant set to required, and only compliant values allowed
 
-Queue creation example. Please note that it uses our KMS Key Construct to ensure the Key is compliant as well.
+Queue creation example.
 
 ```typescript
 import { Queue, QueueProps, QueueEncryption } from '@enfo/rename-me'
