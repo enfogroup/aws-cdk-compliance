@@ -98,7 +98,8 @@ new Key(stack, 'Key', { description: 'My fancy key', ...compliantKeyProps })
 The following features are available for S3.
 
 * Bucket, compliant S3 Bucket Construct
-* compliantBucketProps, the BucketProps used to enforce compliance
+* BucketProps, modified version of BucketProps which enforces compliance
+* compliantBucketProps, the BucketProps used to enforce compliance if you don't supply your own
 
 
 Bucket creation example
@@ -108,28 +109,7 @@ import { Bucket } from '@enfo/rename-me'
 import { Stack } from '@aws-cdk/core'
 
 const stack = new Stack()
-new Bucket(stack, 'MyBucket')
-```
-
-Including more props
-
-```typescript
-import { Bucket } from '@enfo/rename-me'
-import { Stack } from '@aws-cdk/core'
-
-const stack = new Stack()
 new Bucket(stack, 'MyBucket', { bucketName: 'my-bucket' })
-```
-
-While we recommend using our Bucket Construct you can also create Buckets using the Construct from AWS.
-
-```typescript
-import { compliantBucketProps } from '@enfo/rename-me'
-import { Stack } from '@aws-cdk/core'
-import { Bucket } from '@aws-cdk/aws-s3'
-
-const stack = new Stack()
-new Bucket(stack, 'MyBucket', { bucketName: 'my-bucket', ...compliantBucketProps })
 ```
 
 ### SNS
@@ -159,7 +139,7 @@ The following features are available for SQS.
 
 * Queue, compliant SQS Queue Construct
 * QueueProps, modified version of QueueProps with the required keys for making the Queue compliant set to required, and only compliant values allowed
-* compliantQueueProps, the QueueProps used to make the queue compliant
+* compliantQueueProps, the QueueProps used to make the queue compliant if you don't supply your own
 
 Queue creation example.
 
