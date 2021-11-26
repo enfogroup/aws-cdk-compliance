@@ -159,17 +159,14 @@ The following features are available for SQS. SQS requires a KMS Key Construct t
 
 * Queue, compliant SQS Queue Construct
 * QueueProps, modified version of QueueProps with the required keys for making the Queue compliant set to required, and only compliant values allowed
+* compliantQueueProps, the QueueProps used to make the queue compliant
 
 Queue creation example.
 
 ```typescript
-import { Queue, QueueProps, QueueEncryption } from '@enfo/rename-me'
+import { Queue } from '@enfo/rename-me'
 import { Stack } from '@aws-cdk/core'
 
 const stack = new Stack()
-const props: QueueProps = {
-  encryption: QueueEncryption.KMS_MANAGED,
-  // other values you want to set
-}
-new Queue(stack, 'Queue', props)
+new Queue(stack, 'Queue', { fifo: false })
 ```

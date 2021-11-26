@@ -1,10 +1,11 @@
 // to be tested
-import { Queue, QueueProps, QueueEncryption } from '../lib/sqs'
+import { Queue, QueueProps } from '../lib/sqs'
 
 // tools
 import '@aws-cdk/assert/jest'
 import { Stack } from '@aws-cdk/core'
 import { Template, Match } from '@aws-cdk/assertions'
+import { QueueEncryption } from '@aws-cdk/aws-sqs'
 
 describe('SQS', () => {
   describe('Queue', () => {
