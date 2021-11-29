@@ -1,10 +1,11 @@
 // to be tested
-import { SaneDefaultsTable, EnforcedComplianceTable } from '../lib/dynamodb'
+import { Table } from '../lib/dynamodb'
 
 // tools
 import '@aws-cdk/assert/jest'
 import { Stack } from '@aws-cdk/core'
 import { Attribute, AttributeType, BillingMode } from '@aws-cdk/aws-dynamodb'
+import { ABSENT } from '@aws-cdk/assert/lib/assertions/have-resource'
 
 describe('DynamoDB', () => {
   const partitionKey: Attribute = {
@@ -12,42 +13,11 @@ describe('DynamoDB', () => {
     type: AttributeType.STRING
   }
 
-  describe('SaneDefaultsTable', () => {
-    it('should enforce billing mode to PAY_PER_REQUEST', () => {
+  describe('Table', () => {
+    it('should tag the resource if billing mode is PROVISIONED', () => {
       const stack = new Stack()
 
-      new SaneDefaultsTable(stack, 'Table', {
-        partitionKey,
-        billingMode: BillingMode.PAY_PER_REQUEST
-      })
-
-      expect(stack).toHaveResource('AWS::DynamoDB::Table', {
-        BillingMode: 'PAY_PER_REQUEST'
-      })
-    })
-  })
-
-  describe('EnforcedComplianceTable', () => {
-    it('should enforce billing mode to PROVISIONED', () => {
-      const stack = new Stack()
-
-      new EnforcedComplianceTable(stack, 'Table', {
-        partitionKey,
-        billingMode: BillingMode.PROVISIONED
-      })
-
-      expect(stack).toHaveResource('AWS::DynamoDB::Table', {
-        ProvisionedThroughput: {
-          ReadCapacityUnits: 5,
-          WriteCapacityUnits: 5
-        }
-      })
-    })
-
-    it('should tag the table to disable alarms', () => {
-      const stack = new Stack()
-
-      new EnforcedComplianceTable(stack, 'Table', {
+      new Table(stack, 'Table', {
         partitionKey,
         billingMode: BillingMode.PROVISIONED
       })
@@ -55,10 +25,40 @@ describe('DynamoDB', () => {
       expect(stack).toHaveResource('AWS::DynamoDB::Table', {
         Tags: [
           {
-            Key: 'billingMode',
+            Key: 'BillingMode',
             Value: 'Provisioned'
           }
         ]
+      })
+    })
+
+    it('should tag the resource if billing mode is not specified', () => {
+      const stack = new Stack()
+
+      new Table(stack, 'Table', {
+        partitionKey
+      })
+
+      expect(stack).toHaveResource('AWS::DynamoDB::Table', {
+        Tags: [
+          {
+            Key: 'BillingMode',
+            Value: 'Provisioned'
+          }
+        ]
+      })
+    })
+
+    it('should not tag the resource if billing mode is PAY_PER_REQUEST', () => {
+      const stack = new Stack()
+
+      new Table(stack, 'Table', {
+        partitionKey,
+        billingMode: BillingMode.PAY_PER_REQUEST
+      })
+
+      expect(stack).toHaveResource('AWS::DynamoDB::Table', {
+        Tags: ABSENT
       })
     })
   })
