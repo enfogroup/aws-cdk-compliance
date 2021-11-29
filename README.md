@@ -159,7 +159,7 @@ The following features are available for SQS.
 
 * Queue, compliant SQS Queue Construct
 * QueueProps, modified version of QueueProps with the required keys for making the Queue compliant set to required, and only compliant values allowed
-* compliantQueueProps, the QueueProps used to make the queue compliant
+* defaultQueueProps, the QueueProps used to make the queue compliant
 
 Queue creation example.
 
