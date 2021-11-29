@@ -71,7 +71,7 @@ The following features are available for KMS.
 
 * Key, compliant KMS Key Construct
 * KeyProps, modified version of KeyProps which enforces compliance
-* compliantKeyProps, the KeyProps used to enforce compliance if you don't supply your own
+* defaultKeyProps, the KeyProps used to enforce compliance if you don't supply your own
 
 Key creation example
 

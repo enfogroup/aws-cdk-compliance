@@ -6,11 +6,9 @@ export interface KeyProps extends KMSKeyProps {
 }
 
 /**
- * Compliant KeyProps. Can be manually spread into a Key constructor.
- *
- * See README for usage examples
+ * Properties for a new Compliant KMS Key
  */
-export const compliantKeyProps: KeyProps = {
+export const defaultKeyProps: KeyProps = {
   enableKeyRotation: true
 }
 
@@ -23,7 +21,7 @@ export const compliantKeyProps: KeyProps = {
 export class Key extends KMSKey {
   constructor (scope: Construct, id: string, props?: KeyProps) {
     super(scope, id, {
-      ...compliantKeyProps,
+      ...defaultKeyProps,
       ...props
     })
   }
