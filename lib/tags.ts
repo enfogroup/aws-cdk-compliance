@@ -38,5 +38,5 @@ export const enableBackups = (construct: Construct, backupPlan: BackupPlan = Bac
 }
 
 export const forceTagDynamoDBAsSafe = (construct: Table): void => {
-  Tags.of(construct).add('billingMode', 'Provisioned')
+  Tags.of(construct).add('BillingMode', 'Provisioned')
 }

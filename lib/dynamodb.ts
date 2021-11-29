@@ -1,26 +1,15 @@
-import { BillingMode, Table, TableProps } from '@aws-cdk/aws-dynamodb'
+import { BillingMode, Table as DynamoDBTable, TableProps } from '@aws-cdk/aws-dynamodb'
 import { Construct } from '@aws-cdk/core'
 import { forceTagDynamoDBAsSafe } from './tags'
 
-export type SaneDefaultsTableProps = TableProps & {
-  billingMode: BillingMode.PAY_PER_REQUEST
-}
-
-export type EnforcedComplianceTableProps = TableProps & {
-  billingMode: BillingMode.PROVISIONED
-}
-
-export class SaneDefaultsTable extends Table {
+export class Table extends DynamoDBTable {
   // eslint-disable-next-line no-useless-constructor
-  constructor (scope: Construct, id: string, props: SaneDefaultsTableProps) {
-    super(scope, id, props)
-  }
-}
+  constructor (scope: Construct, id: string, props: TableProps) {
+    const { billingMode, ...rest } = props
+    super(scope, id, rest)
 
-export class EnforcedComplianceTable extends Table {
-  // eslint-disable-next-line no-useless-constructor
-  constructor (scope: Construct, id: string, props: EnforcedComplianceTableProps) {
-    super(scope, id, props)
-    forceTagDynamoDBAsSafe(this)
+    if (!billingMode || billingMode === BillingMode.PROVISIONED) {
+      forceTagDynamoDBAsSafe(this)
+    }
   }
 }
