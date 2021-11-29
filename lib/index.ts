@@ -1,4 +1,5 @@
-export { BackupPlan, enableBackups } from './tags'
+export { BackupPlan, enableBackups, tagDynamoDBTableAsCompliant } from './tags'
 export { compliantBucketProps, Bucket } from './s3'
 export { compliantKeyProps, Key } from './kms'
 export { TopicProps, Topic } from './sns'
+export { Table } from './dynamodb'

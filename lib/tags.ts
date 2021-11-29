@@ -37,6 +37,11 @@ export const enableBackups = (construct: Construct, backupPlan: BackupPlan = Bac
   Tags.of(construct).add('BackupPlan', backupPlan)
 }
 
-export const forceTagDynamoDBAsSafe = (construct: Table): void => {
+/**
+ * Tags billing mode of a DynamoDB Table as compliant. Used to suppress warnings for billing mode PROVISIONED
+ * @param construct
+ * Table Construct
+ */
+export const tagDynamoDBTableAsCompliant = (construct: Table): void => {
   Tags.of(construct).add('BillingMode', 'Provisioned')
 }
