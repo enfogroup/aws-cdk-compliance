@@ -65,6 +65,47 @@ enableBackups(app, BackupPlan.STOCKHOLM)
 
 As a part of our compliance reports we send out information about resources that are non-compliant. This package exposes compliant Constructs which are extension of AWS Constructs. When possible the Props used to create the Construct are exposed as well.
 
+### DynamoDB
+
+For DynamoDB we do not have strict compliance requirements. We do however strongly recommend using billing mode PAY_PER_REQUEST. If a Table is created with billing mode PROVISIONED an alarm will be triggered. This can be bypassed by tagging the resource. We expose a Construct which handles this for you. Please make sure that you are aware of the cost impact of using PROVISIONED before using the Construct. The following features are available for DynamoDB.
+
+* Table, smart Construct suppressing warnings if you use BillingMode.PROVISIONED
+* tagDynamoDBTableAsCompliant, function for tagging DynamoDB to suppress warnings on BillingMode.PROVISIONED
+
+Table creation example using PAY_PER_REQUEST. The Table will not be tagged to suppress warnings.
+
+```typescript
+import { Table } from '@enfo/rename-me'
+import { Stack } from '@aws-cdk/core'
+import { AttributeType, BillingMode } from '@aws-cdk/aws-dynamodb'
+
+const stack = new Stack()
+new Table(stack, 'Table', {
+  partitionKey: {
+    name: 'pk',
+    type: AttributeType.STRING
+  },
+  billingMode: BillingMode.PAY_PER_REQUEST
+})
+```
+
+Table creation example using PROVISIONED. The Table will be tagged to suppress warnings. The same will happen if no billing mode is specified.
+
+```typescript
+import { Table } from '@enfo/rename-me'
+import { Stack } from '@aws-cdk/core'
+import { AttributeType, BillingMode } from '@aws-cdk/aws-dynamodb'
+
+const stack = new Stack()
+new Table(stack, 'Table', {
+  partitionKey: {
+    name: 'pk',
+    type: AttributeType.STRING
+  },
+  billingMode: BillingMode.PROVISIONED
+})
+```
+
 ### KMS
 
 The following features are available for KMS.
