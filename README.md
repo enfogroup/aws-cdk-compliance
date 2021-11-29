@@ -170,3 +170,28 @@ import { Stack } from '@aws-cdk/core'
 const stack = new Stack()
 new Queue(stack, 'Queue', { fifo: false })
 ```
+
+### CloudFront
+
+The following features are available for CloudFront.
+
+* Distribution, compliant CloudFront Distribution Construct
+* defaultDistributionProps, the DistributionProps used to make the distribution compliant
+
+CloudFront Distribution creation example.
+
+```typescript
+import { CloudFront } from '@enfo/rename-me'
+import { ViewerProtocolPolicy } from '@aws-cdk/aws-cloudfront'
+import { HttpOrigin } from '@aws-cdk/aws-cloudfront-origins'
+import { Stack } from '@aws-cdk/core'
+
+const stack = new Stack()
+new Distribution(stack, 'Distribution', {
+  defaultBehavior: {
+    origin: new HttpOrigin('example.com'),
+    viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS
+  },
+  webAclId: 'some-id',
+})
+```
