@@ -5,6 +5,10 @@ export interface KeyProps extends KMSKeyProps {
   enableKeyRotation?: true
 }
 
+interface InternalKeyProps extends KeyProps {
+  enableKeyRotation: true;
+}
+
 /**
  * Properties for a new Compliant KMS Key
  */
@@ -23,6 +27,6 @@ export class Key extends KMSKey {
     super(scope, id, {
       ...defaultKeyProps,
       ...props
-    })
+    } as InternalKeyProps)
   }
 }
