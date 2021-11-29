@@ -2,9 +2,15 @@ import { BlockPublicAccess, BucketEncryption, BucketProps as S3BucketProps, Buck
 import { Construct } from '@aws-cdk/core'
 
 export interface BucketProps extends S3BucketProps {
-  enforceSSL?: true,
-  blockPublicAccess?: BlockPublicAccess,
-  encryption?: Exclude<BucketEncryption, BucketEncryption.UNENCRYPTED>
+  readonly enforceSSL?: true,
+  readonly blockPublicAccess?: BlockPublicAccess,
+  readonly encryption?: Exclude<BucketEncryption, BucketEncryption.UNENCRYPTED>
+}
+
+interface InternalBucketProps extends BucketProps {
+  readonly enforceSSL: true,
+  readonly blockPublicAccess: BlockPublicAccess,
+  readonly encryption: Exclude<BucketEncryption, BucketEncryption.UNENCRYPTED>
 }
 
 /**
@@ -31,6 +37,6 @@ export class Bucket extends S3Bucket {
     super(scope, id, {
       ...compliantBucketProps,
       ...props
-    })
+    } as InternalBucketProps)
   }
 }
