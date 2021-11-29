@@ -70,7 +70,7 @@ As a part of our compliance reports we send out information about resources that
 For DynamoDB we do not have strict compliance requirements. We do however strongly recommend using billing mode PAY_PER_REQUEST. If a Table is created with billing mode PROVISIONED an alarm will be triggered. This can be bypassed by tagging the resource. We expose a Construct which handles this for you. Please make sure that you are aware of the cost impact of using PROVISIONED before using the Construct. The following features are available for DynamoDB.
 
 * Table, smart Construct suppressing warnings if you use BillingMode.PROVISIONED
-* tagDynamoDBTableAsCompliant, function for tagging DynamoDB to suppress warnings on BillingMode.PROVISIONED
+* allowBillingModeProvisioned, function for tagging DynamoDB to suppress warnings on BillingMode.PROVISIONED
 
 Table creation example using PAY_PER_REQUEST. The Table will not be tagged to suppress warnings.
 

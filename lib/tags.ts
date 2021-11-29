@@ -42,6 +42,6 @@ export const enableBackups = (construct: Construct, backupPlan: BackupPlan = Bac
  * @param construct
  * Table Construct
  */
-export const tagDynamoDBTableAsCompliant = (construct: Table): void => {
+export const allowBillingModeProvisioned = (construct: Table): void => {
   Tags.of(construct).add('BillingMode', 'Provisioned')
 }

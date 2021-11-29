@@ -1,7 +1,7 @@
 import { BillingMode, Table as DynamoDBTable, TableProps } from '@aws-cdk/aws-dynamodb'
 import { Construct } from '@aws-cdk/core'
 
-import { tagDynamoDBTableAsCompliant } from './tags'
+import { allowBillingModeProvisioned } from './tags'
 
 /**
  * Compliant DynamoDB Table.
@@ -17,7 +17,7 @@ export class Table extends DynamoDBTable {
     super(scope, id, rest)
 
     if (!billingMode || billingMode === BillingMode.PROVISIONED) {
-      tagDynamoDBTableAsCompliant(this)
+      allowBillingModeProvisioned(this)
     }
   }
 }
