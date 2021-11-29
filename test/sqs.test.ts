@@ -1,21 +1,28 @@
 // to be tested
-import { Queue, QueueProps } from '../lib/sqs'
+import { Queue } from '../lib/sqs'
 
 // tools
 import '@aws-cdk/assert/jest'
 import { Stack } from '@aws-cdk/core'
 import { Template, Match } from '@aws-cdk/assertions'
-import { QueueEncryption } from '@aws-cdk/aws-sqs'
 
 describe('SQS', () => {
   describe('Queue', () => {
-    it('should use managed encryption', () => {
+    it('should default to managed encryption', () => {
       const stack = new Stack()
-      const props: QueueProps = {
-        encryption: QueueEncryption.KMS_MANAGED
-      }
 
-      new Queue(stack, 'Queue', props)
+      new Queue(stack, 'Queue')
+
+      const template = Template.fromStack(stack)
+      template.hasResourceProperties('AWS::SQS::Queue', Match.objectLike({
+        KmsMasterKeyId: 'alias/aws/sqs'
+      }))
+    })
+
+    it('works with valid QueueProps', () => {
+      const stack = new Stack()
+
+      new Queue(stack, 'Queue', { fifo: false })
 
       const template = Template.fromStack(stack)
       template.hasResourceProperties('AWS::SQS::Queue', Match.objectLike({
