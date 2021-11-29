@@ -73,6 +73,8 @@ The following features are available for KMS.
 * KeyProps, modified version of KeyProps which enforces compliance
 * defaultKeyProps, the KeyProps used to enforce compliance if you don't supply your own
 
+While we do not enforce *alias* on KeyProps we do recommend that you set it.
+
 Key creation example
 
 ```typescript
