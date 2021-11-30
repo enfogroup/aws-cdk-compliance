@@ -69,12 +69,12 @@ When possible the default Props used to create the Construct are exposed as well
 
 ### DynamoDB
 
-For DynamoDB we do not have strict compliance requirements. We do however strongly recommend using billing mode PAY_PER_REQUEST. If a Table is created with billing mode PROVISIONED an alarm will be triggered. This can be bypassed by tagging the resource. We expose a Construct which handles this for you. Please make sure that you are aware of the cost impact of using PROVISIONED before using the Construct. The following features are available for DynamoDB.
+For DynamoDB we do not have strict compliance requirements. We do however strongly recommend using billing mode PAY_PER_REQUEST. If a Table is created with billing mode PROVISIONED an alarm will be triggered. This can be bypassed by tagging the resource. We expose a Construct which defaults to using PAY_PER_REQUEST. If you use PROVISIONED it will suppress warnings. Please make sure that you are aware of the cost impact of using PROVISIONED. The following features are available for DynamoDB.
 
-* Table, smart Construct suppressing warnings if you use BillingMode.PROVISIONED
-* allowBillingModeProvisioned, function for tagging DynamoDB to suppress warnings on BillingMode.PROVISIONED
+* Table, Construct defaulting to using BillingMode.PAY_PER_REQUEST. Will suppress warnings if you use PROVISIONED
+* allowBillingModeProvisioned, function for tagging DynamoDB to suppress warnings on PROVISIONED
 
-Table creation example using PAY_PER_REQUEST. The Table will not be tagged to suppress warnings.
+Table creation example without billingMode specified. Will default to PAY_PER_REQUEST. The Table will not be tagged to suppress warnings. The same will happen if billingMode is set to PAY_PER_REQUEST.
 
 ```typescript
 import { Table } from '@enfo/rename-me'
@@ -86,12 +86,11 @@ new Table(stack, 'Table', {
   partitionKey: {
     name: 'pk',
     type: AttributeType.STRING
-  },
-  billingMode: BillingMode.PAY_PER_REQUEST
+  }
 })
 ```
 
-Table creation example using PROVISIONED. The Table will be tagged to suppress warnings. The same will happen if no billing mode is specified.
+Table creation example using PROVISIONED. The Table will be tagged to suppress warnings.
 
 ```typescript
 import { Table } from '@enfo/rename-me'
