@@ -1,4 +1,4 @@
-export { BackupPlan, enableBackups } from './tags'
+export { BackupPlan, enableBackups, allowBillingModeProvisioned } from './tags'
 export { defaultBucketProps, Bucket } from './s3'
 export { defaultKeyProps, Key, KeyProps } from './kms'
 export { TopicProps, Topic } from './sns'
