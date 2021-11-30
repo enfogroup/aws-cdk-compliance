@@ -26,6 +26,18 @@ describe('DynamoDB', () => {
       })
     })
 
+    it('should not tag the resource if no billing mode is set', () => {
+      const stack = new Stack()
+
+      new Table(stack, 'Table', {
+        partitionKey
+      })
+
+      expect(stack).toHaveResource('AWS::DynamoDB::Table', {
+        Tags: ABSENT
+      })
+    })
+
     it('should not tag the resource if billing mode is PAY_PER_REQUEST', () => {
       const stack = new Stack()
 
