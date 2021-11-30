@@ -1,3 +1,4 @@
+import { Table } from '@aws-cdk/aws-dynamodb'
 import { Construct, Tags } from '@aws-cdk/core'
 
 /**
@@ -34,4 +35,13 @@ export enum BackupPlan {
  */
 export const enableBackups = (construct: Construct, backupPlan: BackupPlan = BackupPlan.STANDARD): void => {
   Tags.of(construct).add('BackupPlan', backupPlan)
+}
+
+/**
+ * Tags billing mode of a DynamoDB Table as compliant. Used to suppress warnings for billing mode PROVISIONED
+ * @param construct
+ * Table Construct
+ */
+export const allowBillingModeProvisioned = (construct: Table): void => {
+  Tags.of(construct).add('BillingMode', 'Provisioned')
 }

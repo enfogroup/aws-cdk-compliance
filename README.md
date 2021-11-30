@@ -67,6 +67,71 @@ As a part of our compliance reports we send out information about resources that
 
 When possible the default Props used to create the Construct are exposed as well.
 
+### CloudFront
+
+The following features are available for CloudFront.
+
+* Distribution, compliant CloudFront Distribution Construct
+* defaultDistributionProps, the DistributionProps used to make the distribution compliant
+
+CloudFront Distribution creation example.
+
+```typescript
+import { CloudFront } from '@enfo/rename-me'
+import { ViewerProtocolPolicy } from '@aws-cdk/aws-cloudfront'
+import { HttpOrigin } from '@aws-cdk/aws-cloudfront-origins'
+import { Stack } from '@aws-cdk/core'
+
+const stack = new Stack()
+new Distribution(stack, 'Distribution', {
+  defaultBehavior: {
+    origin: new HttpOrigin('example.com'),
+    viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS
+  },
+  webAclId: 'some-id',
+})
+```
+
+### DynamoDB
+
+For DynamoDB we do not have strict compliance requirements. We do however strongly recommend using billing mode PAY_PER_REQUEST. If a Table is created with billing mode PROVISIONED an alarm will be triggered. This can be bypassed by tagging the resource. We expose a Construct which defaults to using PAY_PER_REQUEST. If you use PROVISIONED it will suppress warnings. Please make sure that you are aware of the cost impact of using PROVISIONED. The following features are available for DynamoDB.
+
+* Table, Construct defaulting to using BillingMode.PAY_PER_REQUEST. Will suppress warnings if you use PROVISIONED
+* allowBillingModeProvisioned, function for tagging DynamoDB to suppress warnings on PROVISIONED
+
+Table creation example without billingMode specified. Will default to PAY_PER_REQUEST. The Table will not be tagged to suppress warnings. The same will happen if billingMode is set to PAY_PER_REQUEST.
+
+```typescript
+import { Table } from '@enfo/rename-me'
+import { Stack } from '@aws-cdk/core'
+import { AttributeType, BillingMode } from '@aws-cdk/aws-dynamodb'
+
+const stack = new Stack()
+new Table(stack, 'Table', {
+  partitionKey: {
+    name: 'pk',
+    type: AttributeType.STRING
+  }
+})
+```
+
+Table creation example using PROVISIONED. The Table will be tagged to suppress warnings.
+
+```typescript
+import { Table } from '@enfo/rename-me'
+import { Stack } from '@aws-cdk/core'
+import { AttributeType, BillingMode } from '@aws-cdk/aws-dynamodb'
+
+const stack = new Stack()
+new Table(stack, 'Table', {
+  partitionKey: {
+    name: 'pk',
+    type: AttributeType.STRING
+  },
+  billingMode: BillingMode.PROVISIONED
+})
+```
+
 ### KMS
 
 The following features are available for KMS.
@@ -143,29 +208,4 @@ import { Stack } from '@aws-cdk/core'
 
 const stack = new Stack()
 new Queue(stack, 'Queue', { fifo: false })
-```
-
-### CloudFront
-
-The following features are available for CloudFront.
-
-* Distribution, compliant CloudFront Distribution Construct
-* defaultDistributionProps, the DistributionProps used to make the distribution compliant
-
-CloudFront Distribution creation example.
-
-```typescript
-import { CloudFront } from '@enfo/rename-me'
-import { ViewerProtocolPolicy } from '@aws-cdk/aws-cloudfront'
-import { HttpOrigin } from '@aws-cdk/aws-cloudfront-origins'
-import { Stack } from '@aws-cdk/core'
-
-const stack = new Stack()
-new Distribution(stack, 'Distribution', {
-  defaultBehavior: {
-    origin: new HttpOrigin('example.com'),
-    viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS
-  },
-  webAclId: 'some-id',
-})
 ```
