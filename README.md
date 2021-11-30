@@ -72,7 +72,10 @@ When possible the default Props used to create the Construct are exposed as well
 The following features are available for KMS.
 
 * Key, compliant KMS Key Construct
-* compliantKeyProps, the KeyProps used to enforce compliance
+* KeyProps, modified version of KeyProps which enforces compliance
+* defaultKeyProps, the KeyProps used to enforce compliance if you don't supply your own
+
+While we do not enforce *alias* on KeyProps we do recommend that you set it.
 
 Key creation example
 
@@ -81,18 +84,7 @@ import { Key } from '@enfo/rename-me'
 import { Stack } from '@aws-cdk/core'
 
 const stack = new Stack()
-new Key(stack, 'Key')
-```
-
-While we recommend using our Key Construct you can also create Keys using the Construct from AWS.
-
-```typescript
-import { compliantKeyProps } from '@enfo/rename-me'
-import { Stack } from '@aws-cdk/core'
-import { Key } from '@aws-cdk/aws-kms'
-
-const stack = new Stack()
-new Key(stack, 'Key', { description: 'My fancy key', ...compliantKeyProps })
+new Key(stack, 'Key', { alias: 'my-key' })
 ```
 
 ### S3

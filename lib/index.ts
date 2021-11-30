@@ -1,6 +1,6 @@
 export { BackupPlan, enableBackups } from './tags'
-export { compliantBucketProps, BucketProps, Bucket } from './s3'
-export { compliantKeyProps, Key } from './kms'
+export { compliantBucketProps, Bucket } from './s3'
+export { defaultKeyProps, Key, KeyProps } from './kms'
 export { TopicProps, Topic } from './sns'
 export { BehaviorOptions, defaultDistributionProps, Distribution, DistributionProps } from './cloudfront'
 export { defaultQueueProps, QueueProps, Queue } from './sqs'

@@ -1,13 +1,18 @@
-import { Key as KMSKey, KeyProps } from '@aws-cdk/aws-kms'
+import { Key as KMSKey, KeyProps as KMSKeyProps } from '@aws-cdk/aws-kms'
 import { Construct } from '@aws-cdk/core'
-import { PickRequiredKeys } from './models'
+
+export interface KeyProps extends KMSKeyProps {
+  readonly enableKeyRotation?: true
+}
+
+interface InternalKeyProps extends KeyProps {
+  readonly enableKeyRotation: true;
+}
 
 /**
- * Compliant KeyProps. Can be manually spread into a Key constructor.
- *
- * See README for usage examples
+ * Properties for a new Compliant KMS Key
  */
-export const compliantKeyProps: PickRequiredKeys<KeyProps, 'enableKeyRotation'> = {
+export const defaultKeyProps: KeyProps = {
   enableKeyRotation: true
 }
 
@@ -20,8 +25,8 @@ export const compliantKeyProps: PickRequiredKeys<KeyProps, 'enableKeyRotation'> 
 export class Key extends KMSKey {
   constructor (scope: Construct, id: string, props?: KeyProps) {
     super(scope, id, {
-      ...compliantKeyProps,
+      ...defaultKeyProps,
       ...props
-    })
+    } as InternalKeyProps)
   }
 }
