@@ -63,7 +63,9 @@ enableBackups(app, BackupPlan.STOCKHOLM)
 
 ## Resource specific settings
 
-As a part of our compliance reports we send out information about resources that are non-compliant. This package exposes compliant Constructs which are extension of AWS Constructs. When possible the Props used to create the Construct are exposed as well.
+As a part of our compliance reports we send out information about resources that are non-compliant. This package exposes compliant Constructs which are extension of AWS Constructs.
+
+When possible the default Props used to create the Construct are exposed as well.
 
 ### DynamoDB
 
@@ -111,7 +113,10 @@ new Table(stack, 'Table', {
 The following features are available for KMS.
 
 * Key, compliant KMS Key Construct
-* compliantKeyProps, the KeyProps used to enforce compliance
+* KeyProps, modified version of KeyProps which enforces compliance
+* defaultKeyProps, the KeyProps used to enforce compliance if you don't supply your own
+
+While we do not enforce *alias* on KeyProps we do recommend that you set it.
 
 Key creation example
 
@@ -120,18 +125,7 @@ import { Key } from '@enfo/rename-me'
 import { Stack } from '@aws-cdk/core'
 
 const stack = new Stack()
-new Key(stack, 'Key')
-```
-
-While we recommend using our Key Construct you can also create Keys using the Construct from AWS.
-
-```typescript
-import { compliantKeyProps } from '@enfo/rename-me'
-import { Stack } from '@aws-cdk/core'
-import { Key } from '@aws-cdk/aws-kms'
-
-const stack = new Stack()
-new Key(stack, 'Key', { description: 'My fancy key', ...compliantKeyProps })
+new Key(stack, 'Key', { alias: 'my-key' })
 ```
 
 ### S3
@@ -139,7 +133,8 @@ new Key(stack, 'Key', { description: 'My fancy key', ...compliantKeyProps })
 The following features are available for S3.
 
 * Bucket, compliant S3 Bucket Construct
-* compliantBucketProps, the BucketProps used to enforce compliance
+* BucketProps, modified version of BucketProps which enforces compliance
+* defaultBucketProps, the BucketProps used to enforce compliance if you don't supply your own
 
 
 Bucket creation example
@@ -149,28 +144,7 @@ import { Bucket } from '@enfo/rename-me'
 import { Stack } from '@aws-cdk/core'
 
 const stack = new Stack()
-new Bucket(stack, 'MyBucket')
-```
-
-Including more props
-
-```typescript
-import { Bucket } from '@enfo/rename-me'
-import { Stack } from '@aws-cdk/core'
-
-const stack = new Stack()
 new Bucket(stack, 'MyBucket', { bucketName: 'my-bucket' })
-```
-
-While we recommend using our Bucket Construct you can also create Buckets using the Construct from AWS.
-
-```typescript
-import { compliantBucketProps } from '@enfo/rename-me'
-import { Stack } from '@aws-cdk/core'
-import { Bucket } from '@aws-cdk/aws-s3'
-
-const stack = new Stack()
-new Bucket(stack, 'MyBucket', { bucketName: 'my-bucket', ...compliantBucketProps })
 ```
 
 ### SNS
