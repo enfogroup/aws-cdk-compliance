@@ -93,7 +93,7 @@ The following features are available for S3.
 
 * Bucket, compliant S3 Bucket Construct
 * BucketProps, modified version of BucketProps which enforces compliance
-* compliantBucketProps, the BucketProps used to enforce compliance if you don't supply your own
+* defaultBucketProps, the BucketProps used to enforce compliance if you don't supply your own
 
 
 Bucket creation example

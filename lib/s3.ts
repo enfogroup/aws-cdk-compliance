@@ -18,7 +18,7 @@ interface InternalBucketProps extends BucketProps {
  *
  * See README for usage examples
  */
-export const compliantBucketProps: BucketProps = {
+export const defaultBucketProps: BucketProps = {
   enforceSSL: true,
   blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
   encryption: BucketEncryption.S3_MANAGED
@@ -35,7 +35,7 @@ export const compliantBucketProps: BucketProps = {
 export class Bucket extends S3Bucket {
   constructor (scope: Construct, id: string, props?: BucketProps) {
     super(scope, id, {
-      ...compliantBucketProps,
+      ...defaultBucketProps,
       ...props
     } as InternalBucketProps)
   }
