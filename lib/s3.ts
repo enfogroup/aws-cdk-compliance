@@ -1,13 +1,24 @@
-import { BlockPublicAccess, BucketEncryption, BucketProps, Bucket as S3Bucket } from '@aws-cdk/aws-s3'
+import { BlockPublicAccess, BucketEncryption, BucketProps as S3BucketProps, Bucket as S3Bucket } from '@aws-cdk/aws-s3'
 import { Construct } from '@aws-cdk/core'
-import { PickRequiredKeys } from './models'
+
+export interface BucketProps extends S3BucketProps {
+  readonly enforceSSL?: true,
+  readonly blockPublicAccess?: BlockPublicAccess,
+  readonly encryption?: Exclude<BucketEncryption, BucketEncryption.UNENCRYPTED>
+}
+
+interface InternalBucketProps extends BucketProps {
+  readonly enforceSSL: true,
+  readonly blockPublicAccess: BlockPublicAccess,
+  readonly encryption: Exclude<BucketEncryption, BucketEncryption.UNENCRYPTED>
+}
 
 /**
  * Compliant BucketProps. Can be manually spread into a Bucket constructor.
  *
  * See README for usage examples
  */
-export const compliantBucketProps: PickRequiredKeys<BucketProps, 'enforceSSL' | 'blockPublicAccess' | 'encryption'> = {
+export const defaultBucketProps: BucketProps = {
   enforceSSL: true,
   blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
   encryption: BucketEncryption.S3_MANAGED
@@ -24,8 +35,8 @@ export const compliantBucketProps: PickRequiredKeys<BucketProps, 'enforceSSL' | 
 export class Bucket extends S3Bucket {
   constructor (scope: Construct, id: string, props?: BucketProps) {
     super(scope, id, {
-      ...compliantBucketProps,
+      ...defaultBucketProps,
       ...props
-    })
+    } as InternalBucketProps)
   }
 }

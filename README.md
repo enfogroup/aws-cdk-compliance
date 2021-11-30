@@ -63,7 +63,9 @@ enableBackups(app, BackupPlan.STOCKHOLM)
 
 ## Resource specific settings
 
-As a part of our compliance reports we send out information about resources that are non-compliant. This package exposes compliant Constructs which are extension of AWS Constructs. When possible the Props used to create the Construct are exposed as well.
+As a part of our compliance reports we send out information about resources that are non-compliant. This package exposes compliant Constructs which are extension of AWS Constructs.
+
+When possible the default Props used to create the Construct are exposed as well.
 
 ### KMS
 
@@ -90,7 +92,8 @@ new Key(stack, 'Key', { alias: 'my-key' })
 The following features are available for S3.
 
 * Bucket, compliant S3 Bucket Construct
-* compliantBucketProps, the BucketProps used to enforce compliance
+* BucketProps, modified version of BucketProps which enforces compliance
+* defaultBucketProps, the BucketProps used to enforce compliance if you don't supply your own
 
 
 Bucket creation example
@@ -100,28 +103,7 @@ import { Bucket } from '@enfo/rename-me'
 import { Stack } from '@aws-cdk/core'
 
 const stack = new Stack()
-new Bucket(stack, 'MyBucket')
-```
-
-Including more props
-
-```typescript
-import { Bucket } from '@enfo/rename-me'
-import { Stack } from '@aws-cdk/core'
-
-const stack = new Stack()
 new Bucket(stack, 'MyBucket', { bucketName: 'my-bucket' })
-```
-
-While we recommend using our Bucket Construct you can also create Buckets using the Construct from AWS.
-
-```typescript
-import { compliantBucketProps } from '@enfo/rename-me'
-import { Stack } from '@aws-cdk/core'
-import { Bucket } from '@aws-cdk/aws-s3'
-
-const stack = new Stack()
-new Bucket(stack, 'MyBucket', { bucketName: 'my-bucket', ...compliantBucketProps })
 ```
 
 ### SNS
