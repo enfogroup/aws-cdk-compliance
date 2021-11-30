@@ -14,6 +14,31 @@ describe('DynamoDB', () => {
   }
 
   describe('Table', () => {
+    it('should default to billingMode PAY_PER_REQUEST', () => {
+      const stack = new Stack()
+
+      new Table(stack, 'Table', {
+        partitionKey
+      })
+
+      expect(stack).toHaveResource('AWS::DynamoDB::Table', {
+        ProvisionedThroughput: ABSENT
+      })
+    })
+
+    it('should not tag the resource if billing mode is PAY_PER_REQUEST', () => {
+      const stack = new Stack()
+
+      new Table(stack, 'Table', {
+        partitionKey,
+        billingMode: BillingMode.PAY_PER_REQUEST
+      })
+
+      expect(stack).toHaveResource('AWS::DynamoDB::Table', {
+        Tags: ABSENT
+      })
+    })
+
     it('should tag the resource if billing mode is PROVISIONED', () => {
       const stack = new Stack()
 
@@ -29,36 +54,6 @@ describe('DynamoDB', () => {
             Value: 'Provisioned'
           }
         ]
-      })
-    })
-
-    it('should tag the resource if billing mode is not specified', () => {
-      const stack = new Stack()
-
-      new Table(stack, 'Table', {
-        partitionKey
-      })
-
-      expect(stack).toHaveResource('AWS::DynamoDB::Table', {
-        Tags: [
-          {
-            Key: 'BillingMode',
-            Value: 'Provisioned'
-          }
-        ]
-      })
-    })
-
-    it('should not tag the resource if billing mode is PAY_PER_REQUEST', () => {
-      const stack = new Stack()
-
-      new Table(stack, 'Table', {
-        partitionKey,
-        billingMode: BillingMode.PAY_PER_REQUEST
-      })
-
-      expect(stack).toHaveResource('AWS::DynamoDB::Table', {
-        Tags: ABSENT
       })
     })
   })
