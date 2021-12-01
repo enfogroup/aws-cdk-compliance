@@ -5,42 +5,41 @@ import { ApplicationLoadBalancer } from '../lib/elasticloadbalancingv2'
 import '@aws-cdk/assert/jest'
 import { Stack } from '@aws-cdk/core'
 import { Template, Match } from '@aws-cdk/assertions'
-import { IVpc } from '@aws-cdk/aws-ec2'
+import { Vpc } from '@aws-cdk/aws-ec2'
+import { Bucket } from '../lib/s3'
+import { CfnBucket } from '@aws-cdk/aws-s3'
 
 describe('ElasticLoadBalancingV2', () => {
   describe('ALB', () => {
     it('should have sane defaults', () => {
-      const stack = new Stack(),
-        vpc = {
-          vpcId: 'vpc-123',
-          selectSubnets: () => ({
-            availabilityZones: [ 'eu-west-1a', 'eu-west-1b', 'eu-west-1c' ],
-            publicSubnets: [
-              {
-                availabilityZone: 'eu-west-1a',
-                subnetId: 'subnet-1',
-              },
-              {
-                availabilityZone: 'eu-west-1b',
-                subnetId: 'subnet-2',
-              },
-              {
-                availabilityZone: 'eu-west-1c',
-                subnetId: 'subnet-3',
-              },
-            ]
-          }),
-        } as unknown as IVpc
+      const stack = new Stack(undefined, undefined, { env: { region: 'eu-west-1' } })
+      const vpc = new Vpc(stack, 'VPC')
+      const bucket = new Bucket(stack, 'Bucket')
 
-      new ApplicationLoadBalancer(stack, 'ALB', { vpc })
+      const alb = new ApplicationLoadBalancer(stack, 'ALB', { vpc })
+      alb.logAccessLogs(bucket)
 
       const template = Template.fromStack(stack)
       template.hasResourceProperties('AWS::ElasticLoadBalancingV2::LoadBalancer', Match.objectLike({
         Type: 'application',
-        LoadBalancerAttributes: [ {
-          Key: 'deletion_protection.enabled',
-          Value: 'true'
-        } ],
+        LoadBalancerAttributes: [
+          {
+            Key: 'deletion_protection.enabled',
+            Value: 'true'
+          },
+          {
+            Key: 'access_logs.s3.enabled',
+            Value: 'true'
+          },
+          {
+            Key: 'access_logs.s3.bucket',
+            Value: { Ref: stack.getLogicalId(bucket.node.defaultChild as CfnBucket) }
+          },
+          {
+            Key: 'access_logs.s3.prefix',
+            Value: ''
+          }
+        ]
       }))
     })
   })

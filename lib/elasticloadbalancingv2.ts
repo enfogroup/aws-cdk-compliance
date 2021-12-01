@@ -1,7 +1,8 @@
 import {
   ApplicationLoadBalancer as LBApplicationLoadBalancer,
-  ApplicationLoadBalancerProps as LBApplicationLoadBalancerProps,
+  ApplicationLoadBalancerProps as LBApplicationLoadBalancerProps
 } from '@aws-cdk/aws-elasticloadbalancingv2'
+import type { IBucket } from '@aws-cdk/aws-s3'
 import { Construct } from '@aws-cdk/core'
 
 export interface ApplicationLoadBalancerProps extends LBApplicationLoadBalancerProps {
@@ -25,21 +26,29 @@ export const defaultApplicationLoadBalancerProps = {
  * See README for usage examples
  */
 export class ApplicationLoadBalancer extends LBApplicationLoadBalancer {
+  protected loggingEnabled = false
   // eslint-disable-next-line no-useless-constructor
-  constructor(scope: Construct, id: string, props?: ApplicationLoadBalancerProps) {
+  constructor (scope: Construct, id: string, props?: ApplicationLoadBalancerProps) {
     super(scope, id, {
       ...defaultApplicationLoadBalancerProps,
       ...props
     } as InternalApplicationLoadBalancerProps)
   }
-  validate() {
+
+  public logAccessLogs (bucket: IBucket, prefix?: string) {
+    this.loggingEnabled = true
+    return super.logAccessLogs(bucket, prefix)
+  }
+
+  protected validate () {
     return [
-      ...this.checkLogging(),
+      ...this.checkLogging()
     ]
   }
-  checkLogging() {
-    return this.attributes[ 'access_logs.s3.enabled' ] === 'true'
+
+  protected checkLogging () {
+    return this.loggingEnabled
       ? []
-      : [ 'Access logs not enabled' ]
+      : ['Access logs not enabled']
   }
 }
