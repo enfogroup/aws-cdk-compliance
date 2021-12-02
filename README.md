@@ -67,6 +67,30 @@ As a part of our compliance reports we send out information about resources that
 
 When possible the default Props used to create the Construct are exposed as well.
 
+### Application Load Balancer
+
+The following features are available for Application Load Balancer.
+
+* ApplicationLoadBalancer, compliant Applicatoin Load Balancer Construct
+* defaultApplicationLoadBalancerProps, the ApplicationLoadBalancerProps used to make the Application Load Balancer compliant
+
+Note that access logs need to be added to the construct.
+
+Note that this construct enables the Drop invalid HTTP headers feature.
+
+Application Load Balancer creation example.
+
+```typescript
+import { ApplicationLoadBalancer } from '@enfo/rename-me'
+import { Stack } from '@aws-cdk/core'
+
+const stack = new Stack()
+const vpc = new Vpc(stack, 'VPC')
+const bucket = new Bucket(stack, 'Bucket')
+const alb = new ApplicationLoadBalancer(stack, 'ALB', { vpc })
+alb.logAccessLogs(bucket)
+```
+
 ### CloudFront
 
 The following features are available for CloudFront.

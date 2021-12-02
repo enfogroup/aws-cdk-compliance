@@ -2,7 +2,6 @@ import {
   ApplicationLoadBalancer as LBApplicationLoadBalancer,
   ApplicationLoadBalancerProps as LBApplicationLoadBalancerProps
 } from '@aws-cdk/aws-elasticloadbalancingv2'
-import type { IBucket } from '@aws-cdk/aws-s3'
 import { Construct } from '@aws-cdk/core'
 
 export interface ApplicationLoadBalancerProps extends LBApplicationLoadBalancerProps {
@@ -26,29 +25,47 @@ export const defaultApplicationLoadBalancerProps = {
  * See README for usage examples
  */
 export class ApplicationLoadBalancer extends LBApplicationLoadBalancer {
-  protected loggingEnabled = false
+  protected myAttributes: { [ k: string ]: string | undefined }
   // eslint-disable-next-line no-useless-constructor
   constructor (scope: Construct, id: string, props?: ApplicationLoadBalancerProps) {
     super(scope, id, {
       ...defaultApplicationLoadBalancerProps,
       ...props
     } as InternalApplicationLoadBalancerProps)
+    this.setAttribute('routing.http.drop_invalid_header_fields.enabled', 'true')
   }
 
-  public logAccessLogs (bucket: IBucket, prefix?: string) {
-    this.loggingEnabled = true
-    return super.logAccessLogs(bucket, prefix)
+  public setAttribute (key: string, value: string | undefined) {
+    if (!this.myAttributes) {
+      this.myAttributes = {}
+    }
+    this.myAttributes[key] = value
+    return super.setAttribute(key, value)
   }
 
   protected validate () {
     return [
-      ...this.checkLogging()
+      ...this.checkLogging(),
+      ...this.checkDropInvalidHeaders(),
+      ...this.checkDeletionProtection()
     ]
   }
 
   protected checkLogging () {
-    return this.loggingEnabled
+    return this.myAttributes['access_logs.s3.enabled'] === 'true'
       ? []
       : ['Access logs not enabled']
+  }
+
+  protected checkDeletionProtection () {
+    return this.myAttributes['deletion_protection.enabled'] === 'true'
+      ? []
+      : ['Deletion protection not enabled']
+  }
+
+  protected checkDropInvalidHeaders () {
+    return this.myAttributes['routing.http.drop_invalid_header_fields.enabled'] === 'true'
+      ? []
+      : ['Not configured to drop invalid HTTP headers']
   }
 }

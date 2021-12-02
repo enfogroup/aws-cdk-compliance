@@ -28,6 +28,10 @@ describe('ElasticLoadBalancingV2', () => {
             Value: 'true'
           },
           {
+            Key: 'routing.http.drop_invalid_header_fields.enabled',
+            Value: 'true'
+          },
+          {
             Key: 'access_logs.s3.enabled',
             Value: 'true'
           },
