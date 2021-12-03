@@ -9,7 +9,7 @@ This package is tied to Enfo and its customers. Enfo is a [Managed Service Provi
 The package should be installed a dependency.
 
 ```bash
-npm install @enfo/rename-me --save
+npm install @enfo/aws-cdkompliance --save
 ```
 
 ## Tagging
@@ -19,7 +19,7 @@ If you are an Enfo customer you can enable backups of databases using tags. This
 Enabling backups of a single resource.
 
 ```typescript
-import { enableBackups } from '@enfo/rename-me'
+import { enableBackups } from '@enfo/aws-cdkompliance'
 import { Stack } from '@aws-cdk/core'
 import { Table } from '@aws-cdk/aws-dynamodb'
 
@@ -31,7 +31,7 @@ enableBackups(myTable)
 Enable backups of an entire stack.
 
 ```typescript
-import { enableBackups } from '@enfo/rename-me'
+import { enableBackups } from '@enfo/aws-cdkompliance'
 import { Stack } from '@aws-cdk/core'
 
 const stack = new Stack()
@@ -41,7 +41,7 @@ enableBackups(stack)
 Enable backups of an entire app.
 
 ```typescript
-import { enableBackups } from '@enfo/rename-me'
+import { enableBackups } from '@enfo/aws-cdkompliance'
 import { App } from '@aws-cdk/core'
 
 const app = new App()
@@ -54,7 +54,7 @@ FIXME
 FIXME
 
 ```typescript
-import { enableBackups, BackupPlan } from '@enfo/rename-me'
+import { enableBackups, BackupPlan } from '@enfo/aws-cdkompliance'
 import { App } from '@aws-cdk/core'
 
 const app = new App()
@@ -81,7 +81,7 @@ Note that this construct enables the Drop invalid HTTP headers feature.
 Application Load Balancer creation example.
 
 ```typescript
-import { ApplicationLoadBalancer } from '@enfo/rename-me'
+import { ApplicationLoadBalancer } from '@enfo/aws-cdkompliance'
 import { Stack } from '@aws-cdk/core'
 
 const stack = new Stack()
@@ -101,7 +101,7 @@ The following features are available for CloudFront.
 CloudFront Distribution creation example.
 
 ```typescript
-import { CloudFront } from '@enfo/rename-me'
+import { CloudFront } from '@enfo/aws-cdkompliance'
 import { ViewerProtocolPolicy } from '@aws-cdk/aws-cloudfront'
 import { HttpOrigin } from '@aws-cdk/aws-cloudfront-origins'
 import { Stack } from '@aws-cdk/core'
@@ -126,7 +126,7 @@ For DynamoDB we do not have strict compliance requirements. We do however strong
 Table creation example without billingMode specified. Will default to PAY_PER_REQUEST. The Table will not be tagged to suppress warnings. The same will happen if billingMode is set to PAY_PER_REQUEST.
 
 ```typescript
-import { Table } from '@enfo/rename-me'
+import { Table } from '@enfo/aws-cdkompliance'
 import { Stack } from '@aws-cdk/core'
 import { AttributeType, BillingMode } from '@aws-cdk/aws-dynamodb'
 
@@ -142,7 +142,7 @@ new Table(stack, 'Table', {
 Table creation example using PROVISIONED. The Table will be tagged to suppress warnings.
 
 ```typescript
-import { Table } from '@enfo/rename-me'
+import { Table } from '@enfo/aws-cdkompliance'
 import { Stack } from '@aws-cdk/core'
 import { AttributeType, BillingMode } from '@aws-cdk/aws-dynamodb'
 
@@ -169,7 +169,7 @@ While we do not enforce *alias* on KeyProps we do recommend that you set it.
 Key creation example
 
 ```typescript
-import { Key } from '@enfo/rename-me'
+import { Key } from '@enfo/aws-cdkompliance'
 import { Stack } from '@aws-cdk/core'
 
 const stack = new Stack()
@@ -187,7 +187,7 @@ The Function Construct blocks use of runtimes which is not the latest for a give
 Function creation example
 
 ```typescript
-import { Function } from '@enfo/rename-me'
+import { Function } from '@enfo/aws-cdkompliance'
 import { Code, Runtime } from '@aws-cdk/aws-lambda'
 import { Stack } from '@aws-cdk/core'
 
@@ -202,7 +202,7 @@ new Function(stack, 'Function', {
 Trying to create a Function with a runtime which is not the latest
 
 ```typescript
-import { Function } from '@enfo/rename-me'
+import { Function } from '@enfo/aws-cdkompliance'
 import { Code, Runtime } from '@aws-cdk/aws-lambda'
 import { Stack } from '@aws-cdk/core'
 
@@ -228,7 +228,7 @@ The following features are available for S3.
 Bucket creation example
 
 ```typescript
-import { Bucket } from '@enfo/rename-me'
+import { Bucket } from '@enfo/aws-cdkompliance'
 import { Stack } from '@aws-cdk/core'
 
 const stack = new Stack()
@@ -245,7 +245,7 @@ The following features are available for SNS. SNS requires a KMS Key Construct t
 Topic creation example. Please note that it uses our KMS Key Construct to ensure the Key is compliant as well.
 
 ```typescript
-import { Key, Topic, TopicProps } from '@enfo/rename-me'
+import { Key, Topic, TopicProps } from '@enfo/aws-cdkompliance'
 import { Stack } from '@aws-cdk/core'
 
 const stack = new Stack()
@@ -267,7 +267,7 @@ The following features are available for SQS.
 Queue creation example.
 
 ```typescript
-import { Queue } from '@enfo/rename-me'
+import { Queue } from '@enfo/aws-cdkompliance'
 import { Stack } from '@aws-cdk/core'
 
 const stack = new Stack()

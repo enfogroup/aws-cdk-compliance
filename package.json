@@ -1,5 +1,5 @@
 {
-  "name": "@enfo/rename-me",
+  "name": "@enfo/aws-cdkompliance",
   "version": "0.0.1",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -8,7 +8,7 @@
   },
   "license": "MIT",
   "repository": {
-    "url": "https://github.com/enfogroup/rename-me"
+    "url": "https://github.com/enfogroup/aws-cdk-compliance"
   },
   "scripts": {
     "prepublishOnly": "npx pinst --disable",
