@@ -1,5 +1,4 @@
-import { Function as LambdaFunction, FunctionProps, Runtime } from '@aws-cdk/aws-lambda'
-import { Construct } from '@aws-cdk/core'
+import { Function as LambdaFunction, Runtime } from '@aws-cdk/aws-lambda'
 
 const getNameFromRuntime = (runtime: Runtime): string => runtime.name
 
@@ -54,12 +53,16 @@ const latestVersions: Record<string, string> = {
 }
 
 export class Function extends LambdaFunction {
-  // eslint-disable-next-line no-useless-constructor
-  constructor (scope: Construct, id: string, props: FunctionProps) {
-    if (blackList.includes(getNameFromRuntime(props.runtime))) {
-      const latestVersion = latestVersions[getNameFromRuntime(props.runtime)]
-      throw new Error(`Lambda runtime must be latest runtime available for language. Found ${props.runtime}, please use ${latestVersion} instead`)
-    }
-    super(scope, id, props)
+  protected validate () {
+    return [
+      ...this.checkRuntime()
+    ]
+  }
+
+  protected checkRuntime () {
+    const runtime = getNameFromRuntime(this.runtime)
+    return (blackList.includes(runtime))
+      ? [`Lambda runtime must be latest runtime available for language. Found ${runtime}, please use ${latestVersions[runtime]} instead`]
+      : []
   }
 }
