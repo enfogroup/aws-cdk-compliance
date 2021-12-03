@@ -182,7 +182,7 @@ The following features are available for Lambda.
 
 * Function, compliant Lambda Function Construct
 
-The Function Construct blocks use of runtimes which is not the latest for a given language. If you try to instantiate a Function using an old runtime it will throw.
+The Function Construct blocks use of runtimes which is not the latest for a given language. If you try to instantiate a Function using an old runtime it will throw. Custom runtimes are not affected.
 
 Function creation example
 
