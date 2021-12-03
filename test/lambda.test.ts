@@ -14,7 +14,7 @@ describe('Lambda', () => {
 
       new Function(stack, 'Function', {
         runtime: Runtime.NODEJS_14_X,
-        handler: 'something.js',
+        handler: 'something',
         code: Code.fromInline('magicCode')
       })
 
@@ -22,7 +22,7 @@ describe('Lambda', () => {
         Code: {
           ZipFile: 'magicCode'
         },
-        Handler: 'something.js',
+        Handler: 'something',
         Runtime: 'nodejs14.x'
       })
     })
@@ -33,7 +33,7 @@ describe('Lambda', () => {
 
         new Function(stack, 'Function', {
           runtime,
-          handler: 'something.js',
+          handler: 'something',
           code: Code.fromBucket(new Bucket(stack, 'Bucket'), 'file.zip') // some runtimes won't accept inline code
         })
       })
@@ -45,7 +45,7 @@ describe('Lambda', () => {
       expect(() => {
         new Function(stack, 'Function', {
           runtime: Runtime.NODEJS_12_X,
-          handler: 'something.js',
+          handler: 'something',
           code: Code.fromInline('magicCode')
         })
       }).toThrow('Lambda runtime must be latest runtime available for language. Found nodejs12.x, please use NODEJS_14_X instead')
@@ -57,7 +57,7 @@ describe('Lambda', () => {
       expect(() => {
         new Function(stack, 'Function', {
           runtime: Runtime.JAVA_8,
-          handler: 'something.js',
+          handler: 'something',
           code: Code.fromInline('magicCode')
         })
       }).toThrow('Lambda runtime must be latest runtime available for language. Found java8, please use JAVA_11 instead')
@@ -69,7 +69,7 @@ describe('Lambda', () => {
       expect(() => {
         new Function(stack, 'Function', {
           runtime: Runtime.PYTHON_2_7,
-          handler: 'something.js',
+          handler: 'something',
           code: Code.fromInline('magicCode')
         })
       }).toThrow('Lambda runtime must be latest runtime available for language. Found python2.7, please use PYTHON_3_9 instead')
