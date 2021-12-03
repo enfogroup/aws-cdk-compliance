@@ -231,7 +231,7 @@ The following features are available for RDS
 DatabaseCluster creation example.
 
 ```typescript
-import { DatabaseCluster } from '@enfo/rename-me'
+import { DatabaseCluster } from '@enfo/aws-cdkompliance'
 import { Stack } from '@aws-cdk/core'
 import { Vpc } from '@aws-cdk/aws-ec2'
 import { AuroraPostgresEngineVersion, DatabaseClusterEngine } from '@aws-cdk/aws-rds'
@@ -251,7 +251,7 @@ Note that DatabaseInstance defaults to MultiAZ, and you need to set `environment
 DatabaseInstance creation example.
 
 ```typescript
-import { DatabaseEnvironments, DatabaseInstance } from '@enfo/rename-me'
+import { DatabaseEnvironments, DatabaseInstance } from '@enfo/aws-cdkompliance'
 import { Stack } from '@aws-cdk/core'
 import { Vpc } from '@aws-cdk/aws-ec2'
 import { DatabaseInstanceEngine, PostgresEngineVersion } from '@aws-cdk/aws-rds'
