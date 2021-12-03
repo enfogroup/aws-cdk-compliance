@@ -71,7 +71,7 @@ When possible the default Props used to create the Construct are exposed as well
 
 The following features are available for Application Load Balancer.
 
-* ApplicationLoadBalancer, compliant Applicatoin Load Balancer Construct
+* ApplicationLoadBalancer, compliant Application Load Balancer Construct
 * defaultApplicationLoadBalancerProps, the ApplicationLoadBalancerProps used to make the Application Load Balancer compliant
 
 Note that access logs need to be added to the construct.
@@ -83,6 +83,7 @@ Application Load Balancer creation example.
 ```typescript
 import { ApplicationLoadBalancer } from '@enfo/rename-me'
 import { Stack } from '@aws-cdk/core'
+import { Vpc } from '@aws-cdk/aws-ec2'
 
 const stack = new Stack()
 const vpc = new Vpc(stack, 'VPC')
@@ -174,6 +175,55 @@ import { Stack } from '@aws-cdk/core'
 
 const stack = new Stack()
 new Key(stack, 'Key', { alias: 'my-key' })
+```
+
+### RDS
+
+The following features are available for RDS
+
+* DatabaseCluster, compliant DatabaseCluster Construct
+* defaultDatabaseClusterProps, the DatabaseClusterProps used to make the DatabaseCluster compliant
+* defaultInstanceProps, the InstanceProps used to make the DatabaseCluster compliant
+* DatabaseEnvironments, to indicate the how a DatabaseInstance will be used
+* DatabaseInstance, compliant DatabaseInstance Construct
+* defaultDatabaseInstanceProps, the DatabaseInstanceProps used to make the DatabaseInstance compliant
+
+DatabaseCluster creation example.
+
+```typescript
+import { DatabaseCluster } from '@enfo/rename-me'
+import { Stack } from '@aws-cdk/core'
+import { Vpc } from '@aws-cdk/aws-ec2'
+import { AuroraPostgresEngineVersion, DatabaseClusterEngine } from '@aws-cdk/aws-rds'
+
+const stack = new Stack()
+const vpc = new Vpc(stack, 'VPC')
+new DatabaseCluster(stack, 'DB', {
+  engine: DatabaseClusterEngine.auroraPostgres({ version: AuroraPostgresEngineVersion.VER_13_4 }),
+  instanceProps: {
+    vpc
+  }
+})
+```
+
+Note that DatabaseInstance defaults to MultiAZ, and you need to set `environment: NONPROD` to be able to set MultiAZ to false.
+
+DatabaseInstance creation example.
+
+```typescript
+import { DatabaseEnvironments, DatabaseInstance } from '@enfo/rename-me'
+import { Stack } from '@aws-cdk/core'
+import { Vpc } from '@aws-cdk/aws-ec2'
+import { DatabaseInstanceEngine, PostgresEngineVersion } from '@aws-cdk/aws-rds'
+
+const stack = new Stack()
+const vpc = new Vpc(stack, 'VPC')
+new DatabaseInstance(stack, 'DB', {
+  vpc,
+  engine: DatabaseInstanceEngine.postgres({ version: PostgresEngineVersion.VER_13_4 }),
+  environment: DatabaseEnvironments.NONPROD,
+  multiAz: false
+})
 ```
 
 ### S3
