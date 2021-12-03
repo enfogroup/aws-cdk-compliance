@@ -7,3 +7,4 @@ export { BehaviorOptions, defaultDistributionProps, Distribution, DistributionPr
 export { defaultQueueProps, QueueProps, Queue } from './sqs'
 export * from './rds'
 export { defaultApplicationLoadBalancerProps, ApplicationLoadBalancerProps, ApplicationLoadBalancer } from './elasticloadbalancingv2'
+export { Function } from './lambda'
