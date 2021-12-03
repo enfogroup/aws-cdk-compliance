@@ -176,6 +176,46 @@ const stack = new Stack()
 new Key(stack, 'Key', { alias: 'my-key' })
 ```
 
+### Lambda
+
+The following features are available for Lambda.
+
+* Function, compliant Lambda Function Construct
+
+The Function Construct blocks use of runtimes which is not the latest for a given language. If you try to instantiate a Function using an old runtime it will throw.
+
+Function creation example
+
+```typescript
+import { Function } from '@enfo/rename-me'
+import { Code, Runtime } from '@aws-cdk/aws-lambda'
+import { Stack } from '@aws-cdk/core'
+
+const stack = new Stack()
+new Function(stack, 'Function', {
+  runtime: Runtime.NODEJS_14_X,
+  handler: 'handler',
+  code: Code.fromInline('myCode')
+})
+```
+
+Trying to create a Function with a runtime which is not the latest
+
+```typescript
+import { Function } from '@enfo/rename-me'
+import { Code, Runtime } from '@aws-cdk/aws-lambda'
+import { Stack } from '@aws-cdk/core'
+
+const stack = new Stack()
+new Function(stack, 'Function', {
+  runtime: Runtime.NODEJS_12_X,
+  handler: 'handler',
+  code: Code.fromInline('myCode')
+})
+
+// throws "Lambda runtime must be latest runtime available for language. Found nodejs12.x, please use NODEJS_14_X instead"
+```
+
 ### S3
 
 The following features are available for S3.
