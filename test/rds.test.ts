@@ -50,6 +50,20 @@ describe('RDS', () => {
         MultiAZ: false
       }))
     })
+
+    it('should reject prod database in a single az', () => {
+      const stack = new Stack()
+      const vpc = new Vpc(stack, 'VPC')
+
+      new DatabaseInstance(stack, 'DB', {
+        vpc,
+        engine: DatabaseInstanceEngine.postgres({ version: PostgresEngineVersion.VER_13_4 }),
+        environment: DatabaseEnvironments.PROD,
+        multiAz: false
+      })
+
+      expect(() => Template.fromStack(stack)).toThrow('Prod instances must be multi AZ')
+    })
   })
 
   describe('DatabaseCluster', () => {
