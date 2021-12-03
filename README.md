@@ -215,6 +215,7 @@ new Function(stack, 'Function', {
 })
 
 // throws "Lambda runtime must be latest runtime available for language. Found nodejs12.x, please use NODEJS_14_X instead"
+```
 
 ### RDS
 
