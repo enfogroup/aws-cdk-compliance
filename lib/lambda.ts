@@ -3,6 +3,9 @@ import { Construct } from '@aws-cdk/core'
 
 const getNameFromRuntime = (runtime: Runtime): string => runtime.name
 
+/**
+ * Valid runtimes, does not contain custom runtimes
+ */
 export const validRuntimes = [
   Runtime.DOTNET_CORE_3_1,
   Runtime.GO_1_X,
