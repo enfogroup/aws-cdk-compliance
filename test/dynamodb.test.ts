@@ -3,8 +3,8 @@ import { Table } from '../lib/dynamodb'
 
 // tools
 import '@aws-cdk/assert/jest'
-import { Stack } from '@aws-cdk/core'
-import { Attribute, AttributeType, BillingMode } from '@aws-cdk/aws-dynamodb'
+import { Stack } from 'aws-cdk-lib'
+import { Attribute, AttributeType, BillingMode } from 'aws-cdk-lib/aws-dynamodb'
 import { ABSENT } from '@aws-cdk/assert/lib/assertions/have-resource'
 
 describe('DynamoDB', () => {

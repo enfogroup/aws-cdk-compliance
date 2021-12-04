@@ -3,10 +3,10 @@ import { Function, validRuntimes } from '../lib/lambda'
 
 // tools
 import '@aws-cdk/assert/jest'
-import { Stack } from '@aws-cdk/core'
-import { Runtime, Code } from '@aws-cdk/aws-lambda'
+import { Runtime, Code } from 'aws-cdk-lib/aws-lambda'
 import { Bucket } from '../lib'
-import { Template } from '@aws-cdk/assertions'
+import { Stack } from 'aws-cdk-lib'
+import { Template } from 'aws-cdk-lib/assertions'
 
 describe('Lambda', () => {
   describe('Function', () => {

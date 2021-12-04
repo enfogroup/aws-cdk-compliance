@@ -1,17 +1,17 @@
 // to be tested
-import { Bucket } from '../lib/s3'
+import * as s3 from '../lib/s3'
 
 // tools
 import '@aws-cdk/assert/jest'
-import { Stack } from '@aws-cdk/core'
-import { Template, Match } from '@aws-cdk/assertions'
+import { Stack } from 'aws-cdk-lib'
+import { Match, Template } from 'aws-cdk-lib/assertions'
 
 describe('S3', () => {
   describe('Bucket', () => {
     it('should enforce SSL', () => {
       const stack = new Stack()
 
-      new Bucket(stack, 'Bucket', { })
+      new s3.Bucket(stack, 'Bucket', { })
 
       const template = Template.fromStack(stack)
       template.hasResourceProperties('AWS::S3::BucketPolicy', Match.objectLike({
@@ -59,7 +59,7 @@ describe('S3', () => {
     it('should set encryption', () => {
       const stack = new Stack()
 
-      new Bucket(stack, 'Bucket', { })
+      new s3.Bucket(stack, 'Bucket', { })
 
       expect(stack).toHaveResource('AWS::S3::Bucket', {
         BucketEncryption: {
@@ -77,7 +77,7 @@ describe('S3', () => {
     it('should block public access', () => {
       const stack = new Stack()
 
-      new Bucket(stack, 'Bucket', { })
+      new s3.Bucket(stack, 'Bucket', { })
 
       expect(stack).toHaveResource('AWS::S3::Bucket', {
         PublicAccessBlockConfiguration: {

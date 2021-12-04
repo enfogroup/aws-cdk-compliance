@@ -3,7 +3,7 @@ import { Key } from '../lib/kms'
 
 // tools
 import '@aws-cdk/assert/jest'
-import { Stack } from '@aws-cdk/core'
+import { Stack } from 'aws-cdk-lib'
 
 describe('KMS', () => {
   describe('Key', () => {

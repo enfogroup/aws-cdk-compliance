@@ -3,11 +3,10 @@ import { ApplicationLoadBalancer } from '../lib/elasticloadbalancingv2'
 
 // tools
 import '@aws-cdk/assert/jest'
-import { Stack } from '@aws-cdk/core'
-import { Template, Match } from '@aws-cdk/assertions'
-import { Vpc } from '@aws-cdk/aws-ec2'
+import { Vpc } from 'aws-cdk-lib/aws-ec2'
 import { Bucket } from '../lib/s3'
-import { CfnBucket } from '@aws-cdk/aws-s3'
+import { Stack } from 'aws-cdk-lib'
+import { Match, Template } from 'aws-cdk-lib/assertions'
 
 describe('ElasticLoadBalancingV2', () => {
   describe('ALB', () => {
@@ -37,7 +36,7 @@ describe('ElasticLoadBalancingV2', () => {
           },
           {
             Key: 'access_logs.s3.bucket',
-            Value: { Ref: stack.getLogicalId(bucket.node.defaultChild as CfnBucket) }
+            Value: { Ref: Match.anyValue() }
           },
           {
             Key: 'access_logs.s3.prefix',

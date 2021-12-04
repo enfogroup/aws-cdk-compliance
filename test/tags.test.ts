@@ -3,10 +3,10 @@ import { BackupPlan, enableBackups } from '../lib'
 
 // tools
 import '@aws-cdk/assert/jest'
-import { App, Stack } from '@aws-cdk/core'
-import { Bucket } from '@aws-cdk/aws-s3'
-import { AttributeType, Table } from '@aws-cdk/aws-dynamodb'
+import { Bucket } from 'aws-cdk-lib/aws-s3'
+import { AttributeType, Table } from 'aws-cdk-lib/aws-dynamodb'
 import { ABSENT } from '@aws-cdk/assert/lib/assertions/have-resource'
+import { App, Stack } from 'aws-cdk-lib'
 
 describe('Tags', () => {
   describe('enableBackups', () => {

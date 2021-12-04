@@ -3,10 +3,10 @@ import { Distribution } from '../lib/cloudfront'
 
 // tools
 import '@aws-cdk/assert/jest'
-import { Stack } from '@aws-cdk/core'
-import { Template, Match } from '@aws-cdk/assertions'
-import { ViewerProtocolPolicy } from '@aws-cdk/aws-cloudfront'
-import { HttpOrigin } from '@aws-cdk/aws-cloudfront-origins'
+import { ViewerProtocolPolicy } from 'aws-cdk-lib/aws-cloudfront'
+import { HttpOrigin } from 'aws-cdk-lib/aws-cloudfront-origins'
+import { Stack } from 'aws-cdk-lib'
+import { Match, Template } from 'aws-cdk-lib/assertions'
 
 describe('CloudFront', () => {
   describe('Distribution', () => {
