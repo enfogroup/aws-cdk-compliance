@@ -2,7 +2,7 @@ import {
   ApplicationLoadBalancer as LBApplicationLoadBalancer,
   ApplicationLoadBalancerProps as LBApplicationLoadBalancerProps
 } from 'aws-cdk-lib/aws-elasticloadbalancingv2'
-import { Construct } from 'constructs'
+import { Construct, Node } from 'constructs'
 
 export interface ApplicationLoadBalancerProps extends LBApplicationLoadBalancerProps {
   readonly deletionProtection?: true
@@ -33,6 +33,16 @@ export class ApplicationLoadBalancer extends LBApplicationLoadBalancer {
       ...props
     } as InternalApplicationLoadBalancerProps)
     this.setAttribute('routing.http.drop_invalid_header_fields.enabled', 'true')
+
+    Node.of(this).addValidation({
+      validate: () => {
+        return [
+          ...this.checkLogging(),
+          ...this.checkDropInvalidHeaders(),
+          ...this.checkDeletionProtection()
+        ]
+      }
+    })
   }
 
   public setAttribute (key: string, value: string | undefined) {
@@ -41,14 +51,6 @@ export class ApplicationLoadBalancer extends LBApplicationLoadBalancer {
     }
     this.myAttributes[key] = value
     return super.setAttribute(key, value)
-  }
-
-  protected validate () {
-    return [
-      ...this.checkLogging(),
-      ...this.checkDropInvalidHeaders(),
-      ...this.checkDeletionProtection()
-    ]
   }
 
   protected checkLogging () {

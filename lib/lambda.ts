@@ -1,4 +1,5 @@
-import { Function as LambdaFunction, Runtime } from 'aws-cdk-lib/aws-lambda'
+import { Function as LambdaFunction, FunctionProps, Runtime } from 'aws-cdk-lib/aws-lambda'
+import { Construct, Node } from 'constructs'
 
 const getNameFromRuntime = (runtime: Runtime): string => runtime.name
 
@@ -53,10 +54,15 @@ const latestVersions: Record<string, string> = {
 }
 
 export class Function extends LambdaFunction {
-  protected validate () {
-    return [
-      ...this.checkRuntime()
-    ]
+  constructor (scope: Construct, id: string, props: FunctionProps) {
+    super(scope, id, props)
+    Node.of(this).addValidation({
+      validate: () => {
+        return [
+          ...this.checkRuntime()
+        ]
+      }
+    })
   }
 
   protected checkRuntime () {
