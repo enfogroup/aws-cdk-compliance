@@ -1,4 +1,4 @@
-import { Function as LambdaFunction, Runtime } from '@aws-cdk/aws-lambda'
+import { Function as LambdaFunction, Runtime } from 'aws-cdk-lib/aws-lambda'
 
 const getNameFromRuntime = (runtime: Runtime): string => runtime.name
 

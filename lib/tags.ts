@@ -1,5 +1,6 @@
-import { Table } from '@aws-cdk/aws-dynamodb'
-import { Construct, Tags } from '@aws-cdk/core'
+import { Table } from 'aws-cdk-lib/aws-dynamodb'
+import { Tags } from 'aws-cdk-lib'
+import { Construct } from 'constructs'
 
 /**
  * Available Backup plans. Availability depends on your agreement with Enfo

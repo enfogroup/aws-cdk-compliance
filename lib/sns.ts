@@ -1,5 +1,5 @@
-import { Topic as SNSTopic, TopicProps as SNSTopicProps } from '@aws-cdk/aws-sns'
-import { Construct } from '@aws-cdk/core'
+import { Topic as SNSTopic, TopicProps as SNSTopicProps } from 'aws-cdk-lib/aws-sns'
+import { Construct } from 'constructs'
 import { PickRequiredKeys } from './models'
 
 /**

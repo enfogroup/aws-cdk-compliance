@@ -4,8 +4,8 @@ import {
   DatabaseInstance as RDSDatabaseInstance,
   DatabaseInstanceProps as RDSDatabaseInstanceProps,
   InstanceProps as RDSInstanceProps
-} from '@aws-cdk/aws-rds'
-import { Construct } from '@aws-cdk/core'
+} from 'aws-cdk-lib/aws-rds'
+import { Construct } from 'constructs'
 
 export enum DatabaseEnvironments {
   PROD,

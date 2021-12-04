@@ -1,8 +1,8 @@
 import {
   ApplicationLoadBalancer as LBApplicationLoadBalancer,
   ApplicationLoadBalancerProps as LBApplicationLoadBalancerProps
-} from '@aws-cdk/aws-elasticloadbalancingv2'
-import { Construct } from '@aws-cdk/core'
+} from 'aws-cdk-lib/aws-elasticloadbalancingv2'
+import { Construct } from 'constructs'
 
 export interface ApplicationLoadBalancerProps extends LBApplicationLoadBalancerProps {
   readonly deletionProtection?: true

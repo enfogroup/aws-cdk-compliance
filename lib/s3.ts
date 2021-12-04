@@ -1,5 +1,5 @@
-import { BlockPublicAccess, BucketEncryption, BucketProps as S3BucketProps, Bucket as S3Bucket } from '@aws-cdk/aws-s3'
-import { Construct } from '@aws-cdk/core'
+import { BlockPublicAccess, BucketEncryption, BucketProps as S3BucketProps, Bucket as S3Bucket } from 'aws-cdk-lib/aws-s3'
+import { Construct } from 'constructs'
 
 export interface BucketProps extends S3BucketProps {
   readonly enforceSSL?: true,

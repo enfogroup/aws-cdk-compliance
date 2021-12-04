@@ -1,5 +1,5 @@
-import { BillingMode, Table as DynamoDBTable, TableProps } from '@aws-cdk/aws-dynamodb'
-import { Construct } from '@aws-cdk/core'
+import { BillingMode, Table as DynamoDBTable, TableProps } from 'aws-cdk-lib/aws-dynamodb'
+import { Construct } from 'constructs'
 
 import { allowBillingModeProvisioned } from './tags'
 

@@ -1,5 +1,5 @@
-import { Queue as SQSQueue, QueueProps as SQSQueueProps, QueueEncryption as SQSQueueEncryption } from '@aws-cdk/aws-sqs'
-import { Construct } from '@aws-cdk/core'
+import { Queue as SQSQueue, QueueProps as SQSQueueProps, QueueEncryption as SQSQueueEncryption } from 'aws-cdk-lib/aws-sqs'
+import { Construct } from 'constructs'
 import { PickRequiredKeys } from './models'
 
 export interface QueueProps extends SQSQueueProps {
