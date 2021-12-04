@@ -1,10 +1,12 @@
 {
   "name": "@enfo/aws-cdkompliance",
   "version": "0.0.1",
+  "description": "Tagging and resource standards using the CDK",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "author": {
-    "name": "Urban Pettersson"
+    "name": "Enfo COPS",
+    "email": "cops-aws@enfogroup.com"
   },
   "license": "MIT",
   "repository": {
