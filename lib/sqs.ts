@@ -1,32 +1,40 @@
-import { Queue as SQSQueue, QueueProps as SQSQueueProps, QueueEncryption as SQSQueueEncryption } from 'aws-cdk-lib/aws-sqs'
-import { Construct } from 'constructs'
-import { PickRequiredKeys } from './models'
-
-export interface QueueProps extends SQSQueueProps {
-  readonly encryption?: Exclude<SQSQueueEncryption, SQSQueueEncryption.UNENCRYPTED>
-}
-
-type InternalQueueProps = PickRequiredKeys<QueueProps, 'encryption'> & QueueProps
+import { Queue as SQSQueue, QueueProps, QueueEncryption } from 'aws-cdk-lib/aws-sqs'
+import { Construct, Node } from 'constructs'
 
 /**
  * Properties for a new Compliant SQS Queue
  */
 export const defaultQueueProps = {
-  encryption: SQSQueueEncryption.KMS_MANAGED
+  encryption: QueueEncryption.KMS_MANAGED
 }
 
 /**
  * Compliant SQS Queue.
- * The QueueProps key 'encryption' is required and will be used to encrypt the Queue
+ * If a property is poorly set a human readable error will be thrown upon synthesis.
  *
  * See README for usage examples
  */
 export class Queue extends SQSQueue {
-  // eslint-disable-next-line no-useless-constructor
+  #encryption: QueueEncryption | undefined
   constructor (scope: Construct, id: string, props?: QueueProps) {
     super(scope, id, {
       ...defaultQueueProps,
       ...props
-    } as InternalQueueProps)
+    })
+    this.#encryption = props?.encryption
+
+    Node.of(this).addValidation({
+      validate: () => {
+        return [
+          ...this.checkEncryption()
+        ]
+      }
+    })
+  }
+
+  private checkEncryption () {
+    return this.#encryption !== QueueEncryption.UNENCRYPTED
+      ? []
+      : ['SQS Queue must be encrypted. QueueEncryption.UNENCRYPTED is not allow.']
   }
 }

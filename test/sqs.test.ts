@@ -4,6 +4,7 @@ import { Queue } from '../lib/sqs'
 // tools
 import '@aws-cdk/assert/jest'
 import { Stack } from 'aws-cdk-lib'
+import { QueueEncryption } from 'aws-cdk-lib/aws-sqs'
 import { Match, Template } from 'aws-cdk-lib/assertions'
 
 describe('SQS', () => {
@@ -28,6 +29,14 @@ describe('SQS', () => {
       template.hasResourceProperties('AWS::SQS::Queue', Match.objectLike({
         KmsMasterKeyId: 'alias/aws/sqs'
       }))
+    })
+
+    it('throws if trying to set encryption to UNENCRYPTED', () => {
+      const stack = new Stack()
+
+      new Queue(stack, 'Queue', { encryption: QueueEncryption.UNENCRYPTED })
+
+      expect(() => Template.fromStack(stack)).toThrow('SQS Queue must be encrypted. QueueEncryption.UNENCRYPTED is not allow.')
     })
   })
 })
