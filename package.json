@@ -10,14 +10,15 @@
   },
   "license": "MIT",
   "repository": {
-    "url": "https://github.com/enfogroup/aws-cdk-compliance"
+    "url": "https://github.com/enfogroup/aws-cdk-compliance.git"
   },
   "scripts": {
     "prepublishOnly": "npx pinst --disable",
     "postpublish": "npx pinst --enable",
     "postinstall": "npx husky install",
-    "build": "tsc",
-    "watch": "tsc -w",
+    "build": "jsii",
+    "build:watch": "jsii --watch",
+    "package": "jsii-pacmak",
     "test": "jest",
     "lint": "npx eslint 'lib/**/*.ts' 'test/**/*.ts'",
     "lint:fix": "npx eslint --fix 'lib/**/*.ts' 'test/**/*.ts'"
@@ -31,6 +32,8 @@
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "aws-cdk": "^2.0.0",
+    "aws-cdk-lib": "2.0.0",
+    "constructs": "10.0.9",
     "eslint": "^8.3.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.25.3",
@@ -45,6 +48,10 @@
     "typescript": "^4.5.2"
   },
   "dependencies": {
+    "aws-cdk-lib": "^2.0.0",
+    "constructs": "^10.0.9"
+  },
+  "peerDependencies": {
     "aws-cdk-lib": "^2.0.0",
     "constructs": "^10.0.9"
   },
