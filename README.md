@@ -96,7 +96,7 @@ alb.logAccessLogs(bucket)
 
 The following features are available for CloudFront.
 
-* Distribution, compliant CloudFront Distribution Construct. Will throw if non-compliant properties are passed.
+* Distribution, compliant CloudFront Distribution Construct. Will throw if non-compliant properties are passed
 * defaultDistributionProps, the DistributionProps used to make the distribution compliant
 
 CloudFront Distribution creation example.
@@ -161,7 +161,7 @@ new Table(stack, 'Table', {
 
 The following features are available for KMS.
 
-* Key, compliant KMS Key Construct. Will throw if non-compliant properties are passed.
+* Key, compliant KMS Key Construct. Will throw if non-compliant properties are passed
 * defaultKeyProps, the KeyProps used to enforce compliance if you don't supply your own
 
 While we do not enforce *alias* on KeyProps we do recommend that you set it.
@@ -288,28 +288,25 @@ new Bucket(stack, 'MyBucket', { bucketName: 'my-bucket' })
 
 The following features are available for SNS. SNS requires a KMS Key Construct to be compliant.
 
-* Topic, compliant SNS Topic Construct
-* TopicProps, modified version of TopicProps with the required keys for making the Topic compliant set to required
+* Topic, compliant SNS Topic Construct. Will throw if non-compliant properties are passed
 
 Topic creation example. Please note that it uses our KMS Key Construct to ensure the Key is compliant as well.
 
 ```typescript
-import { Key, Topic, TopicProps } from '@enfo/aws-cdkompliance'
+import { Key, Topic } from '@enfo/aws-cdkompliance'
 import { Stack } from '@aws-cdk/core'
 
 const stack = new Stack()
-const props: TopicProps = {
-  masterKey: new Key(stack, 'Key'),
-  // other values you want to set
-}
-new Topic(stack, 'Topic', props)
+new Topic(stack, 'Topic', {
+  masterKey: new Key(stack, 'Key')
+})
 ```
 
 ### SQS
 
 The following features are available for SQS.
 
-* Queue, compliant SQS Queue Construct. Will throw if non-compliant properties are passed.
+* Queue, compliant SQS Queue Construct. Will throw if non-compliant properties are passed
 * defaultQueueProps, the QueueProps used to make the queue compliant
 
 Queue creation example.

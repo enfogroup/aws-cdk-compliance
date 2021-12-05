@@ -1,11 +1,5 @@
-import { Topic as SNSTopic, TopicProps as SNSTopicProps } from 'aws-cdk-lib/aws-sns'
-import { Construct } from 'constructs'
-import { PickRequiredKeys } from './models'
-
-/**
- * Properties for a new Compliant SNS Topic
- */
-export type TopicProps = PickRequiredKeys<SNSTopicProps, 'masterKey'> & SNSTopicProps
+import { Topic as SNSTopic, TopicProps } from 'aws-cdk-lib/aws-sns'
+import { Construct, Node } from 'constructs'
 
 /**
  * Compliant SNS Topic.
@@ -14,8 +8,24 @@ export type TopicProps = PickRequiredKeys<SNSTopicProps, 'masterKey'> & SNSTopic
  * See README for usage examples
  */
 export class Topic extends SNSTopic {
-  // eslint-disable-next-line no-useless-constructor
+  #props: TopicProps
   constructor (scope: Construct, id: string, props: TopicProps) {
     super(scope, id, props)
+
+    this.#props = props
+    Node.of(this).addValidation({
+      validate: () => {
+        return [
+          ...this.checkMasterKey()
+        ]
+      }
+    })
+  }
+
+  private checkMasterKey (): string[] {
+    const masterKey = this.#props.masterKey
+    return masterKey !== undefined
+      ? []
+      : ['masterKey must not be undefined']
   }
 }
