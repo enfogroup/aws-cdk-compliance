@@ -36,7 +36,7 @@ describe('SQS', () => {
 
       new Queue(stack, 'Queue', { encryption: undefined })
 
-      expect(() => Template.fromStack(stack)).toThrow('SQS Queue must be encrypted.')
+      expect(() => Template.fromStack(stack)).toThrow('encryption must not be undefined nor set to "UNENCRYPTED"')
     })
 
     it('throws if trying to set encryption to UNENCRYPTED', () => {
@@ -44,7 +44,7 @@ describe('SQS', () => {
 
       new Queue(stack, 'Queue', { encryption: QueueEncryption.UNENCRYPTED })
 
-      expect(() => Template.fromStack(stack)).toThrow('SQS Queue must be encrypted.')
+      expect(() => Template.fromStack(stack)).toThrow('encryption must not be undefined nor set to "UNENCRYPTED"')
     })
   })
 })

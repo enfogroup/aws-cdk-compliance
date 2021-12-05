@@ -39,6 +39,6 @@ export class Queue extends SQSQueue {
   private checkEncryption () {
     return this.#encryption !== undefined && this.#encryption !== QueueEncryption.UNENCRYPTED
       ? []
-      : ['SQS Queue must be encrypted.']
+      : ['encryption must not be undefined nor set to "UNENCRYPTED"']
   }
 }
