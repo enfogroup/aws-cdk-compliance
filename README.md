@@ -71,7 +71,7 @@ When possible the default Props used to create the Construct are exposed as well
 
 The following features are available for Application Load Balancer.
 
-* ApplicationLoadBalancer, compliant Application Load Balancer Construct
+* ApplicationLoadBalancer, compliant Application Load Balancer Construct. Will throw if non-compliant properties are passed
 * defaultApplicationLoadBalancerProps, the ApplicationLoadBalancerProps used to make the Application Load Balancer compliant
 
 Note that access logs need to be added to the construct.
