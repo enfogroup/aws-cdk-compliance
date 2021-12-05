@@ -1,13 +1,5 @@
-import { Key as KMSKey, KeyProps as KMSKeyProps } from 'aws-cdk-lib/aws-kms'
-import { Construct } from 'constructs'
-
-export interface KeyProps extends KMSKeyProps {
-  readonly enableKeyRotation?: true
-}
-
-interface InternalKeyProps extends KeyProps {
-  readonly enableKeyRotation: true;
-}
+import { Key as KMSKey, KeyProps } from 'aws-cdk-lib/aws-kms'
+import { Construct, Node } from 'constructs'
 
 /**
  * Properties for a new Compliant KMS Key
@@ -23,10 +15,30 @@ export const defaultKeyProps: KeyProps = {
  * See README for usage examples
  */
 export class Key extends KMSKey {
+  #enableKeyRotation: boolean | undefined
   constructor (scope: Construct, id: string, props?: KeyProps) {
     super(scope, id, {
       ...defaultKeyProps,
       ...props
-    } as InternalKeyProps)
+    })
+    const calculatedProps = {
+      ...defaultKeyProps,
+      ...props
+    }
+    this.#enableKeyRotation = calculatedProps.enableKeyRotation
+
+    Node.of(this).addValidation({
+      validate: () => {
+        return [
+          ...this.checkEncryption()
+        ]
+      }
+    })
+  }
+
+  private checkEncryption () {
+    return this.#enableKeyRotation !== undefined && this.#enableKeyRotation
+      ? []
+      : ['KMS Key must have key rotation enabled.']
   }
 }
