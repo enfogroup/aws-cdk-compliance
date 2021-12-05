@@ -21,22 +21,24 @@ export class Queue extends SQSQueue {
       ...defaultQueueProps,
       ...props
     })
-    this.#encryption = props?.encryption
+    const calculatedProps = {
+      ...defaultQueueProps,
+      ...props
+    }
+    this.#encryption = calculatedProps.encryption
 
     Node.of(this).addValidation({
-      validate: this.validate
+      validate: () => {
+        return [
+          ...this.checkEncryption()
+        ]
+      }
     })
   }
 
-  private validate () {
-    return [
-      ...this.checkEncryption()
-    ]
-  }
-
   private checkEncryption () {
-    return this.#encryption !== QueueEncryption.UNENCRYPTED
+    return this.#encryption !== undefined && this.#encryption !== QueueEncryption.UNENCRYPTED
       ? []
-      : ['SQS Queue must be encrypted. QueueEncryption.UNENCRYPTED is not allow.']
+      : ['SQS Queue must be encrypted.']
   }
 }
