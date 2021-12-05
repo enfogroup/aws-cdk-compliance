@@ -39,6 +39,6 @@ export class Key extends KMSKey {
   private checkEncryption () {
     return this.#enableKeyRotation !== undefined && this.#enableKeyRotation
       ? []
-      : ['KMS Key must have key rotation enabled.']
+      : ['enableKeyRotation must not be undefined nor set to false']
   }
 }
