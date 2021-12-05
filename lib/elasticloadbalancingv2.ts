@@ -1,12 +1,8 @@
 import {
   ApplicationLoadBalancer as LBApplicationLoadBalancer,
-  ApplicationLoadBalancerProps as LBApplicationLoadBalancerProps
+  ApplicationLoadBalancerProps
 } from 'aws-cdk-lib/aws-elasticloadbalancingv2'
 import { Construct, Node } from 'constructs'
-
-export interface ApplicationLoadBalancerProps extends LBApplicationLoadBalancerProps {
-  readonly deletionProtection?: true
-}
 
 interface InternalApplicationLoadBalancerProps extends ApplicationLoadBalancerProps {
   readonly deletionProtection: true
@@ -25,13 +21,18 @@ export const defaultApplicationLoadBalancerProps = {
  * See README for usage examples
  */
 export class ApplicationLoadBalancer extends LBApplicationLoadBalancer {
-  protected myAttributes: { [ k: string ]: string | undefined }
-  // eslint-disable-next-line no-useless-constructor
-  constructor (scope: Construct, id: string, props?: ApplicationLoadBalancerProps) {
+  #props: ApplicationLoadBalancerProps
+  protected internalAttributes: Record<string, string> = {}
+  constructor (scope: Construct, id: string, props: ApplicationLoadBalancerProps) {
     super(scope, id, {
       ...defaultApplicationLoadBalancerProps,
       ...props
     } as InternalApplicationLoadBalancerProps)
+
+    this.#props = {
+      ...defaultApplicationLoadBalancerProps,
+      ...props
+    }
     this.setAttribute('routing.http.drop_invalid_header_fields.enabled', 'true')
 
     Node.of(this).addValidation({
@@ -45,28 +46,29 @@ export class ApplicationLoadBalancer extends LBApplicationLoadBalancer {
     })
   }
 
-  public setAttribute (key: string, value: string | undefined) {
-    if (!this.myAttributes) {
-      this.myAttributes = {}
+  public setAttribute (key: string, value: string) {
+    if (!this.internalAttributes) {
+      this.internalAttributes = {}
     }
-    this.myAttributes[key] = value
+    this.internalAttributes[key] = value
     return super.setAttribute(key, value)
   }
 
   protected checkLogging () {
-    return this.myAttributes['access_logs.s3.enabled'] === 'true'
+    return this.internalAttributes['access_logs.s3.enabled']
       ? []
       : ['Access logs not enabled']
   }
 
   protected checkDeletionProtection () {
-    return this.myAttributes['deletion_protection.enabled'] === 'true'
+    const deletionProtection = this.#props.deletionProtection
+    return deletionProtection !== undefined && deletionProtection
       ? []
-      : ['Deletion protection not enabled']
+      : ['deletionProtection must not be undefined nor false']
   }
 
   protected checkDropInvalidHeaders () {
-    return this.myAttributes['routing.http.drop_invalid_header_fields.enabled'] === 'true'
+    return this.internalAttributes['routing.http.drop_invalid_header_fields.enabled'] === 'true'
       ? []
       : ['Not configured to drop invalid HTTP headers']
   }
