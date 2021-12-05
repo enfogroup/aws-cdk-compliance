@@ -7,19 +7,13 @@ import {
 } from 'aws-cdk-lib/aws-rds'
 import { Construct, Node } from 'constructs'
 
-export enum DatabaseEnvironments {
-  PROD,
-  NONPROD
+export enum DatabaseEnvironment {
+  PRODUCTION,
+  NOT_PRODUCTION
 }
 
 export interface DatabaseInstanceProps extends RDSDatabaseInstanceProps {
-  readonly publiclyAccessible?: false
-  readonly storageEncrypted?: true
-  readonly iamAuthentication?: true
-  readonly autoMinorVersionUpgrade?: true
-  readonly copyTagsToSnapshot?: true
-  readonly deletionProtection?: true
-  readonly environment?: DatabaseEnvironments
+  readonly environment?: DatabaseEnvironment
 }
 
 interface InternalDatabaseInstanceProps extends DatabaseInstanceProps {
@@ -29,7 +23,7 @@ interface InternalDatabaseInstanceProps extends DatabaseInstanceProps {
   readonly autoMinorVersionUpgrade: true
   readonly copyTagsToSnapshot: true
   readonly deletionProtection: true
-  readonly environment: DatabaseEnvironments
+  readonly environment: DatabaseEnvironment
 }
 
 /**
@@ -43,7 +37,7 @@ export const defaultDatabaseInstanceProps = {
   copyTagsToSnapshot: true,
   deletionProtection: true,
   multiAz: true,
-  environment: DatabaseEnvironments.PROD
+  environment: DatabaseEnvironment.PRODUCTION
 }
 
 /**
@@ -52,29 +46,76 @@ export const defaultDatabaseInstanceProps = {
  * See README for usage examples
  */
 export class DatabaseInstance extends RDSDatabaseInstance {
-  protected environment: DatabaseEnvironments
+  #props: DatabaseInstanceProps
+  protected environment: DatabaseEnvironment
   protected multiAz: boolean
-  // eslint-disable-next-line no-useless-constructor
-  constructor (scope: Construct, id: string, props?: DatabaseInstanceProps) {
+  constructor (scope: Construct, id: string, props: DatabaseInstanceProps) {
     super(scope, id, {
       ...defaultDatabaseInstanceProps,
       ...props
     } as InternalDatabaseInstanceProps)
     this.environment = props?.environment ?? defaultDatabaseInstanceProps.environment
     this.multiAz = props?.multiAz ?? defaultDatabaseInstanceProps.multiAz
+    this.#props = {
+      ...defaultDatabaseInstanceProps,
+      ...props
+    }
 
     Node.of(this).addValidation({
       validate: () => {
         return [
+          ...this.checkPubliclyAccessible(),
+          ...this.checkStorageEncrypted(),
+          ...this.checkIAMAuthentication(),
+          ...this.checkAutoUpgrade(),
+          ...this.checkCopyTags(),
+          ...this.checkDeletionProtection(),
           ...this.checkMultiAz()
         ]
       }
     })
   }
 
+  protected checkPubliclyAccessible () {
+    const publiclyAccessible = this.#props.publiclyAccessible
+    return publiclyAccessible !== undefined && !publiclyAccessible
+      ? []
+      : ['publiclyAccessible must not be undefined nor true']
+  }
+
+  protected checkStorageEncrypted () {
+    return this.#props.storageEncrypted
+      ? []
+      : ['storageEncrypted must not be undefined nor false']
+  }
+
+  protected checkIAMAuthentication () {
+    return this.#props.iamAuthentication
+      ? []
+      : ['iamAuthentication must not be undefined nor false']
+  }
+
+  protected checkAutoUpgrade () {
+    return this.#props.autoMinorVersionUpgrade
+      ? []
+      : ['autoMinorVersionUpgrade must not be undefined nor false']
+  }
+
+  protected checkCopyTags () {
+    return this.#props.copyTagsToSnapshot
+      ? []
+      : ['copyTagsToSnapshot must not be undefined nor false']
+  }
+
+  protected checkDeletionProtection () {
+    return this.#props.deletionProtection
+      ? []
+      : ['deletionProtection must not be undefined nor false']
+  }
+
   protected checkMultiAz () {
-    return (this.environment === DatabaseEnvironments.PROD && !this.multiAz)
-      ? ['Prod instances must be multi AZ']
+    return (this.environment === DatabaseEnvironment.PRODUCTION && !this.multiAz)
+      ? ['Production instance must be multi AZ']
       : []
   }
 }
