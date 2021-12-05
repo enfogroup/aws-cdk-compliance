@@ -24,12 +24,14 @@ export class Queue extends SQSQueue {
     this.#encryption = props?.encryption
 
     Node.of(this).addValidation({
-      validate: () => {
-        return [
-          ...this.checkEncryption()
-        ]
-      }
+      validate: this.validate
     })
+  }
+
+  private validate () {
+    return [
+      ...this.checkEncryption()
+    ]
   }
 
   private checkEncryption () {
