@@ -1,7 +1,7 @@
 export { BackupPlan, enableBackups, allowBillingModeProvisioned } from './tags'
 export { defaultBucketProps, Bucket } from './s3'
 export * from './kms'
-export { TopicProps, Topic } from './sns'
+export * from './sns'
 export { Table } from './dynamodb'
 export * from './cloudfront'
 export * from './sqs'
