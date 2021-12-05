@@ -96,7 +96,7 @@ alb.logAccessLogs(bucket)
 
 The following features are available for CloudFront.
 
-* Distribution, compliant CloudFront Distribution Construct
+* Distribution, compliant CloudFront Distribution Construct. Will throw if non-compliant properties are passed.
 * defaultDistributionProps, the DistributionProps used to make the distribution compliant
 
 CloudFront Distribution creation example.

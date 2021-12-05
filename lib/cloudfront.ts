@@ -1,19 +1,10 @@
 import {
-  BehaviorOptions as CFBehaviorOptions,
+  BehaviorOptions,
   Distribution as CFDistribution,
-  DistributionProps as CFDistributionProps,
-  ViewerProtocolPolicy as CFViewerProtocolPolicy
+  DistributionProps,
+  ViewerProtocolPolicy
 } from 'aws-cdk-lib/aws-cloudfront'
-import { Construct } from 'constructs'
-
-export interface BehaviorOptions extends CFBehaviorOptions {
-  readonly viewerProtocolPolicy: Exclude<CFViewerProtocolPolicy, CFViewerProtocolPolicy.ALLOW_ALL>
-}
-
-export interface DistributionProps extends CFDistributionProps {
-  readonly defaultBehavior: BehaviorOptions
-  readonly additionalBehaviors?: Record<string, BehaviorOptions>
-}
+import { Construct, Node } from 'constructs'
 
 interface InternalDistributionProps extends DistributionProps {
   readonly defaultRootObject: string
@@ -35,11 +26,50 @@ export const defaultDistributionProps = {
  * See README for usage examples
  */
 export class Distribution extends CFDistribution {
-  // eslint-disable-next-line no-useless-constructor
-  constructor (scope: Construct, id: string, props?: DistributionProps) {
+  #props: DistributionProps
+  constructor (scope: Construct, id: string, props: DistributionProps) {
     super(scope, id, {
       ...defaultDistributionProps,
       ...props
     } as InternalDistributionProps)
+
+    this.#props = {
+      ...defaultDistributionProps,
+      ...props
+    }
+
+    Node.of(this).addValidation({
+      validate: () => {
+        return [
+          ...this.checkProtocolPolicies()
+        ]
+      }
+    })
+  }
+
+  private checkProtocolPolicies (): string[] {
+    return [
+      ...this.checkDefaultBehaviorProtocolPolicy(),
+      ...this.checkAdditionalBehaviorsProtocolPolicies()
+    ]
+  }
+
+  private checkDefaultBehaviorProtocolPolicy (): string[] {
+    return this.checkProtocolPolicy(this.#props.defaultBehavior.viewerProtocolPolicy)
+  }
+
+  private checkAdditionalBehaviorsProtocolPolicies (): string[] {
+    if (!this.#props.additionalBehaviors) {
+      return []
+    }
+    return Object.values(this.#props.additionalBehaviors).map((behavior: BehaviorOptions): string[] => {
+      return this.checkProtocolPolicy(behavior.viewerProtocolPolicy)
+    }).flat()
+  }
+
+  private checkProtocolPolicy (policy: ViewerProtocolPolicy | undefined): string[] {
+    return policy !== undefined && policy !== ViewerProtocolPolicy.ALLOW_ALL
+      ? []
+      : ['ViewerProtocolPolicy must not be undefined nor "ALLOW_ALL"']
   }
 }

@@ -35,5 +35,69 @@ describe('CloudFront', () => {
         }
       }))
     })
+
+    it('should throw if defaultBehavior has viewerProtocolPolicy set to undefined', () => {
+      const stack = new Stack()
+
+      new Distribution(stack, 'Distribution', {
+        defaultBehavior: {
+          origin: new HttpOrigin('example.com'),
+          viewerProtocolPolicy: undefined
+        }
+      })
+
+      expect(() => Template.fromStack(stack)).toThrow('ViewerProtocolPolicy must not be undefined nor "ALLOW_ALL"')
+    })
+
+    it('should throw if defaultBehavior has viewerProtocolPolicy set to ALLOW_ALL', () => {
+      const stack = new Stack()
+
+      new Distribution(stack, 'Distribution', {
+        defaultBehavior: {
+          origin: new HttpOrigin('example.com'),
+          viewerProtocolPolicy: ViewerProtocolPolicy.ALLOW_ALL
+        }
+      })
+
+      expect(() => Template.fromStack(stack)).toThrow('ViewerProtocolPolicy must not be undefined nor "ALLOW_ALL"')
+    })
+
+    it('should throw if an additionalBehaviors has viewerProtocolPolicy set to undefined', () => {
+      const stack = new Stack()
+
+      new Distribution(stack, 'Distribution', {
+        defaultBehavior: {
+          origin: new HttpOrigin('example.com'),
+          viewerProtocolPolicy: ViewerProtocolPolicy.HTTPS_ONLY
+        },
+        additionalBehaviors: {
+          example: {
+            origin: new HttpOrigin('example.com'),
+            viewerProtocolPolicy: undefined
+          }
+        }
+      })
+
+      expect(() => Template.fromStack(stack)).toThrow('ViewerProtocolPolicy must not be undefined nor "ALLOW_ALL"')
+    })
+
+    it('should throw if an additionalBehaviors has viewerProtocolPolicy set to ALLOW_ALL', () => {
+      const stack = new Stack()
+
+      new Distribution(stack, 'Distribution', {
+        defaultBehavior: {
+          origin: new HttpOrigin('example.com'),
+          viewerProtocolPolicy: ViewerProtocolPolicy.HTTPS_ONLY
+        },
+        additionalBehaviors: {
+          example: {
+            origin: new HttpOrigin('example.com'),
+            viewerProtocolPolicy: ViewerProtocolPolicy.ALLOW_ALL
+          }
+        }
+      })
+
+      expect(() => Template.fromStack(stack)).toThrow('ViewerProtocolPolicy must not be undefined nor "ALLOW_ALL"')
+    })
   })
 })
