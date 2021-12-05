@@ -161,8 +161,7 @@ new Table(stack, 'Table', {
 
 The following features are available for KMS.
 
-* Key, compliant KMS Key Construct
-* KeyProps, modified version of KeyProps which enforces compliance
+* Key, compliant KMS Key Construct. Will throw if non-compliant properties are passed.
 * defaultKeyProps, the KeyProps used to enforce compliance if you don't supply your own
 
 While we do not enforce *alias* on KeyProps we do recommend that you set it.
