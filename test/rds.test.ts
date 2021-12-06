@@ -65,7 +65,7 @@ describe('RDS', () => {
       expect(() => Template.fromStack(stack)).toThrow('Production instance must be multi AZ')
     })
 
-    it('should should if publiclyAccessible is false', () => {
+    it('should throw if publiclyAccessible is true', () => {
       const stack = new Stack()
 
       new DatabaseInstance(stack, 'DB', {
@@ -74,22 +74,10 @@ describe('RDS', () => {
         publiclyAccessible: true
       })
 
-      expect(() => Template.fromStack(stack)).toThrow('publiclyAccessible must not be undefined nor true')
+      expect(() => Template.fromStack(stack)).toThrow('publiclyAccessible must be false')
     })
 
-    it('should throw if publiclyAccessible is undefined', () => {
-      const stack = new Stack()
-
-      new DatabaseInstance(stack, 'DB', {
-        vpc: new Vpc(stack, 'VPC'),
-        engine: DatabaseInstanceEngine.postgres({ version: PostgresEngineVersion.VER_13_4 }),
-        publiclyAccessible: undefined
-      })
-
-      expect(() => Template.fromStack(stack)).toThrow('publiclyAccessible must not be undefined nor true')
-    })
-
-    it('should should if storageEncrypted is false', () => {
+    it('should throw if storageEncrypted is false', () => {
       const stack = new Stack()
 
       new DatabaseInstance(stack, 'DB', {
@@ -98,7 +86,7 @@ describe('RDS', () => {
         storageEncrypted: false
       })
 
-      expect(() => Template.fromStack(stack)).toThrow('storageEncrypted must not be undefined nor false')
+      expect(() => Template.fromStack(stack)).toThrow('storageEncrypted must be true')
     })
 
     it('should throw if storageEncrypted is undefined', () => {
@@ -110,10 +98,10 @@ describe('RDS', () => {
         storageEncrypted: undefined
       })
 
-      expect(() => Template.fromStack(stack)).toThrow('storageEncrypted must not be undefined nor false')
+      expect(() => Template.fromStack(stack)).toThrow('storageEncrypted must be true')
     })
 
-    it('should should if iamAuthentication is false', () => {
+    it('should throw if iamAuthentication is false', () => {
       const stack = new Stack()
 
       new DatabaseInstance(stack, 'DB', {
@@ -122,7 +110,7 @@ describe('RDS', () => {
         iamAuthentication: false
       })
 
-      expect(() => Template.fromStack(stack)).toThrow('iamAuthentication must not be undefined nor false')
+      expect(() => Template.fromStack(stack)).toThrow('iamAuthentication must be true')
     })
 
     it('should throw if iamAuthentication is undefined', () => {
@@ -134,10 +122,10 @@ describe('RDS', () => {
         iamAuthentication: undefined
       })
 
-      expect(() => Template.fromStack(stack)).toThrow('iamAuthentication must not be undefined nor false')
+      expect(() => Template.fromStack(stack)).toThrow('iamAuthentication must be true')
     })
 
-    it('should should if autoMinorVersionUpgrade is false', () => {
+    it('should throw if autoMinorVersionUpgrade is false', () => {
       const stack = new Stack()
 
       new DatabaseInstance(stack, 'DB', {
@@ -146,7 +134,7 @@ describe('RDS', () => {
         autoMinorVersionUpgrade: false
       })
 
-      expect(() => Template.fromStack(stack)).toThrow('autoMinorVersionUpgrade must not be undefined nor false')
+      expect(() => Template.fromStack(stack)).toThrow('autoMinorVersionUpgrade must be true')
     })
 
     it('should throw if autoMinorVersionUpgrade is undefined', () => {
@@ -158,10 +146,10 @@ describe('RDS', () => {
         autoMinorVersionUpgrade: undefined
       })
 
-      expect(() => Template.fromStack(stack)).toThrow('autoMinorVersionUpgrade must not be undefined nor false')
+      expect(() => Template.fromStack(stack)).toThrow('autoMinorVersionUpgrade must be true')
     })
 
-    it('should should if copyTagsToSnapshot is false', () => {
+    it('should throw if copyTagsToSnapshot is false', () => {
       const stack = new Stack()
 
       new DatabaseInstance(stack, 'DB', {
@@ -170,7 +158,7 @@ describe('RDS', () => {
         copyTagsToSnapshot: false
       })
 
-      expect(() => Template.fromStack(stack)).toThrow('copyTagsToSnapshot must not be undefined nor false')
+      expect(() => Template.fromStack(stack)).toThrow('copyTagsToSnapshot must be true')
     })
 
     it('should throw if copyTagsToSnapshot is undefined', () => {
@@ -182,10 +170,10 @@ describe('RDS', () => {
         copyTagsToSnapshot: undefined
       })
 
-      expect(() => Template.fromStack(stack)).toThrow('copyTagsToSnapshot must not be undefined nor false')
+      expect(() => Template.fromStack(stack)).toThrow('copyTagsToSnapshot must be true')
     })
 
-    it('should should if deletionProtection is false', () => {
+    it('should throw if deletionProtection is false', () => {
       const stack = new Stack()
 
       new DatabaseInstance(stack, 'DB', {
@@ -194,7 +182,7 @@ describe('RDS', () => {
         deletionProtection: false
       })
 
-      expect(() => Template.fromStack(stack)).toThrow('deletionProtection must not be undefined nor false')
+      expect(() => Template.fromStack(stack)).toThrow('deletionProtection must be true')
     })
 
     it('should throw if deletionProtection is undefined', () => {
@@ -206,19 +194,18 @@ describe('RDS', () => {
         deletionProtection: undefined
       })
 
-      expect(() => Template.fromStack(stack)).toThrow('deletionProtection must not be undefined nor false')
+      expect(() => Template.fromStack(stack)).toThrow('deletionProtection must be true')
     })
   })
 
   describe('DatabaseCluster', () => {
     it('should have sane defaults', () => {
       const stack = new Stack()
-      const vpc = new Vpc(stack, 'VPC')
 
       new DatabaseCluster(stack, 'DB', {
         engine: DatabaseClusterEngine.auroraPostgres({ version: AuroraPostgresEngineVersion.VER_13_4 }),
         instanceProps: {
-          vpc
+          vpc: new Vpc(stack, 'VPC')
         }
       })
 
@@ -233,6 +220,160 @@ describe('RDS', () => {
         PubliclyAccessible: false,
         AutoMinorVersionUpgrade: true
       }))
+    })
+
+    it('should throw if publiclyAccessible is true', () => {
+      const stack = new Stack()
+
+      new DatabaseCluster(stack, 'DB', {
+        engine: DatabaseClusterEngine.auroraPostgres({ version: AuroraPostgresEngineVersion.VER_13_4 }),
+        instanceProps: {
+          publiclyAccessible: true,
+          vpc: new Vpc(stack, 'VPC')
+        }
+      })
+
+      expect(() => Template.fromStack(stack)).toThrow('publiclyAccessible must be false')
+    })
+
+    it('should throw if storageEncrypted is false', () => {
+      const stack = new Stack()
+
+      new DatabaseCluster(stack, 'DB', {
+        engine: DatabaseClusterEngine.auroraPostgres({ version: AuroraPostgresEngineVersion.VER_13_4 }),
+        storageEncrypted: false,
+        instanceProps: {
+          vpc: new Vpc(stack, 'VPC')
+        }
+      })
+
+      expect(() => Template.fromStack(stack)).toThrow('storageEncrypted must be true')
+    })
+
+    it('should throw if storageEncrypted is undefined', () => {
+      const stack = new Stack()
+
+      new DatabaseCluster(stack, 'DB', {
+        engine: DatabaseClusterEngine.auroraPostgres({ version: AuroraPostgresEngineVersion.VER_13_4 }),
+        storageEncrypted: undefined,
+        instanceProps: {
+          vpc: new Vpc(stack, 'VPC')
+        }
+      })
+
+      expect(() => Template.fromStack(stack)).toThrow('storageEncrypted must be true')
+    })
+
+    it('should throw if iamAuthentication is false', () => {
+      const stack = new Stack()
+
+      new DatabaseCluster(stack, 'DB', {
+        engine: DatabaseClusterEngine.auroraPostgres({ version: AuroraPostgresEngineVersion.VER_13_4 }),
+        iamAuthentication: false,
+        instanceProps: {
+          vpc: new Vpc(stack, 'VPC')
+        }
+      })
+
+      expect(() => Template.fromStack(stack)).toThrow('iamAuthentication must be true')
+    })
+
+    it('should throw if iamAuthentication is undefined', () => {
+      const stack = new Stack()
+
+      new DatabaseCluster(stack, 'DB', {
+        engine: DatabaseClusterEngine.auroraPostgres({ version: AuroraPostgresEngineVersion.VER_13_4 }),
+        iamAuthentication: undefined,
+        instanceProps: {
+          vpc: new Vpc(stack, 'VPC')
+        }
+      })
+
+      expect(() => Template.fromStack(stack)).toThrow('iamAuthentication must be true')
+    })
+
+    it('should throw if autoMinorVersionUpgrade is false', () => {
+      const stack = new Stack()
+
+      new DatabaseCluster(stack, 'DB', {
+        engine: DatabaseClusterEngine.auroraPostgres({ version: AuroraPostgresEngineVersion.VER_13_4 }),
+        instanceProps: {
+          autoMinorVersionUpgrade: false,
+          vpc: new Vpc(stack, 'VPC')
+        }
+      })
+
+      expect(() => Template.fromStack(stack)).toThrow('autoMinorVersionUpgrade must be true')
+    })
+
+    it('should throw if autoMinorVersionUpgrade is undefined', () => {
+      const stack = new Stack()
+
+      new DatabaseCluster(stack, 'DB', {
+        engine: DatabaseClusterEngine.auroraPostgres({ version: AuroraPostgresEngineVersion.VER_13_4 }),
+        instanceProps: {
+          autoMinorVersionUpgrade: undefined,
+          vpc: new Vpc(stack, 'VPC')
+        }
+      })
+
+      expect(() => Template.fromStack(stack)).toThrow('autoMinorVersionUpgrade must be true')
+    })
+
+    it('should throw if copyTagsToSnapshot is false', () => {
+      const stack = new Stack()
+
+      new DatabaseCluster(stack, 'DB', {
+        engine: DatabaseClusterEngine.auroraPostgres({ version: AuroraPostgresEngineVersion.VER_13_4 }),
+        copyTagsToSnapshot: false,
+        instanceProps: {
+          vpc: new Vpc(stack, 'VPC')
+        }
+      })
+
+      expect(() => Template.fromStack(stack)).toThrow('copyTagsToSnapshot must be true')
+    })
+
+    it('should throw if copyTagsToSnapshot is undefined', () => {
+      const stack = new Stack()
+
+      new DatabaseCluster(stack, 'DB', {
+        engine: DatabaseClusterEngine.auroraPostgres({ version: AuroraPostgresEngineVersion.VER_13_4 }),
+        copyTagsToSnapshot: undefined,
+        instanceProps: {
+          vpc: new Vpc(stack, 'VPC')
+        }
+      })
+
+      expect(() => Template.fromStack(stack)).toThrow('copyTagsToSnapshot must be true')
+    })
+
+    it('should throw if deletionProtection is false', () => {
+      const stack = new Stack()
+
+      new DatabaseCluster(stack, 'DB', {
+        engine: DatabaseClusterEngine.auroraPostgres({ version: AuroraPostgresEngineVersion.VER_13_4 }),
+        deletionProtection: false,
+        instanceProps: {
+          vpc: new Vpc(stack, 'VPC')
+        }
+      })
+
+      expect(() => Template.fromStack(stack)).toThrow('deletionProtection must be true')
+    })
+
+    it('should throw if deletionProtection is undefined', () => {
+      const stack = new Stack()
+
+      new DatabaseCluster(stack, 'DB', {
+        engine: DatabaseClusterEngine.auroraPostgres({ version: AuroraPostgresEngineVersion.VER_13_4 }),
+        deletionProtection: undefined,
+        instanceProps: {
+          vpc: new Vpc(stack, 'VPC')
+        }
+      })
+
+      expect(() => Template.fromStack(stack)).toThrow('deletionProtection must be true')
     })
   })
 })

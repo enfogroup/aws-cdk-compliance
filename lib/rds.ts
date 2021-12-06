@@ -1,9 +1,8 @@
 import {
   DatabaseCluster as RDSDatabaseCluster,
-  DatabaseClusterProps as RDSDatabaseClusterProps,
+  DatabaseClusterProps,
   DatabaseInstance as RDSDatabaseInstance,
-  DatabaseInstanceProps as RDSDatabaseInstanceProps,
-  InstanceProps as RDSInstanceProps
+  DatabaseInstanceProps as RDSDatabaseInstanceProps
 } from 'aws-cdk-lib/aws-rds'
 import { Construct, Node } from 'constructs'
 
@@ -14,16 +13,6 @@ export enum DatabaseEnvironment {
 
 export interface DatabaseInstanceProps extends RDSDatabaseInstanceProps {
   readonly environment?: DatabaseEnvironment
-}
-
-interface InternalDatabaseInstanceProps extends DatabaseInstanceProps {
-  readonly publiclyAccessible: false
-  readonly storageEncrypted: true
-  readonly iamAuthentication: true
-  readonly autoMinorVersionUpgrade: true
-  readonly copyTagsToSnapshot: true
-  readonly deletionProtection: true
-  readonly environment: DatabaseEnvironment
 }
 
 /**
@@ -47,15 +36,11 @@ export const defaultDatabaseInstanceProps = {
  */
 export class DatabaseInstance extends RDSDatabaseInstance {
   #props: DatabaseInstanceProps
-  protected environment: DatabaseEnvironment
-  protected multiAz: boolean
   constructor (scope: Construct, id: string, props: DatabaseInstanceProps) {
     super(scope, id, {
       ...defaultDatabaseInstanceProps,
       ...props
-    } as InternalDatabaseInstanceProps)
-    this.environment = props?.environment ?? defaultDatabaseInstanceProps.environment
-    this.multiAz = props?.multiAz ?? defaultDatabaseInstanceProps.multiAz
+    })
     this.#props = {
       ...defaultDatabaseInstanceProps,
       ...props
@@ -77,73 +62,46 @@ export class DatabaseInstance extends RDSDatabaseInstance {
   }
 
   protected checkPubliclyAccessible () {
-    const publiclyAccessible = this.#props.publiclyAccessible
-    return publiclyAccessible !== undefined && !publiclyAccessible
+    return !this.#props.publiclyAccessible
       ? []
-      : ['publiclyAccessible must not be undefined nor true']
+      : ['publiclyAccessible must be false']
   }
 
   protected checkStorageEncrypted () {
     return this.#props.storageEncrypted
       ? []
-      : ['storageEncrypted must not be undefined nor false']
+      : ['storageEncrypted must be true']
   }
 
   protected checkIAMAuthentication () {
     return this.#props.iamAuthentication
       ? []
-      : ['iamAuthentication must not be undefined nor false']
+      : ['iamAuthentication must be true']
   }
 
   protected checkAutoUpgrade () {
     return this.#props.autoMinorVersionUpgrade
       ? []
-      : ['autoMinorVersionUpgrade must not be undefined nor false']
+      : ['autoMinorVersionUpgrade must be true']
   }
 
   protected checkCopyTags () {
     return this.#props.copyTagsToSnapshot
       ? []
-      : ['copyTagsToSnapshot must not be undefined nor false']
+      : ['copyTagsToSnapshot must be true']
   }
 
   protected checkDeletionProtection () {
     return this.#props.deletionProtection
       ? []
-      : ['deletionProtection must not be undefined nor false']
+      : ['deletionProtection must be true']
   }
 
   protected checkMultiAz () {
-    return (this.environment === DatabaseEnvironment.PRODUCTION && !this.multiAz)
+    return (this.#props.environment === DatabaseEnvironment.PRODUCTION && !this.#props.multiAz)
       ? ['Production instance must be multi AZ']
       : []
   }
-}
-
-export interface InstanceProps extends RDSInstanceProps {
-  readonly publiclyAccessible?: false
-  readonly autoMinorVersionUpgrade?: true
-}
-
-export interface DatabaseClusterProps extends RDSDatabaseClusterProps {
-  readonly storageEncrypted?: true
-  readonly iamAuthentication?: true
-  readonly copyTagsToSnapshot?: true
-  readonly deletionProtection?: true
-  readonly instanceProps: InstanceProps
-}
-
-interface InternalInstanceProps extends InstanceProps {
-  readonly publiclyAccessible: false
-  readonly autoMinorVersionUpgrade: true
-}
-
-interface InternalDatabaseClusterProps extends DatabaseClusterProps {
-  readonly storageEncrypted: true
-  readonly iamAuthentication: true
-  readonly copyTagsToSnapshot: true
-  readonly deletionProtection: true
-  readonly instanceProps: InternalInstanceProps
 }
 
 /**
@@ -166,15 +124,72 @@ export const defaultInstanceProps = {
  * See README for usage examples
  */
 export class DatabaseCluster extends RDSDatabaseCluster {
-  // eslint-disable-next-line no-useless-constructor
-  constructor (scope: Construct, id: string, props?: DatabaseClusterProps) {
+  #props: DatabaseClusterProps
+  constructor (scope: Construct, id: string, props: DatabaseClusterProps) {
     super(scope, id, {
+      ...defaultDatabaseClusterProps,
+      ...props,
+      instanceProps: {
+        ...defaultInstanceProps,
+        ...props.instanceProps
+      }
+    })
+    this.#props = {
       ...defaultDatabaseClusterProps,
       ...props,
       instanceProps: {
         ...defaultInstanceProps,
         ...props?.instanceProps
       }
-    } as InternalDatabaseClusterProps)
+    }
+
+    Node.of(this).addValidation({
+      validate: () => {
+        return [
+          ...this.checkPubliclyAccessible(),
+          ...this.checkStorageEncrypted(),
+          ...this.checkIAMAuthentication(),
+          ...this.checkAutoUpgrade(),
+          ...this.checkCopyTags(),
+          ...this.checkDeletionProtection()
+        ]
+      }
+    })
+  }
+
+  protected checkStorageEncrypted () {
+    return this.#props.storageEncrypted
+      ? []
+      : ['storageEncrypted must be true']
+  }
+
+  protected checkIAMAuthentication () {
+    return this.#props.iamAuthentication
+      ? []
+      : ['iamAuthentication must be true']
+  }
+
+  protected checkCopyTags () {
+    return this.#props.copyTagsToSnapshot
+      ? []
+      : ['copyTagsToSnapshot must be true']
+  }
+
+  protected checkDeletionProtection () {
+    return this.#props.deletionProtection
+      ? []
+      : ['deletionProtection must be true']
+  }
+
+  protected checkPubliclyAccessible () {
+    return !this.#props.instanceProps.publiclyAccessible
+      ? []
+      : ['publiclyAccessible must be false']
+  }
+
+  protected checkAutoUpgrade () {
+    return this.#props.instanceProps.autoMinorVersionUpgrade
+      ? []
+      : ['autoMinorVersionUpgrade must be true']
   }
 }
