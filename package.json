@@ -12,6 +12,12 @@
   "repository": {
     "url": "https://github.com/enfogroup/aws-cdk-compliance.git"
   },
+  "keywords": [
+    "aws",
+    "cdk",
+    "compliance",
+    "awscdk"
+  ],
   "scripts": {
     "prepublishOnly": "npx pinst --disable",
     "postpublish": "npx pinst --enable",
