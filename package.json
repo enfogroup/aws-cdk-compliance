@@ -1,7 +1,7 @@
 {
   "name": "@enfo/aws-cdkompliance",
   "version": "0.0.1",
-  "description": "Tagging and resource standards using the CDK",
+  "description": "Tagging and compliant resources using the CDK",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "author": {
@@ -16,7 +16,9 @@
     "aws",
     "cdk",
     "compliance",
-    "awscdk"
+    "awscdk",
+    "apn",
+    "msp"
   ],
   "scripts": {
     "prepublishOnly": "npx pinst --disable",
