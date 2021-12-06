@@ -1,5 +1,5 @@
-import { Key as KMSKey, KeyProps as KMSKeyProps } from '@aws-cdk/aws-kms'
-import { Construct } from '@aws-cdk/core'
+import { Key as KMSKey, KeyProps as KMSKeyProps } from 'aws-cdk-lib/aws-kms'
+import { Construct } from 'constructs'
 
 export interface KeyProps extends KMSKeyProps {
   readonly enableKeyRotation?: true

@@ -3,8 +3,8 @@ import { Queue } from '../lib/sqs'
 
 // tools
 import '@aws-cdk/assert/jest'
-import { Stack } from '@aws-cdk/core'
-import { Template, Match } from '@aws-cdk/assertions'
+import { Stack } from 'aws-cdk-lib'
+import { Match, Template } from 'aws-cdk-lib/assertions'
 
 describe('SQS', () => {
   describe('Queue', () => {

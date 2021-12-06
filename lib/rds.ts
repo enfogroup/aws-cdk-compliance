@@ -4,8 +4,8 @@ import {
   DatabaseInstance as RDSDatabaseInstance,
   DatabaseInstanceProps as RDSDatabaseInstanceProps,
   InstanceProps as RDSInstanceProps
-} from '@aws-cdk/aws-rds'
-import { Construct } from '@aws-cdk/core'
+} from 'aws-cdk-lib/aws-rds'
+import { Construct, Node } from 'constructs'
 
 export enum DatabaseEnvironments {
   PROD,
@@ -62,12 +62,14 @@ export class DatabaseInstance extends RDSDatabaseInstance {
     } as InternalDatabaseInstanceProps)
     this.environment = props?.environment ?? defaultDatabaseInstanceProps.environment
     this.multiAz = props?.multiAz ?? defaultDatabaseInstanceProps.multiAz
-  }
 
-  protected validate () {
-    return [
-      ...this.checkMultiAz()
-    ]
+    Node.of(this).addValidation({
+      validate: () => {
+        return [
+          ...this.checkMultiAz()
+        ]
+      }
+    })
   }
 
   protected checkMultiAz () {

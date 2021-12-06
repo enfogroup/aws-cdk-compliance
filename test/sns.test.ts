@@ -3,9 +3,9 @@ import { Topic, TopicProps } from '../lib/sns'
 
 // tools
 import '@aws-cdk/assert/jest'
-import { Stack } from '@aws-cdk/core'
 import { Key } from '../lib/kms'
-import { Template, Match } from '@aws-cdk/assertions'
+import { Stack } from 'aws-cdk-lib'
+import { Match, Template } from 'aws-cdk-lib/assertions'
 
 describe('SNS', () => {
   describe('Topic', () => {

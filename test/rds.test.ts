@@ -3,10 +3,10 @@ import { DatabaseCluster, DatabaseEnvironments, DatabaseInstance } from '../lib/
 
 // tools
 import '@aws-cdk/assert/jest'
-import { Stack } from '@aws-cdk/core'
-import { Template, Match } from '@aws-cdk/assertions'
-import { Vpc } from '@aws-cdk/aws-ec2'
-import { AuroraPostgresEngineVersion, DatabaseClusterEngine, DatabaseInstanceEngine, PostgresEngineVersion } from '@aws-cdk/aws-rds'
+import { Vpc } from 'aws-cdk-lib/aws-ec2'
+import { AuroraPostgresEngineVersion, DatabaseClusterEngine, DatabaseInstanceEngine, PostgresEngineVersion } from 'aws-cdk-lib/aws-rds'
+import { Stack } from 'aws-cdk-lib'
+import { Match, Template } from 'aws-cdk-lib/assertions'
 
 describe('RDS', () => {
   describe('DatabaseInstance', () => {

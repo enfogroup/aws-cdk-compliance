@@ -3,8 +3,8 @@ import {
   Distribution as CFDistribution,
   DistributionProps as CFDistributionProps,
   ViewerProtocolPolicy as CFViewerProtocolPolicy
-} from '@aws-cdk/aws-cloudfront'
-import { Construct } from '@aws-cdk/core'
+} from 'aws-cdk-lib/aws-cloudfront'
+import { Construct } from 'constructs'
 
 export interface BehaviorOptions extends CFBehaviorOptions {
   readonly viewerProtocolPolicy: Exclude<CFViewerProtocolPolicy, CFViewerProtocolPolicy.ALLOW_ALL>

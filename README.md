@@ -21,7 +21,7 @@ Enabling backups of a single resource.
 ```typescript
 import { enableBackups } from '@enfo/aws-cdkompliance'
 import { Stack } from '@aws-cdk/core'
-import { Table } from '@aws-cdk/aws-dynamodb'
+import { Table } from 'aws-cdk-lib/aws-dynamodb'
 
 const stack = new Stack()
 const myTable = new Table(stack, ...)
@@ -83,7 +83,7 @@ Application Load Balancer creation example.
 ```typescript
 import { ApplicationLoadBalancer } from '@enfo/aws-cdkompliance'
 import { Stack } from '@aws-cdk/core'
-import { Vpc } from '@aws-cdk/aws-ec2'
+import { Vpc } from 'aws-cdk-lib/aws-ec2'
 
 const stack = new Stack()
 const vpc = new Vpc(stack, 'VPC')
@@ -103,8 +103,8 @@ CloudFront Distribution creation example.
 
 ```typescript
 import { CloudFront } from '@enfo/aws-cdkompliance'
-import { ViewerProtocolPolicy } from '@aws-cdk/aws-cloudfront'
-import { HttpOrigin } from '@aws-cdk/aws-cloudfront-origins'
+import { ViewerProtocolPolicy } from 'aws-cdk-lib/aws-cloudfront'
+import { HttpOrigin } from 'aws-cdk-lib/aws-cloudfront-origins'
 import { Stack } from '@aws-cdk/core'
 
 const stack = new Stack()
@@ -129,7 +129,7 @@ Table creation example without billingMode specified. Will default to PAY_PER_RE
 ```typescript
 import { Table } from '@enfo/aws-cdkompliance'
 import { Stack } from '@aws-cdk/core'
-import { AttributeType, BillingMode } from '@aws-cdk/aws-dynamodb'
+import { AttributeType, BillingMode } from 'aws-cdk-lib/aws-dynamodb'
 
 const stack = new Stack()
 new Table(stack, 'Table', {
@@ -145,7 +145,7 @@ Table creation example using PROVISIONED. The Table will be tagged to suppress w
 ```typescript
 import { Table } from '@enfo/aws-cdkompliance'
 import { Stack } from '@aws-cdk/core'
-import { AttributeType, BillingMode } from '@aws-cdk/aws-dynamodb'
+import { AttributeType, BillingMode } from 'aws-cdk-lib/aws-dynamodb'
 
 const stack = new Stack()
 new Table(stack, 'Table', {
@@ -189,7 +189,7 @@ Function creation example
 
 ```typescript
 import { Function } from '@enfo/aws-cdkompliance'
-import { Code, Runtime } from '@aws-cdk/aws-lambda'
+import { Code, Runtime } from 'aws-cdk-lib/aws-lambda'
 import { Stack } from '@aws-cdk/core'
 
 const stack = new Stack()
@@ -204,7 +204,7 @@ Trying to create a Function with a runtime which is not the latest
 
 ```typescript
 import { Function } from '@enfo/aws-cdkompliance'
-import { Code, Runtime } from '@aws-cdk/aws-lambda'
+import { Code, Runtime } from 'aws-cdk-lib/aws-lambda'
 import { Stack } from '@aws-cdk/core'
 
 const stack = new Stack()
@@ -233,8 +233,8 @@ DatabaseCluster creation example.
 ```typescript
 import { DatabaseCluster } from '@enfo/aws-cdkompliance'
 import { Stack } from '@aws-cdk/core'
-import { Vpc } from '@aws-cdk/aws-ec2'
-import { AuroraPostgresEngineVersion, DatabaseClusterEngine } from '@aws-cdk/aws-rds'
+import { Vpc } from 'aws-cdk-lib/aws-ec2'
+import { AuroraPostgresEngineVersion, DatabaseClusterEngine } from 'aws-cdk-lib/aws-rds'
 
 const stack = new Stack()
 const vpc = new Vpc(stack, 'VPC')
@@ -253,8 +253,8 @@ DatabaseInstance creation example.
 ```typescript
 import { DatabaseEnvironments, DatabaseInstance } from '@enfo/aws-cdkompliance'
 import { Stack } from '@aws-cdk/core'
-import { Vpc } from '@aws-cdk/aws-ec2'
-import { DatabaseInstanceEngine, PostgresEngineVersion } from '@aws-cdk/aws-rds'
+import { Vpc } from 'aws-cdk-lib/aws-ec2'
+import { DatabaseInstanceEngine, PostgresEngineVersion } from 'aws-cdk-lib/aws-rds'
 
 const stack = new Stack()
 const vpc = new Vpc(stack, 'VPC')
