@@ -20,7 +20,7 @@ Enabling backups of a single resource.
 
 ```typescript
 import { enableBackups } from '@enfo/aws-cdkompliance'
-import { Stack } from '@aws-cdk/core'
+import { Stack } from 'aws-cdk-lib'
 import { Table } from 'aws-cdk-lib/aws-dynamodb'
 
 const stack = new Stack()
@@ -32,7 +32,7 @@ Enable backups of an entire stack.
 
 ```typescript
 import { enableBackups } from '@enfo/aws-cdkompliance'
-import { Stack } from '@aws-cdk/core'
+import { Stack } from 'aws-cdk-lib'
 
 const stack = new Stack()
 enableBackups(stack)
@@ -78,11 +78,11 @@ Note that this construct enables the Drop invalid HTTP headers feature.
 Application Load Balancer creation example.
 
 ```typescript
-import { ApplicationLoadBalancer } from '@enfo/aws-cdkompliance'
-import { Stack } from '@aws-cdk/core'
+import { ApplicationLoadBalancer, Bucket } from '@enfo/aws-cdkompliance'
+import { Stack } from 'aws-cdk-lib'
 import { Vpc } from 'aws-cdk-lib/aws-ec2'
 
-const stack = new Stack()
+const stack = new Stack(undefined, 'Stack', { env: { region: 'eu-west-1' } } )
 const vpc = new Vpc(stack, 'VPC')
 const bucket = new Bucket(stack, 'Bucket')
 const alb = new ApplicationLoadBalancer(stack, 'ALB', { vpc })
@@ -102,7 +102,7 @@ CloudFront Distribution creation example.
 import { CloudFront } from '@enfo/aws-cdkompliance'
 import { ViewerProtocolPolicy } from 'aws-cdk-lib/aws-cloudfront'
 import { HttpOrigin } from 'aws-cdk-lib/aws-cloudfront-origins'
-import { Stack } from '@aws-cdk/core'
+import { Stack } from 'aws-cdk-lib'
 
 const stack = new Stack()
 new Distribution(stack, 'Distribution', {
@@ -125,7 +125,7 @@ Table creation example without billingMode specified. Will default to PAY_PER_RE
 
 ```typescript
 import { Table } from '@enfo/aws-cdkompliance'
-import { Stack } from '@aws-cdk/core'
+import { Stack } from 'aws-cdk-lib'
 import { AttributeType, BillingMode } from 'aws-cdk-lib/aws-dynamodb'
 
 const stack = new Stack()
@@ -141,7 +141,7 @@ Table creation example using PROVISIONED. The Table will be tagged to suppress w
 
 ```typescript
 import { Table } from '@enfo/aws-cdkompliance'
-import { Stack } from '@aws-cdk/core'
+import { Stack } from 'aws-cdk-lib'
 import { AttributeType, BillingMode } from 'aws-cdk-lib/aws-dynamodb'
 
 const stack = new Stack()
@@ -167,7 +167,7 @@ Key creation example
 
 ```typescript
 import { Key } from '@enfo/aws-cdkompliance'
-import { Stack } from '@aws-cdk/core'
+import { Stack } from 'aws-cdk-lib'
 
 const stack = new Stack()
 new Key(stack, 'Key', { alias: 'my-key' })
@@ -186,7 +186,7 @@ Function creation example
 ```typescript
 import { Function } from '@enfo/aws-cdkompliance'
 import { Code, Runtime } from 'aws-cdk-lib/aws-lambda'
-import { Stack } from '@aws-cdk/core'
+import { Stack } from 'aws-cdk-lib'
 
 const stack = new Stack()
 new Function(stack, 'Function', {
@@ -201,7 +201,7 @@ Trying to create a Function with a runtime which is not the latest
 ```typescript
 import { Function } from '@enfo/aws-cdkompliance'
 import { Code, Runtime } from 'aws-cdk-lib/aws-lambda'
-import { Stack } from '@aws-cdk/core'
+import { Stack } from 'aws-cdk-lib'
 
 const stack = new Stack()
 new Function(stack, 'Function', {
@@ -224,7 +224,7 @@ LogGroup creation example
 
 ```typescript
 import { LogGroup } from '@enfo/aws-cdkompliance'
-import { Stack } from '@aws-cdk/core'
+import { Stack } from 'aws-cdk-lib'
 
 const stack = new Stack()
 new LogGroup(stack, 'LogGroup')
@@ -245,7 +245,7 @@ DatabaseCluster creation example.
 
 ```typescript
 import { DatabaseCluster } from '@enfo/aws-cdkompliance'
-import { Stack } from '@aws-cdk/core'
+import { Stack } from 'aws-cdk-lib'
 import { Vpc } from 'aws-cdk-lib/aws-ec2'
 import { AuroraPostgresEngineVersion, DatabaseClusterEngine } from 'aws-cdk-lib/aws-rds'
 
@@ -265,7 +265,7 @@ DatabaseInstance creation example.
 
 ```typescript
 import { DatabaseEnvironments, DatabaseInstance } from '@enfo/aws-cdkompliance'
-import { Stack } from '@aws-cdk/core'
+import { Stack } from 'aws-cdk-lib'
 import { Vpc } from 'aws-cdk-lib/aws-ec2'
 import { DatabaseInstanceEngine, PostgresEngineVersion } from 'aws-cdk-lib/aws-rds'
 
@@ -291,7 +291,7 @@ Bucket creation example
 
 ```typescript
 import { Bucket } from '@enfo/aws-cdkompliance'
-import { Stack } from '@aws-cdk/core'
+import { Stack } from 'aws-cdk-lib'
 
 const stack = new Stack()
 new Bucket(stack, 'MyBucket', { bucketName: 'my-bucket' })
@@ -307,7 +307,7 @@ Topic creation example. Please note that it uses our KMS Key Construct to ensure
 
 ```typescript
 import { Key, Topic } from '@enfo/aws-cdkompliance'
-import { Stack } from '@aws-cdk/core'
+import { Stack } from 'aws-cdk-lib'
 
 const stack = new Stack()
 new Topic(stack, 'Topic', {
@@ -326,7 +326,7 @@ Queue creation example.
 
 ```typescript
 import { Queue } from '@enfo/aws-cdkompliance'
-import { Stack } from '@aws-cdk/core'
+import { Stack } from 'aws-cdk-lib'
 
 const stack = new Stack()
 new Queue(stack, 'Queue', { fifo: false })
