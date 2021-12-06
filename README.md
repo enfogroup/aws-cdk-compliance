@@ -315,5 +315,5 @@ import { Queue } from '@enfo/aws-cdkompliance'
 import { Stack } from 'aws-cdk-lib'
 
 const stack = new Stack()
-new Queue(stack, 'Queue', { fifo: false })
+new Queue(stack, 'Queue', { queueName: 'my-queue' })
 ```
