@@ -4,7 +4,7 @@ import {
   DistributionProps,
   ViewerProtocolPolicy
 } from 'aws-cdk-lib/aws-cloudfront'
-import { Construct, Node } from 'constructs'
+import { Construct } from 'constructs'
 
 /**
  * Properties for a new Compliant CloudFront Distribution
@@ -42,7 +42,7 @@ export class Distribution extends CFDistribution {
       }
     }
 
-    Node.of(this).addValidation({
+    this.node.addValidation({
       validate: () => {
         return [
           ...this.checkRootObject(),

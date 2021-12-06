@@ -4,7 +4,7 @@ import {
   BucketProps,
   Bucket as S3Bucket
 } from 'aws-cdk-lib/aws-s3'
-import { Construct, Node } from 'constructs'
+import { Construct } from 'constructs'
 
 /**
  * Compliant BucketProps. Can be manually spread into a Bucket constructor.
@@ -37,7 +37,7 @@ export class Bucket extends S3Bucket {
       ...props
     }
 
-    Node.of(this).addValidation({
+    this.node.addValidation({
       validate: () => {
         return [
           ...this.checkSsl(),

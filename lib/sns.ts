@@ -1,5 +1,5 @@
 import { Topic as SNSTopic, TopicProps } from 'aws-cdk-lib/aws-sns'
-import { Construct, Node } from 'constructs'
+import { Construct } from 'constructs'
 
 /**
  * Compliant SNS Topic.
@@ -13,7 +13,7 @@ export class Topic extends SNSTopic {
     super(scope, id, props)
     this.calculatedProps = props
 
-    Node.of(this).addValidation({
+    this.node.addValidation({
       validate: () => {
         return [
           ...this.checkMasterKey()

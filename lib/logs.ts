@@ -3,7 +3,7 @@ import {
   LogGroupProps,
   RetentionDays
 } from 'aws-cdk-lib/aws-logs'
-import { Construct, Node } from 'constructs'
+import { Construct } from 'constructs'
 
 /**
  * Properties for a new Compliant Log Group
@@ -29,7 +29,7 @@ export class LogGroup extends CWLogGroup {
       ...props
     }
 
-    Node.of(this).addValidation({
+    this.node.addValidation({
       validate: () => {
         return [
           ...this.checkRetention()

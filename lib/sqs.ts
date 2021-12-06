@@ -1,5 +1,5 @@
 import { Queue as SQSQueue, QueueProps, QueueEncryption } from 'aws-cdk-lib/aws-sqs'
-import { Construct, Node } from 'constructs'
+import { Construct } from 'constructs'
 
 /**
  * Properties for a new Compliant SQS Queue
@@ -26,7 +26,7 @@ export class Queue extends SQSQueue {
       ...props
     }
 
-    Node.of(this).addValidation({
+    this.node.addValidation({
       validate: () => {
         return [
           ...this.checkEncryption()

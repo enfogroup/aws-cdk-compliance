@@ -2,7 +2,7 @@ import {
   ApplicationLoadBalancer as LBApplicationLoadBalancer,
   ApplicationLoadBalancerProps
 } from 'aws-cdk-lib/aws-elasticloadbalancingv2'
-import { Construct, Node } from 'constructs'
+import { Construct } from 'constructs'
 
 /**
  * Properties for a new Compliant ALB
@@ -31,7 +31,7 @@ export class ApplicationLoadBalancer extends LBApplicationLoadBalancer {
     }
     this.setAttribute('routing.http.drop_invalid_header_fields.enabled', 'true')
 
-    Node.of(this).addValidation({
+    this.node.addValidation({
       validate: () => {
         return [
           ...this.checkLogging(),

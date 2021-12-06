@@ -4,7 +4,7 @@ import {
   DatabaseInstance as RDSDatabaseInstance,
   DatabaseInstanceProps as RDSDatabaseInstanceProps
 } from 'aws-cdk-lib/aws-rds'
-import { Construct, Node } from 'constructs'
+import { Construct } from 'constructs'
 
 export enum DatabaseEnvironment {
   PRODUCTION,
@@ -46,7 +46,7 @@ export class DatabaseInstance extends RDSDatabaseInstance {
       ...props
     }
 
-    Node.of(this).addValidation({
+    this.node.addValidation({
       validate: () => {
         return [
           ...this.checkPubliclyAccessible(),
@@ -143,7 +143,7 @@ export class DatabaseCluster extends RDSDatabaseCluster {
       }
     }
 
-    Node.of(this).addValidation({
+    this.node.addValidation({
       validate: () => {
         return [
           ...this.checkPubliclyAccessible(),

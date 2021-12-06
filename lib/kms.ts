@@ -1,5 +1,5 @@
 import { Key as KMSKey, KeyProps } from 'aws-cdk-lib/aws-kms'
-import { Construct, Node } from 'constructs'
+import { Construct } from 'constructs'
 
 /**
  * Properties for a new Compliant KMS Key
@@ -26,7 +26,7 @@ export class Key extends KMSKey {
       ...props
     }
 
-    Node.of(this).addValidation({
+    this.node.addValidation({
       validate: () => {
         return [
           ...this.checkEncryption()
