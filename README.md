@@ -99,12 +99,15 @@ The following features are available for CloudFront.
 CloudFront Distribution creation example.
 
 ```typescript
-import { CloudFront } from '@enfo/aws-cdkompliance'
+import { Distribution } from '@enfo/aws-cdkompliance'
 import { ViewerProtocolPolicy } from 'aws-cdk-lib/aws-cloudfront'
 import { HttpOrigin } from 'aws-cdk-lib/aws-cloudfront-origins'
 import { Stack } from 'aws-cdk-lib'
 
 const stack = new Stack()
+
+// define WebACL
+
 new Distribution(stack, 'Distribution', {
   defaultBehavior: {
     origin: new HttpOrigin('example.com'),
