@@ -270,7 +270,6 @@ new DatabaseInstance(stack, 'DB', {
 The following features are available for S3.
 
 * Bucket, compliant S3 Bucket Construct
-* BucketProps, modified version of BucketProps which enforces compliance
 * defaultBucketProps, the BucketProps used to enforce compliance if you don't supply your own
 
 

@@ -15,17 +15,16 @@ export const defaultQueueProps = {
  * See README for usage examples
  */
 export class Queue extends SQSQueue {
-  #encryption: QueueEncryption | undefined
+  myProps: QueueProps
   constructor (scope: Construct, id: string, props?: QueueProps) {
     super(scope, id, {
       ...defaultQueueProps,
       ...props
     })
-    const calculatedProps = {
+    this.myProps = {
       ...defaultQueueProps,
       ...props
     }
-    this.#encryption = calculatedProps.encryption
 
     Node.of(this).addValidation({
       validate: () => {
@@ -37,8 +36,8 @@ export class Queue extends SQSQueue {
   }
 
   private checkEncryption () {
-    return this.#encryption !== undefined && this.#encryption !== QueueEncryption.UNENCRYPTED
-      ? []
-      : ['encryption must not be undefined nor set to "UNENCRYPTED"']
+    return this.myProps.encryption === QueueEncryption.UNENCRYPTED
+      ? ['queue must be encrypted']
+      : []
   }
 }

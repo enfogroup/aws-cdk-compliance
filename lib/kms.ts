@@ -15,17 +15,16 @@ export const defaultKeyProps: KeyProps = {
  * See README for usage examples
  */
 export class Key extends KMSKey {
-  #enableKeyRotation: boolean | undefined
+  myProps: KeyProps
   constructor (scope: Construct, id: string, props?: KeyProps) {
     super(scope, id, {
       ...defaultKeyProps,
       ...props
     })
-    const calculatedProps = {
+    this.myProps = {
       ...defaultKeyProps,
       ...props
     }
-    this.#enableKeyRotation = calculatedProps.enableKeyRotation
 
     Node.of(this).addValidation({
       validate: () => {
@@ -37,8 +36,8 @@ export class Key extends KMSKey {
   }
 
   private checkEncryption () {
-    return this.#enableKeyRotation !== undefined && this.#enableKeyRotation
+    return this.myProps.enableKeyRotation
       ? []
-      : ['enableKeyRotation must not be undefined nor set to false']
+      : ['enableKeyRotation must be true']
   }
 }

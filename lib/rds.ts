@@ -35,13 +35,13 @@ export const defaultDatabaseInstanceProps = {
  * See README for usage examples
  */
 export class DatabaseInstance extends RDSDatabaseInstance {
-  #props: DatabaseInstanceProps
+  myProps: DatabaseInstanceProps
   constructor (scope: Construct, id: string, props: DatabaseInstanceProps) {
     super(scope, id, {
       ...defaultDatabaseInstanceProps,
       ...props
     })
-    this.#props = {
+    this.myProps = {
       ...defaultDatabaseInstanceProps,
       ...props
     }
@@ -62,43 +62,43 @@ export class DatabaseInstance extends RDSDatabaseInstance {
   }
 
   protected checkPubliclyAccessible () {
-    return !this.#props.publiclyAccessible
+    return !this.myProps.publiclyAccessible
       ? []
       : ['publiclyAccessible must be false']
   }
 
   protected checkStorageEncrypted () {
-    return this.#props.storageEncrypted
+    return this.myProps.storageEncrypted
       ? []
       : ['storageEncrypted must be true']
   }
 
   protected checkIAMAuthentication () {
-    return this.#props.iamAuthentication
+    return this.myProps.iamAuthentication
       ? []
       : ['iamAuthentication must be true']
   }
 
   protected checkAutoUpgrade () {
-    return this.#props.autoMinorVersionUpgrade
+    return this.myProps.autoMinorVersionUpgrade
       ? []
       : ['autoMinorVersionUpgrade must be true']
   }
 
   protected checkCopyTags () {
-    return this.#props.copyTagsToSnapshot
+    return this.myProps.copyTagsToSnapshot
       ? []
       : ['copyTagsToSnapshot must be true']
   }
 
   protected checkDeletionProtection () {
-    return this.#props.deletionProtection
+    return this.myProps.deletionProtection
       ? []
       : ['deletionProtection must be true']
   }
 
   protected checkMultiAz () {
-    return (this.#props.environment === DatabaseEnvironment.PRODUCTION && !this.#props.multiAz)
+    return (this.myProps.environment === DatabaseEnvironment.PRODUCTION && !this.myProps.multiAz)
       ? ['Production instance must be multi AZ']
       : []
   }
@@ -124,7 +124,7 @@ export const defaultInstanceProps = {
  * See README for usage examples
  */
 export class DatabaseCluster extends RDSDatabaseCluster {
-  #props: DatabaseClusterProps
+  myProps: DatabaseClusterProps
   constructor (scope: Construct, id: string, props: DatabaseClusterProps) {
     super(scope, id, {
       ...defaultDatabaseClusterProps,
@@ -134,7 +134,7 @@ export class DatabaseCluster extends RDSDatabaseCluster {
         ...props.instanceProps
       }
     })
-    this.#props = {
+    this.myProps = {
       ...defaultDatabaseClusterProps,
       ...props,
       instanceProps: {
@@ -158,37 +158,37 @@ export class DatabaseCluster extends RDSDatabaseCluster {
   }
 
   protected checkStorageEncrypted () {
-    return this.#props.storageEncrypted
+    return this.myProps.storageEncrypted
       ? []
       : ['storageEncrypted must be true']
   }
 
   protected checkIAMAuthentication () {
-    return this.#props.iamAuthentication
+    return this.myProps.iamAuthentication
       ? []
       : ['iamAuthentication must be true']
   }
 
   protected checkCopyTags () {
-    return this.#props.copyTagsToSnapshot
+    return this.myProps.copyTagsToSnapshot
       ? []
       : ['copyTagsToSnapshot must be true']
   }
 
   protected checkDeletionProtection () {
-    return this.#props.deletionProtection
+    return this.myProps.deletionProtection
       ? []
       : ['deletionProtection must be true']
   }
 
   protected checkPubliclyAccessible () {
-    return !this.#props.instanceProps.publiclyAccessible
+    return !this.myProps.instanceProps.publiclyAccessible
       ? []
       : ['publiclyAccessible must be false']
   }
 
   protected checkAutoUpgrade () {
-    return this.#props.instanceProps.autoMinorVersionUpgrade
+    return this.myProps.instanceProps.autoMinorVersionUpgrade
       ? []
       : ['autoMinorVersionUpgrade must be true']
   }

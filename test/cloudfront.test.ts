@@ -15,8 +15,7 @@ describe('CloudFront', () => {
 
       new Distribution(stack, 'Distribution', {
         defaultBehavior: {
-          origin: new HttpOrigin('example.com'),
-          viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS
+          origin: new HttpOrigin('example.com')
         },
         webAclId: 'some-id'
       })
@@ -34,6 +33,44 @@ describe('CloudFront', () => {
           WebACLId: 'some-id'
         }
       }))
+    })
+
+    it('should throw if no default root object', () => {
+      const stack = new Stack()
+
+      new Distribution(stack, 'Distribution', {
+        defaultRootObject: '',
+        defaultBehavior: {
+          origin: new HttpOrigin('example.com')
+        }
+      })
+
+      expect(() => Template.fromStack(stack)).toThrow('defaultRootObject must be set')
+    })
+
+    it('should throw if no logging', () => {
+      const stack = new Stack()
+
+      new Distribution(stack, 'Distribution', {
+        enableLogging: false,
+        defaultBehavior: {
+          origin: new HttpOrigin('example.com')
+        }
+      })
+
+      expect(() => Template.fromStack(stack)).toThrow('logging must be enabled')
+    })
+
+    it('should throw if no web acl', () => {
+      const stack = new Stack()
+
+      new Distribution(stack, 'Distribution', {
+        defaultBehavior: {
+          origin: new HttpOrigin('example.com')
+        }
+      })
+
+      expect(() => Template.fromStack(stack)).toThrow('must be associated with a web acl')
     })
 
     it('should throw if defaultBehavior has viewerProtocolPolicy set to undefined', () => {

@@ -4,10 +4,6 @@ import {
 } from 'aws-cdk-lib/aws-elasticloadbalancingv2'
 import { Construct, Node } from 'constructs'
 
-interface InternalApplicationLoadBalancerProps extends ApplicationLoadBalancerProps {
-  readonly deletionProtection: true
-}
-
 /**
  * Properties for a new Compliant ALB
  */
@@ -21,15 +17,15 @@ export const defaultApplicationLoadBalancerProps = {
  * See README for usage examples
  */
 export class ApplicationLoadBalancer extends LBApplicationLoadBalancer {
-  #props: ApplicationLoadBalancerProps
+  myProps: ApplicationLoadBalancerProps
   protected internalAttributes: Record<string, string> = {}
   constructor (scope: Construct, id: string, props: ApplicationLoadBalancerProps) {
     super(scope, id, {
       ...defaultApplicationLoadBalancerProps,
       ...props
-    } as InternalApplicationLoadBalancerProps)
+    })
 
-    this.#props = {
+    this.myProps = {
       ...defaultApplicationLoadBalancerProps,
       ...props
     }
@@ -46,11 +42,15 @@ export class ApplicationLoadBalancer extends LBApplicationLoadBalancer {
     })
   }
 
-  public setAttribute (key: string, value: string) {
+  public setAttribute (key: string, value?: string) {
     if (!this.internalAttributes) {
       this.internalAttributes = {}
     }
-    this.internalAttributes[key] = value
+    if (value === undefined) {
+      delete this.internalAttributes[key]
+    } else {
+      this.internalAttributes[key] = value
+    }
     return super.setAttribute(key, value)
   }
 
@@ -61,7 +61,7 @@ export class ApplicationLoadBalancer extends LBApplicationLoadBalancer {
   }
 
   protected checkDeletionProtection () {
-    const deletionProtection = this.#props.deletionProtection
+    const deletionProtection = this.myProps.deletionProtection
     return deletionProtection !== undefined && deletionProtection
       ? []
       : ['deletionProtection must not be undefined nor false']

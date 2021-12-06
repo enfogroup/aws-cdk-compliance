@@ -8,11 +8,11 @@ import { Construct, Node } from 'constructs'
  * See README for usage examples
  */
 export class Topic extends SNSTopic {
-  #props: TopicProps
+  myProps: TopicProps
   constructor (scope: Construct, id: string, props: TopicProps) {
     super(scope, id, props)
+    this.myProps = props
 
-    this.#props = props
     Node.of(this).addValidation({
       validate: () => {
         return [
@@ -23,9 +23,8 @@ export class Topic extends SNSTopic {
   }
 
   private checkMasterKey (): string[] {
-    const masterKey = this.#props.masterKey
-    return masterKey !== undefined
-      ? []
-      : ['masterKey must not be undefined']
+    return !this.myProps.masterKey
+      ? ['topic must be encrypted']
+      : []
   }
 }

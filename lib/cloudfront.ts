@@ -6,18 +6,15 @@ import {
 } from 'aws-cdk-lib/aws-cloudfront'
 import { Construct, Node } from 'constructs'
 
-interface InternalDistributionProps extends DistributionProps {
-  readonly defaultRootObject: string
-  readonly enableLogging: true
-  readonly webAclId: string
-}
-
 /**
  * Properties for a new Compliant CloudFront Distribution
  */
 export const defaultDistributionProps = {
   defaultRootObject: 'index.html',
-  enableLogging: true
+  enableLogging: true,
+  defaultBehavior: {
+    viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS
+  }
 }
 
 /**
@@ -26,25 +23,53 @@ export const defaultDistributionProps = {
  * See README for usage examples
  */
 export class Distribution extends CFDistribution {
-  #props: DistributionProps
+  myProps: DistributionProps
   constructor (scope: Construct, id: string, props: DistributionProps) {
     super(scope, id, {
       ...defaultDistributionProps,
-      ...props
-    } as InternalDistributionProps)
-
-    this.#props = {
+      ...props,
+      defaultBehavior: {
+        ...defaultDistributionProps.defaultBehavior,
+        ...props.defaultBehavior
+      }
+    })
+    this.myProps = {
       ...defaultDistributionProps,
-      ...props
+      ...props,
+      defaultBehavior: {
+        ...defaultDistributionProps.defaultBehavior,
+        ...props.defaultBehavior
+      }
     }
 
     Node.of(this).addValidation({
       validate: () => {
         return [
+          ...this.checkRootObject(),
+          ...this.checkLogging(),
+          ...this.checkWebAcl(),
           ...this.checkProtocolPolicies()
         ]
       }
     })
+  }
+
+  private checkRootObject (): string[] {
+    return this.myProps.defaultRootObject
+      ? []
+      : ['defaultRootObject must be set']
+  }
+
+  private checkLogging (): string[] {
+    return this.myProps.enableLogging
+      ? []
+      : ['logging must be enabled']
+  }
+
+  private checkWebAcl (): string[] {
+    return this.myProps.webAclId
+      ? []
+      : ['must be associated with a web acl']
   }
 
   private checkProtocolPolicies (): string[] {
@@ -55,14 +80,14 @@ export class Distribution extends CFDistribution {
   }
 
   private checkDefaultBehaviorProtocolPolicy (): string[] {
-    return this.checkProtocolPolicy(this.#props.defaultBehavior.viewerProtocolPolicy)
+    return this.checkProtocolPolicy(this.myProps.defaultBehavior.viewerProtocolPolicy)
   }
 
   private checkAdditionalBehaviorsProtocolPolicies (): string[] {
-    if (!this.#props.additionalBehaviors) {
+    if (!this.myProps.additionalBehaviors) {
       return []
     }
-    return Object.values(this.#props.additionalBehaviors).map((behavior: BehaviorOptions): string[] => {
+    return Object.values(this.myProps.additionalBehaviors).map((behavior: BehaviorOptions): string[] => {
       return this.checkProtocolPolicy(behavior.viewerProtocolPolicy)
     }).flat()
   }

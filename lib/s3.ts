@@ -1,17 +1,10 @@
-import { BlockPublicAccess, BucketEncryption, BucketProps as S3BucketProps, Bucket as S3Bucket } from 'aws-cdk-lib/aws-s3'
-import { Construct } from 'constructs'
-
-export interface BucketProps extends S3BucketProps {
-  readonly enforceSSL?: true,
-  readonly blockPublicAccess?: BlockPublicAccess,
-  readonly encryption?: Exclude<BucketEncryption, BucketEncryption.UNENCRYPTED>
-}
-
-interface InternalBucketProps extends BucketProps {
-  readonly enforceSSL: true,
-  readonly blockPublicAccess: BlockPublicAccess,
-  readonly encryption: Exclude<BucketEncryption, BucketEncryption.UNENCRYPTED>
-}
+import {
+  BlockPublicAccess,
+  BucketEncryption,
+  BucketProps,
+  Bucket as S3Bucket
+} from 'aws-cdk-lib/aws-s3'
+import { Construct, Node } from 'constructs'
 
 /**
  * Compliant BucketProps. Can be manually spread into a Bucket constructor.
@@ -33,10 +26,43 @@ export const defaultBucketProps: BucketProps = {
  * See README for usage examples
  */
 export class Bucket extends S3Bucket {
+  myProps: BucketProps
   constructor (scope: Construct, id: string, props?: BucketProps) {
     super(scope, id, {
       ...defaultBucketProps,
       ...props
-    } as InternalBucketProps)
+    })
+    this.myProps = {
+      ...defaultBucketProps,
+      ...props
+    }
+
+    Node.of(this).addValidation({
+      validate: () => {
+        return [
+          ...this.checkSsl(),
+          ...this.checkPublicAccess(),
+          ...this.checkEncryption()
+        ]
+      }
+    })
+  }
+
+  protected checkSsl () {
+    return this.myProps.enforceSSL
+      ? []
+      : ['enforceSSL must be true']
+  }
+
+  protected checkPublicAccess () {
+    return this.myProps.blockPublicAccess !== BlockPublicAccess.BLOCK_ALL
+      ? ['blockPublicAccess must be BLOCK_ALL']
+      : []
+  }
+
+  protected checkEncryption () {
+    return this.myProps.encryption === BucketEncryption.UNENCRYPTED
+      ? ['bucket must be encrypted']
+      : []
   }
 }
