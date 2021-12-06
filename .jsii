@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "aws-cdk-lib": "^2.0.0",
-    "constructs": "^10.0.9"
+    "constructs": "^10.0.10"
   },
   "dependencyClosure": {
     "aws-cdk-lib": {
@@ -2793,7 +2793,7 @@
   },
   "name": "@enfo/aws-cdkompliance",
   "readme": {
-    "markdown": "# Introduction\n\nTagging and resource standards using the CDK.\n\nThis package is tied to Enfo and its customers. Enfo is a [Managed Service Provider](https://aws.amazon.com/partners/programs/msp/) for AWS. You can of course use the package without being a customer, but the tags might have no effect depending on your AWS organization setup.\n\n## Installation\n\nThe package should be installed a dependency.\n\n```bash\nnpm install @enfo/aws-cdkompliance --save\n```\n\n## Tagging\n\nIf you are an Enfo customer you can enable backups of databases using tags. This can easily be achieved by using the function **enableBackups**. This function can be applied on a Resource, Stack or App level.\n\nEnabling backups of a single resource.\n\n```typescript\nimport { enableBackups } from '@enfo/aws-cdkompliance'\nimport { Stack } from '@aws-cdk/core'\nimport { Table } from 'aws-cdk-lib/aws-dynamodb'\n\nconst stack = new Stack()\nconst myTable = new Table(stack, ...)\nenableBackups(myTable)\n```\n\nEnable backups of an entire stack.\n\n```typescript\nimport { enableBackups } from '@enfo/aws-cdkompliance'\nimport { Stack } from '@aws-cdk/core'\n\nconst stack = new Stack()\nenableBackups(stack)\n```\n\nEnable backups of an entire app.\n\n```typescript\nimport { enableBackups } from '@enfo/aws-cdkompliance'\nimport { App } from '@aws-cdk/core'\n\nconst app = new App()\nenableBackups(app)\n```\n\nWhere backups are stored can be controlled via the second parameter, backupPlan. It defaults to **STANDARD** which creates backups in the region in which the resource exists.\n\n```typescript\nimport { enableBackups, BackupPlan } from '@enfo/aws-cdkompliance'\nimport { App } from '@aws-cdk/core'\n\nconst app = new App()\nenableBackups(app, BackupPlan.STOCKHOLM)\n```\n\n## Resource specific settings\n\nAs a part of our compliance reports we send out information about resources that are non-compliant. This package exposes compliant Constructs which are extension of AWS Constructs.\n\nWhen possible the default Props used to create the Construct are exposed as well.\n\n### Application Load Balancer\n\nThe following features are available for Application Load Balancer.\n\n* ApplicationLoadBalancer, compliant Application Load Balancer Construct. Will throw if non-compliant properties are passed\n* defaultApplicationLoadBalancerProps, the ApplicationLoadBalancerProps used to make the Application Load Balancer compliant\n\nNote that access logs need to be added to the construct.\n\nNote that this construct enables the Drop invalid HTTP headers feature.\n\nApplication Load Balancer creation example.\n\n```typescript\nimport { ApplicationLoadBalancer } from '@enfo/aws-cdkompliance'\nimport { Stack } from '@aws-cdk/core'\nimport { Vpc } from 'aws-cdk-lib/aws-ec2'\n\nconst stack = new Stack()\nconst vpc = new Vpc(stack, 'VPC')\nconst bucket = new Bucket(stack, 'Bucket')\nconst alb = new ApplicationLoadBalancer(stack, 'ALB', { vpc })\nalb.logAccessLogs(bucket)\n```\n\n### CloudFront\n\nThe following features are available for CloudFront.\n\n* Distribution, compliant CloudFront Distribution Construct. Will throw if non-compliant properties are passed\n* defaultDistributionProps, the DistributionProps used to make the distribution compliant\n\nCloudFront Distribution creation example.\n\n```typescript\nimport { CloudFront } from '@enfo/aws-cdkompliance'\nimport { ViewerProtocolPolicy } from 'aws-cdk-lib/aws-cloudfront'\nimport { HttpOrigin } from 'aws-cdk-lib/aws-cloudfront-origins'\nimport { Stack } from '@aws-cdk/core'\n\nconst stack = new Stack()\nnew Distribution(stack, 'Distribution', {\n  defaultBehavior: {\n    origin: new HttpOrigin('example.com'),\n    viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS\n  },\n  webAclId: 'some-id',\n})\n```\n\n### DynamoDB\n\nFor DynamoDB we do not have strict compliance requirements. We do however strongly recommend using billing mode PAY_PER_REQUEST. If a Table is created with billing mode PROVISIONED an alarm will be triggered. This can be bypassed by tagging the resource. We expose a Construct which defaults to using PAY_PER_REQUEST. If you use PROVISIONED it will suppress warnings. Please make sure that you are aware of the cost impact of using PROVISIONED. The following features are available for DynamoDB.\n\n* Table, Construct defaulting to using BillingMode.PAY_PER_REQUEST. Will suppress warnings if you use PROVISIONED\n* allowBillingModeProvisioned, function for tagging DynamoDB to suppress warnings on PROVISIONED\n\nTable creation example without billingMode specified. Will default to PAY_PER_REQUEST. The Table will not be tagged to suppress warnings. The same will happen if billingMode is set to PAY_PER_REQUEST.\n\n```typescript\nimport { Table } from '@enfo/aws-cdkompliance'\nimport { Stack } from '@aws-cdk/core'\nimport { AttributeType, BillingMode } from 'aws-cdk-lib/aws-dynamodb'\n\nconst stack = new Stack()\nnew Table(stack, 'Table', {\n  partitionKey: {\n    name: 'pk',\n    type: AttributeType.STRING\n  }\n})\n```\n\nTable creation example using PROVISIONED. The Table will be tagged to suppress warnings.\n\n```typescript\nimport { Table } from '@enfo/aws-cdkompliance'\nimport { Stack } from '@aws-cdk/core'\nimport { AttributeType, BillingMode } from 'aws-cdk-lib/aws-dynamodb'\n\nconst stack = new Stack()\nnew Table(stack, 'Table', {\n  partitionKey: {\n    name: 'pk',\n    type: AttributeType.STRING\n  },\n  billingMode: BillingMode.PROVISIONED\n})\n```\n\n### KMS\n\nThe following features are available for KMS.\n\n* Key, compliant KMS Key Construct. Will throw if non-compliant properties are passed\n* defaultKeyProps, the KeyProps used to enforce compliance if you don't supply your own\n\nWhile we do not enforce *alias* on KeyProps we do recommend that you set it.\n\nKey creation example\n\n```typescript\nimport { Key } from '@enfo/aws-cdkompliance'\nimport { Stack } from '@aws-cdk/core'\n\nconst stack = new Stack()\nnew Key(stack, 'Key', { alias: 'my-key' })\n```\n\n### Lambda\n\nThe following features are available for Lambda.\n\n* Function, compliant Lambda Function Construct\n\nThe Function Construct blocks use of runtimes which is not the latest for a given language. If you try to instantiate a Function using an old runtime it will throw. Custom runtimes are not affected.\n\nFunction creation example\n\n```typescript\nimport { Function } from '@enfo/aws-cdkompliance'\nimport { Code, Runtime } from 'aws-cdk-lib/aws-lambda'\nimport { Stack } from '@aws-cdk/core'\n\nconst stack = new Stack()\nnew Function(stack, 'Function', {\n  runtime: Runtime.NODEJS_14_X,\n  handler: 'handler',\n  code: Code.fromInline('myCode')\n})\n```\n\nTrying to create a Function with a runtime which is not the latest\n\n```typescript\nimport { Function } from '@enfo/aws-cdkompliance'\nimport { Code, Runtime } from 'aws-cdk-lib/aws-lambda'\nimport { Stack } from '@aws-cdk/core'\n\nconst stack = new Stack()\nnew Function(stack, 'Function', {\n  runtime: Runtime.NODEJS_12_X,\n  handler: 'handler',\n  code: Code.fromInline('myCode')\n})\n\n// throws \"Lambda runtime must be latest runtime available for language. Found nodejs12.x, please use NODEJS_14_X instead\"\n```\n\n### Logs\n\nThe following features are available for Logs.\n\n* LogGroup, compliant Log Group Key Construct. Will throw if non-compliant properties are passed\n* defaultLogGroupProps, the LogGroupProps used to enforce compliance if you don't supply your own\n\nLogGroup creation example\n\n```typescript\nimport { LogGroup } from '@enfo/aws-cdkompliance'\nimport { Stack } from '@aws-cdk/core'\n\nconst stack = new Stack()\nnew LogGroup(stack, 'LogGroup')\n```\n\n### RDS\n\nThe following features are available for RDS\n\n* DatabaseCluster, compliant DatabaseCluster Construct\n* defaultDatabaseClusterProps, the DatabaseClusterProps used to make the DatabaseCluster compliant\n* defaultInstanceProps, the InstanceProps used to make the DatabaseCluster compliant\n* DatabaseEnvironments, to indicate the how a DatabaseInstance will be used\n* DatabaseInstance, compliant DatabaseInstance Construct\n* defaultDatabaseInstanceProps, the DatabaseInstanceProps used to make the DatabaseInstance compliant\n\nDatabaseCluster creation example.\n\n```typescript\nimport { DatabaseCluster } from '@enfo/aws-cdkompliance'\nimport { Stack } from '@aws-cdk/core'\nimport { Vpc } from 'aws-cdk-lib/aws-ec2'\nimport { AuroraPostgresEngineVersion, DatabaseClusterEngine } from 'aws-cdk-lib/aws-rds'\n\nconst stack = new Stack()\nconst vpc = new Vpc(stack, 'VPC')\nnew DatabaseCluster(stack, 'DB', {\n  engine: DatabaseClusterEngine.auroraPostgres({ version: AuroraPostgresEngineVersion.VER_13_4 }),\n  instanceProps: {\n    vpc\n  }\n})\n```\n\nNote that DatabaseInstance defaults to MultiAZ, and you need to set `environment: NONPROD` to be able to set MultiAZ to false.\n\nDatabaseInstance creation example.\n\n```typescript\nimport { DatabaseEnvironments, DatabaseInstance } from '@enfo/aws-cdkompliance'\nimport { Stack } from '@aws-cdk/core'\nimport { Vpc } from 'aws-cdk-lib/aws-ec2'\nimport { DatabaseInstanceEngine, PostgresEngineVersion } from 'aws-cdk-lib/aws-rds'\n\nconst stack = new Stack()\nconst vpc = new Vpc(stack, 'VPC')\nnew DatabaseInstance(stack, 'DB', {\n  vpc,\n  engine: DatabaseInstanceEngine.postgres({ version: PostgresEngineVersion.VER_13_4 }),\n  environment: DatabaseEnvironments.NONPROD,\n  multiAz: false\n})\n```\n\n### S3\n\nThe following features are available for S3.\n\n* Bucket, compliant S3 Bucket Construct\n* defaultBucketProps, the BucketProps used to enforce compliance if you don't supply your own\n\n\nBucket creation example\n\n```typescript\nimport { Bucket } from '@enfo/aws-cdkompliance'\nimport { Stack } from '@aws-cdk/core'\n\nconst stack = new Stack()\nnew Bucket(stack, 'MyBucket', { bucketName: 'my-bucket' })\n```\n\n### SNS\n\nThe following features are available for SNS. SNS requires a KMS Key Construct to be compliant.\n\n* Topic, compliant SNS Topic Construct. Will throw if non-compliant properties are passed\n\nTopic creation example. Please note that it uses our KMS Key Construct to ensure the Key is compliant as well.\n\n```typescript\nimport { Key, Topic } from '@enfo/aws-cdkompliance'\nimport { Stack } from '@aws-cdk/core'\n\nconst stack = new Stack()\nnew Topic(stack, 'Topic', {\n  masterKey: new Key(stack, 'Key')\n})\n```\n\n### SQS\n\nThe following features are available for SQS.\n\n* Queue, compliant SQS Queue Construct. Will throw if non-compliant properties are passed\n* defaultQueueProps, the QueueProps used to make the queue compliant\n\nQueue creation example.\n\n```typescript\nimport { Queue } from '@enfo/aws-cdkompliance'\nimport { Stack } from '@aws-cdk/core'\n\nconst stack = new Stack()\nnew Queue(stack, 'Queue', { fifo: false })\n```\n"
+    "markdown": "# Introduction\n\nTagging and compliant resource using the CDK. This package is yet to hit version 1.x, you might encounter issues.\n\nThis package is tied to Enfo and its customers. Enfo is a [Managed Service Provider](https://aws.amazon.com/partners/programs/msp/) for AWS. You can of course use the package without being a customer, but the tags might have no effect depending on your AWS organization setup.\n\n## Installation\n\nThe package should be installed as a dependency.\n\n```bash\nnpm install @enfo/aws-cdkompliance --save\n```\n\n## Tagging\n\nIf you are an Enfo customer you can enable backups of databases using tags. This can easily be achieved by using the function **enableBackups**. This function can be applied on a Resource, Stack or App level.\n\nEnabling backups of a single resource.\n\n```typescript\nimport { enableBackups, Table } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\nimport { AttributeType } from 'aws-cdk-lib/aws-dynamodb'\n\nconst stack = new Stack()\nconst myTable = new Table(stack, 'Table', {\n  partitionKey: {\n    name: 'pk',\n    type: AttributeType.STRING\n  }\n})\nenableBackups(myTable)\n```\n\nEnable backups of an entire stack.\n\n```typescript\nimport { enableBackups } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nenableBackups(stack)\n```\n\nEnable backups of an entire app.\n\n```typescript\nimport { enableBackups } from '@enfo/aws-cdkompliance'\nimport { App } from '@aws-cdk/core'\n\nconst app = new App()\nenableBackups(app)\n```\n\nWhere backups are stored can be controlled via the second parameter, backupPlan. It defaults to **STANDARD** which creates backups in the region in which the resource exists.\n\n```typescript\nimport { enableBackups, BackupPlan } from '@enfo/aws-cdkompliance'\nimport { App } from '@aws-cdk/core'\n\nconst app = new App()\nenableBackups(app, BackupPlan.STOCKHOLM)\n```\n\n## Resource specific settings\n\nAs a part of our compliance reports we send out information about resources that are non-compliant. This package exposes compliant Constructs which are extension of AWS Constructs. Failure in compliance will result in errors during synthesis.\n\nWhen possible the default Props used to create the Construct are exposed as well.\n\n### Application Load Balancer\n\nThe following features are available for Application Load Balancer.\n\n* ApplicationLoadBalancer, compliant Application Load Balancer Construct. Will throw if non-compliant properties are passed\n* defaultApplicationLoadBalancerProps, the ApplicationLoadBalancerProps used to make the Application Load Balancer compliant\n\nNote that access logs need to be added to the construct.\n\nNote that this construct enables the Drop invalid HTTP headers feature.\n\nApplication Load Balancer creation example.\n\n```typescript\nimport { ApplicationLoadBalancer, Bucket } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\nimport { Vpc } from 'aws-cdk-lib/aws-ec2'\n\nconst stack = new Stack(undefined, 'Stack', { env: { region: 'eu-west-1' } } )\nconst vpc = new Vpc(stack, 'VPC')\nconst bucket = new Bucket(stack, 'Bucket')\nconst alb = new ApplicationLoadBalancer(stack, 'ALB', { vpc })\nalb.logAccessLogs(bucket)\n```\n\n### CloudFront\n\nThe following features are available for CloudFront.\n\n* Distribution, compliant CloudFront Distribution Construct. Will throw if non-compliant properties are passed\n* defaultDistributionProps, the DistributionProps used to make the distribution compliant\n\nCloudFront Distribution creation example.\n\n```typescript\nimport { Distribution } from '@enfo/aws-cdkompliance'\nimport { ViewerProtocolPolicy } from 'aws-cdk-lib/aws-cloudfront'\nimport { HttpOrigin } from 'aws-cdk-lib/aws-cloudfront-origins'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\n\n// define WebACL\n\nnew Distribution(stack, 'Distribution', {\n  defaultBehavior: {\n    origin: new HttpOrigin('example.com'),\n    viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS\n  },\n  webAclId: 'some-id',\n})\n```\n\n### DynamoDB\n\nFor DynamoDB we do not have strict compliance requirements. We do however strongly recommend using billing mode PAY_PER_REQUEST. If a Table is created with billing mode PROVISIONED an alarm will be triggered. This can be bypassed by tagging the resource. We expose a Construct which defaults to using PAY_PER_REQUEST. If you use PROVISIONED it will suppress warnings. Please make sure that you are aware of the cost impact of using PROVISIONED. The following features are available for DynamoDB.\n\n* Table, Construct defaulting to using BillingMode.PAY_PER_REQUEST. Will suppress warnings if you use PROVISIONED\n* allowBillingModeProvisioned, function for tagging DynamoDB to suppress warnings on PROVISIONED\n\nTable creation example without billingMode specified. Will default to PAY_PER_REQUEST. The Table will not be tagged to suppress warnings. The same will happen if billingMode is set to PAY_PER_REQUEST.\n\n```typescript\nimport { Table } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\nimport { AttributeType, BillingMode } from 'aws-cdk-lib/aws-dynamodb'\n\nconst stack = new Stack()\nnew Table(stack, 'Table', {\n  partitionKey: {\n    name: 'pk',\n    type: AttributeType.STRING\n  }\n})\n```\n\nTable creation example using PROVISIONED. The Table will be tagged to suppress warnings.\n\n```typescript\nimport { Table } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\nimport { AttributeType, BillingMode } from 'aws-cdk-lib/aws-dynamodb'\n\nconst stack = new Stack()\nnew Table(stack, 'Table', {\n  partitionKey: {\n    name: 'pk',\n    type: AttributeType.STRING\n  },\n  billingMode: BillingMode.PROVISIONED\n})\n```\n\n### KMS\n\nThe following features are available for KMS.\n\n* Key, compliant KMS Key Construct. Will throw if non-compliant properties are passed\n* defaultKeyProps, the KeyProps used to enforce compliance if you don't supply your own\n\nWhile we do not enforce *alias* on KeyProps we do recommend that you set it.\n\nKey creation example\n\n```typescript\nimport { Key } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nnew Key(stack, 'Key', { alias: 'my-key' })\n```\n\n### Lambda\n\nThe following features are available for Lambda.\n\n* Function, compliant Lambda Function Construct\n\nThe Function Construct blocks use of runtimes which is not the latest for a given language. If you try to instantiate a Function using an old runtime it will throw. Custom runtimes are not affected.\n\nFunction creation example\n\n```typescript\nimport { Function } from '@enfo/aws-cdkompliance'\nimport { Code, Runtime } from 'aws-cdk-lib/aws-lambda'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nnew Function(stack, 'Function', {\n  runtime: Runtime.NODEJS_14_X,\n  handler: 'handler',\n  code: Code.fromInline('myCode')\n})\n```\n\n### Logs\n\nThe following features are available for Logs.\n\n* LogGroup, compliant Log Group Key Construct. Will throw if non-compliant properties are passed\n* defaultLogGroupProps, the LogGroupProps used to enforce compliance if you don't supply your own\n\nLogGroup creation example\n\n```typescript\nimport { LogGroup } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nnew LogGroup(stack, 'LogGroup')\n```\n\n### RDS\n\nThe following features are available for RDS\n\n* DatabaseCluster, compliant DatabaseCluster Construct\n* defaultDatabaseClusterProps, the DatabaseClusterProps used to make the DatabaseCluster compliant\n* defaultInstanceProps, the InstanceProps used to make the DatabaseCluster compliant\n* DatabaseEnvironment, to indicate the how a DatabaseInstance will be used\n* DatabaseInstance, compliant DatabaseInstance Construct\n* defaultDatabaseInstanceProps, the DatabaseInstanceProps used to make the DatabaseInstance compliant\n\nDatabaseCluster creation example.\n\n```typescript\nimport { DatabaseCluster } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\nimport { Vpc } from 'aws-cdk-lib/aws-ec2'\nimport { AuroraPostgresEngineVersion, DatabaseClusterEngine } from 'aws-cdk-lib/aws-rds'\n\nconst stack = new Stack()\nconst vpc = new Vpc(stack, 'VPC')\nnew DatabaseCluster(stack, 'DatabaseCluster', {\n  engine: DatabaseClusterEngine.auroraPostgres({ version: AuroraPostgresEngineVersion.VER_13_4 }),\n  instanceProps: {\n    vpc\n  }\n})\n```\n\nNote that DatabaseInstance defaults to MultiAZ, and you need to set `environment: NOT_PRODUCTION` to be able to set MultiAZ to false.\n\nDatabaseInstance creation example.\n\n```typescript\nimport { DatabaseEnvironment, DatabaseInstance } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\nimport { Vpc } from 'aws-cdk-lib/aws-ec2'\nimport { DatabaseInstanceEngine, PostgresEngineVersion } from 'aws-cdk-lib/aws-rds'\n\nconst stack = new Stack()\nconst vpc = new Vpc(stack, 'VPC')\nnew DatabaseInstance(stack, 'Database', {\n  vpc,\n  engine: DatabaseInstanceEngine.postgres({ version: PostgresEngineVersion.VER_13_4 }),\n  environment: DatabaseEnvironment.NOT_PRODUCTION,\n  multiAz: false\n})\n```\n\n### S3\n\nThe following features are available for S3.\n\n* Bucket, compliant S3 Bucket Construct\n* defaultBucketProps, the BucketProps used to enforce compliance if you don't supply your own\n\n\nBucket creation example\n\n```typescript\nimport { Bucket } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nnew Bucket(stack, 'MyBucket', { bucketName: 'my-bucket' })\n```\n\n### SNS\n\nThe following features are available for SNS. SNS requires a KMS Key Construct to be compliant.\n\n* Topic, compliant SNS Topic Construct. Will throw if non-compliant properties are passed\n\nTopic creation example. Please note that it uses our KMS Key Construct to ensure the Key is compliant as well.\n\n```typescript\nimport { Key, Topic } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nnew Topic(stack, 'Topic', {\n  masterKey: new Key(stack, 'Key')\n})\n```\n\n### SQS\n\nThe following features are available for SQS.\n\n* Queue, compliant SQS Queue Construct. Will throw if non-compliant properties are passed\n* defaultQueueProps, the QueueProps used to make the queue compliant\n\nQueue creation example.\n\n```typescript\nimport { Queue } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nnew Queue(stack, 'Queue', { queueName: 'my-queue' })\n```\n"
   },
   "repository": {
     "type": "git",
@@ -3025,7 +3025,7 @@
       "assembly": "@enfo/aws-cdkompliance",
       "base": "aws-cdk-lib.aws_s3.Bucket",
       "docs": {
-        "remarks": "SSL communication will be enforced.\nPublic access will be blocked.\nS3 managed encryption will be enabled. This can be overwritten using the encryption key in props.\n\nSee README for usage examples",
+        "remarks": "See README for usage examples",
         "stability": "experimental",
         "summary": "Compliant S3 Bucket."
       },
@@ -3036,7 +3036,7 @@
         },
         "locationInModule": {
           "filename": "lib/s3.ts",
-          "line": 30
+          "line": 27
         },
         "parameters": [
           {
@@ -3063,7 +3063,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/s3.ts",
-        "line": 28
+        "line": 25
       },
       "methods": [
         {
@@ -3072,7 +3072,7 @@
           },
           "locationInModule": {
             "filename": "lib/s3.ts",
-            "line": 63
+            "line": 60
           },
           "name": "checkEncryption",
           "protected": true,
@@ -3093,7 +3093,7 @@
           },
           "locationInModule": {
             "filename": "lib/s3.ts",
-            "line": 57
+            "line": 54
           },
           "name": "checkPublicAccess",
           "protected": true,
@@ -3114,7 +3114,7 @@
           },
           "locationInModule": {
             "filename": "lib/s3.ts",
-            "line": 51
+            "line": 48
           },
           "name": "checkSsl",
           "protected": true,
@@ -3138,7 +3138,7 @@
           },
           "locationInModule": {
             "filename": "lib/s3.ts",
-            "line": 29
+            "line": 26
           },
           "name": "calculatedProps",
           "protected": true,
@@ -3838,7 +3838,9 @@
       "assembly": "@enfo/aws-cdkompliance",
       "base": "aws-cdk-lib.aws_lambda.Function",
       "docs": {
-        "stability": "experimental"
+        "remarks": "See README for usage examples",
+        "stability": "experimental",
+        "summary": "Compliant Lambda Function."
       },
       "fqn": "@enfo/aws-cdkompliance.Function",
       "initializer": {
@@ -3847,7 +3849,7 @@
         },
         "locationInModule": {
           "filename": "lib/lambda.ts",
-          "line": 57
+          "line": 62
         },
         "parameters": [
           {
@@ -3873,7 +3875,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/lambda.ts",
-        "line": 56
+        "line": 61
       },
       "methods": [
         {
@@ -3882,7 +3884,7 @@
           },
           "locationInModule": {
             "filename": "lib/lambda.ts",
-            "line": 68
+            "line": 73
           },
           "name": "checkRuntime",
           "protected": true,
@@ -3907,7 +3909,7 @@
       "docs": {
         "remarks": "See README for usage examples",
         "stability": "experimental",
-        "summary": "Compliant KMS Key. Key rotation will be enabled."
+        "summary": "Compliant KMS Key."
       },
       "fqn": "@enfo/aws-cdkompliance.Key",
       "initializer": {
@@ -3916,7 +3918,7 @@
         },
         "locationInModule": {
           "filename": "lib/kms.ts",
-          "line": 19
+          "line": 18
         },
         "parameters": [
           {
@@ -3943,7 +3945,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/kms.ts",
-        "line": 17
+        "line": 16
       },
       "methods": [
         {
@@ -3952,7 +3954,7 @@
           },
           "locationInModule": {
             "filename": "lib/kms.ts",
-            "line": 38
+            "line": 37
           },
           "name": "checkEncryption",
           "protected": true,
@@ -3976,7 +3978,7 @@
           },
           "locationInModule": {
             "filename": "lib/kms.ts",
-            "line": 18
+            "line": 17
           },
           "name": "calculatedProps",
           "protected": true,
@@ -4079,7 +4081,7 @@
       "docs": {
         "remarks": "See README for usage examples",
         "stability": "experimental",
-        "summary": "Compliant SQS Queue. If a property is poorly set a human readable error will be thrown upon synthesis."
+        "summary": "Compliant SQS Queue."
       },
       "fqn": "@enfo/aws-cdkompliance.Queue",
       "initializer": {
@@ -4088,7 +4090,7 @@
         },
         "locationInModule": {
           "filename": "lib/sqs.ts",
-          "line": 19
+          "line": 18
         },
         "parameters": [
           {
@@ -4115,7 +4117,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/sqs.ts",
-        "line": 17
+        "line": 16
       },
       "methods": [
         {
@@ -4124,7 +4126,7 @@
           },
           "locationInModule": {
             "filename": "lib/sqs.ts",
-            "line": 38
+            "line": 37
           },
           "name": "checkEncryption",
           "protected": true,
@@ -4148,7 +4150,7 @@
           },
           "locationInModule": {
             "filename": "lib/sqs.ts",
-            "line": 18
+            "line": 17
           },
           "name": "calculatedProps",
           "protected": true,
@@ -4165,7 +4167,7 @@
       "docs": {
         "remarks": "See README for usage examples",
         "stability": "experimental",
-        "summary": "Compliant DynamoDB Table. Defaults to using BillingMode.PAY_PER_REQUEST If you use BillingMode.PROVISIONED this Table will tag the resource as compliant."
+        "summary": "Compliant DynamoDB Table."
       },
       "fqn": "@enfo/aws-cdkompliance.Table",
       "initializer": {
@@ -4174,7 +4176,7 @@
         },
         "locationInModule": {
           "filename": "lib/dynamodb.ts",
-          "line": 14
+          "line": 12
         },
         "parameters": [
           {
@@ -4200,7 +4202,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/dynamodb.ts",
-        "line": 13
+        "line": 11
       },
       "name": "Table",
       "symbolId": "lib/dynamodb:Table"
@@ -4211,7 +4213,7 @@
       "docs": {
         "remarks": "See README for usage examples",
         "stability": "experimental",
-        "summary": "Compliant SNS Topic. The TopicProps key 'masterKey' is required and will be used to encrypt the Topic."
+        "summary": "Compliant SNS Topic."
       },
       "fqn": "@enfo/aws-cdkompliance.Topic",
       "initializer": {
@@ -4220,7 +4222,7 @@
         },
         "locationInModule": {
           "filename": "lib/sns.ts",
-          "line": 12
+          "line": 11
         },
         "parameters": [
           {
@@ -4246,7 +4248,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/sns.ts",
-        "line": 10
+        "line": 9
       },
       "methods": [
         {
@@ -4255,7 +4257,7 @@
           },
           "locationInModule": {
             "filename": "lib/sns.ts",
-            "line": 25
+            "line": 24
           },
           "name": "checkMasterKey",
           "protected": true,
@@ -4279,7 +4281,7 @@
           },
           "locationInModule": {
             "filename": "lib/sns.ts",
-            "line": 11
+            "line": 10
           },
           "name": "calculatedProps",
           "protected": true,
@@ -4292,5 +4294,5 @@
     }
   },
   "version": "0.0.1",
-  "fingerprint": "M62tKt/zFH2XWgob7GFKFUmPGppunc7nWx7UVBi4mOk="
+  "fingerprint": "ww3c5wrlVr+XS5nquhWlJpnE3xP8bzHS6WGG1GiBdrQ="
 }
