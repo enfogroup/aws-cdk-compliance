@@ -48,10 +48,7 @@ const app = new App()
 enableBackups(app)
 ```
 
-Where backups are stored can be controlled via the second parameter, backupPlan. It defaults to **STANDARD** which FIXME
-FIXME
-FIXME
-FIXME
+Where backups are stored can be controlled via the second parameter, backupPlan. It defaults to **STANDARD** which creates backups in the region in which the resource exists.
 
 ```typescript
 import { enableBackups, BackupPlan } from '@enfo/aws-cdkompliance'
