@@ -105,5 +105,13 @@ describe('S3', () => {
 
       expect(() => Template.fromStack(stack)).toThrow('bucket must be encrypted')
     })
+
+    it('should throw if encryption not set', () => {
+      const stack = new Stack()
+
+      new s3.Bucket(stack, 'Bucket', { encryption: undefined })
+
+      expect(() => Template.fromStack(stack)).toThrow('bucket must be encrypted')
+    })
   })
 })

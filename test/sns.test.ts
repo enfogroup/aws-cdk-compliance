@@ -32,7 +32,7 @@ describe('SNS', () => {
 
       new Topic(stack, 'Topic', {})
 
-      expect(() => Template.fromStack(stack)).toThrow('masterKey must not be undefined')
+      expect(() => Template.fromStack(stack)).toThrow('topic must be encrypted')
     })
   })
 })

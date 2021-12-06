@@ -61,7 +61,7 @@ export class Bucket extends S3Bucket {
   }
 
   protected checkEncryption () {
-    return this.myProps.encryption === BucketEncryption.UNENCRYPTED
+    return (!this.myProps.encryption || this.myProps.encryption === BucketEncryption.UNENCRYPTED)
       ? ['bucket must be encrypted']
       : []
   }
