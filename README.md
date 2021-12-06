@@ -216,6 +216,23 @@ new Function(stack, 'Function', {
 // throws "Lambda runtime must be latest runtime available for language. Found nodejs12.x, please use NODEJS_14_X instead"
 ```
 
+### Logs
+
+The following features are available for Logs.
+
+* LogGroup, compliant Log Group Key Construct. Will throw if non-compliant properties are passed
+* defaultLogGroupProps, the LogGroupProps used to enforce compliance if you don't supply your own
+
+LogGroup creation example
+
+```typescript
+import { LogGroup } from '@enfo/aws-cdkompliance'
+import { Stack } from '@aws-cdk/core'
+
+const stack = new Stack()
+new LogGroup(stack, 'LogGroup')
+```
+
 ### RDS
 
 The following features are available for RDS
