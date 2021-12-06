@@ -35,7 +35,7 @@ describe('KMS', () => {
 
       new Key(stack, 'Key', { enableKeyRotation: undefined })
 
-      expect(() => Template.fromStack(stack)).toThrow('enableKeyRotation must not be undefined nor set to false')
+      expect(() => Template.fromStack(stack)).toThrow('enableKeyRotation must be true')
     })
 
     it('should throw if key rotation is disabled', () => {
@@ -43,7 +43,7 @@ describe('KMS', () => {
 
       new Key(stack, 'Key', { enableKeyRotation: false })
 
-      expect(() => Template.fromStack(stack)).toThrow('enableKeyRotation must not be undefined nor set to false')
+      expect(() => Template.fromStack(stack)).toThrow('enableKeyRotation must be true')
     })
   })
 })
