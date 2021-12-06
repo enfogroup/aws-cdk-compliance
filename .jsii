@@ -2771,7 +2771,7 @@
       }
     }
   },
-  "description": "Tagging and resource standards using the CDK",
+  "description": "Tagging and compliant resources using the CDK",
   "docs": {
     "stability": "experimental"
   },
@@ -2781,7 +2781,9 @@
     "aws",
     "cdk",
     "compliance",
-    "awscdk"
+    "awscdk",
+    "apn",
+    "msp"
   ],
   "license": "MIT",
   "metadata": {
@@ -4294,5 +4296,5 @@
     }
   },
   "version": "0.0.1",
-  "fingerprint": "ww3c5wrlVr+XS5nquhWlJpnE3xP8bzHS6WGG1GiBdrQ="
+  "fingerprint": "DftXYA812JBWdsvpKP0t+G8T1tbn97gSV4Hfwgyo5a4="
 }
