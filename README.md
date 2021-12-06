@@ -223,7 +223,7 @@ The following features are available for RDS
 * DatabaseCluster, compliant DatabaseCluster Construct
 * defaultDatabaseClusterProps, the DatabaseClusterProps used to make the DatabaseCluster compliant
 * defaultInstanceProps, the InstanceProps used to make the DatabaseCluster compliant
-* DatabaseEnvironments, to indicate the how a DatabaseInstance will be used
+* DatabaseEnvironment, to indicate the how a DatabaseInstance will be used
 * DatabaseInstance, compliant DatabaseInstance Construct
 * defaultDatabaseInstanceProps, the DatabaseInstanceProps used to make the DatabaseInstance compliant
 
@@ -237,7 +237,7 @@ import { AuroraPostgresEngineVersion, DatabaseClusterEngine } from 'aws-cdk-lib/
 
 const stack = new Stack()
 const vpc = new Vpc(stack, 'VPC')
-new DatabaseCluster(stack, 'DB', {
+new DatabaseCluster(stack, 'DatabaseCluster', {
   engine: DatabaseClusterEngine.auroraPostgres({ version: AuroraPostgresEngineVersion.VER_13_4 }),
   instanceProps: {
     vpc
@@ -245,22 +245,22 @@ new DatabaseCluster(stack, 'DB', {
 })
 ```
 
-Note that DatabaseInstance defaults to MultiAZ, and you need to set `environment: NONPROD` to be able to set MultiAZ to false.
+Note that DatabaseInstance defaults to MultiAZ, and you need to set `environment: NOT_PRODUCTION` to be able to set MultiAZ to false.
 
 DatabaseInstance creation example.
 
 ```typescript
-import { DatabaseEnvironments, DatabaseInstance } from '@enfo/aws-cdkompliance'
+import { DatabaseEnvironment, DatabaseInstance } from '@enfo/aws-cdkompliance'
 import { Stack } from 'aws-cdk-lib'
 import { Vpc } from 'aws-cdk-lib/aws-ec2'
 import { DatabaseInstanceEngine, PostgresEngineVersion } from 'aws-cdk-lib/aws-rds'
 
 const stack = new Stack()
 const vpc = new Vpc(stack, 'VPC')
-new DatabaseInstance(stack, 'DB', {
+new DatabaseInstance(stack, 'Database', {
   vpc,
   engine: DatabaseInstanceEngine.postgres({ version: PostgresEngineVersion.VER_13_4 }),
-  environment: DatabaseEnvironments.NONPROD,
+  environment: DatabaseEnvironment.NOT_PRODUCTION,
   multiAz: false
 })
 ```
