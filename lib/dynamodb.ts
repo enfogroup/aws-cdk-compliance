@@ -11,7 +11,6 @@ import { allowBillingModeProvisioned } from './tags'
  * See README for usage examples
  */
 export class Table extends DynamoDBTable {
-  // eslint-disable-next-line no-useless-constructor
   constructor (scope: Construct, id: string, props: TableProps) {
     const { billingMode = BillingMode.PAY_PER_REQUEST, ...rest } = props
     super(scope, id, {
