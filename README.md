@@ -1,12 +1,12 @@
 # Introduction
 
-Tagging and resource standards using the CDK.
+Tagging and compliant resource using the CDK. This package is yet to hit version 1.x, you might encounter issues.
 
 This package is tied to Enfo and its customers. Enfo is a [Managed Service Provider](https://aws.amazon.com/partners/programs/msp/) for AWS. You can of course use the package without being a customer, but the tags might have no effect depending on your AWS organization setup.
 
 ## Installation
 
-The package should be installed a dependency.
+The package should be installed as a dependency.
 
 ```bash
 npm install @enfo/aws-cdkompliance --save
@@ -19,12 +19,17 @@ If you are an Enfo customer you can enable backups of databases using tags. This
 Enabling backups of a single resource.
 
 ```typescript
-import { enableBackups } from '@enfo/aws-cdkompliance'
+import { enableBackups, Table } from '@enfo/aws-cdkompliance'
 import { Stack } from 'aws-cdk-lib'
-import { Table } from 'aws-cdk-lib/aws-dynamodb'
+import { AttributeType } from 'aws-cdk-lib/aws-dynamodb'
 
 const stack = new Stack()
-const myTable = new Table(stack, ...)
+const myTable = new Table(stack, 'Table', { 
+  partitionKey: {
+    name: 'pk',
+    type: AttributeType.STRING
+  }
+})
 enableBackups(myTable)
 ```
 
@@ -60,7 +65,7 @@ enableBackups(app, BackupPlan.STOCKHOLM)
 
 ## Resource specific settings
 
-As a part of our compliance reports we send out information about resources that are non-compliant. This package exposes compliant Constructs which are extension of AWS Constructs.
+As a part of our compliance reports we send out information about resources that are non-compliant. This package exposes compliant Constructs which are extension of AWS Constructs. Failure in compliance will result in errors during synthesis.
 
 When possible the default Props used to create the Construct are exposed as well.
 
