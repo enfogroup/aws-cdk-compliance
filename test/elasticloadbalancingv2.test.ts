@@ -55,6 +55,16 @@ describe('ElasticLoadBalancingV2', () => {
       expect(() => Template.fromStack(stack)).toThrow('Access logs not enabled')
     })
 
+    it('should throw if drop invalid headers is not enabled', () => {
+      const stack = new Stack(undefined, undefined, { env: { region: 'eu-west-1' } })
+      const vpc = new Vpc(stack, 'VPC')
+
+      const alb = new ApplicationLoadBalancer(stack, 'ALB', { vpc })
+      alb.setAttribute('routing.http.drop_invalid_header_fields.enabled')
+
+      expect(() => Template.fromStack(stack)).toThrow('Not configured to drop invalid HTTP headers')
+    })
+
     it('should throw if deletionProtection is undefined', () => {
       const stack = new Stack(undefined, undefined, { env: { region: 'eu-west-1' } })
       const vpc = new Vpc(stack, 'VPC')
@@ -63,7 +73,7 @@ describe('ElasticLoadBalancingV2', () => {
       const alb = new ApplicationLoadBalancer(stack, 'ALB', { vpc, deletionProtection: undefined })
       alb.logAccessLogs(bucket)
 
-      expect(() => Template.fromStack(stack)).toThrow('deletionProtection must not be undefined nor false')
+      expect(() => Template.fromStack(stack)).toThrow('deletionProtection must be enabled')
     })
 
     it('should throw if deletionProtection is false', () => {
@@ -74,7 +84,7 @@ describe('ElasticLoadBalancingV2', () => {
       const alb = new ApplicationLoadBalancer(stack, 'ALB', { vpc, deletionProtection: false })
       alb.logAccessLogs(bucket)
 
-      expect(() => Template.fromStack(stack)).toThrow('deletionProtection must not be undefined nor false')
+      expect(() => Template.fromStack(stack)).toThrow('deletionProtection must be enabled')
     })
   })
 })

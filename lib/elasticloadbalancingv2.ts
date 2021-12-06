@@ -61,10 +61,9 @@ export class ApplicationLoadBalancer extends LBApplicationLoadBalancer {
   }
 
   protected checkDeletionProtection () {
-    const deletionProtection = this.myProps.deletionProtection
-    return deletionProtection !== undefined && deletionProtection
+    return this.myProps.deletionProtection
       ? []
-      : ['deletionProtection must not be undefined nor false']
+      : ['deletionProtection must be enabled']
   }
 
   protected checkDropInvalidHeaders () {
