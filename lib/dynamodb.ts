@@ -5,8 +5,6 @@ import { allowBillingModeProvisioned } from './tags'
 
 /**
  * Compliant DynamoDB Table.
- * Defaults to using BillingMode.PAY_PER_REQUEST
- * If you use BillingMode.PROVISIONED this Table will tag the resource as compliant.
  *
  * See README for usage examples
  */

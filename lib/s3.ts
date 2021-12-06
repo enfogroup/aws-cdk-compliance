@@ -19,9 +19,6 @@ export const defaultBucketProps: BucketProps = {
 
 /**
  * Compliant S3 Bucket.
- * SSL communication will be enforced.
- * Public access will be blocked.
- * S3 managed encryption will be enabled. This can be overwritten using the encryption key in props.
  *
  * See README for usage examples
  */

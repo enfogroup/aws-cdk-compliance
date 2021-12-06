@@ -53,6 +53,11 @@ const latestVersions: Record<string, string> = {
   [getNameFromRuntime(Runtime.JAVA_8_CORRETTO)]: 'JAVA_11'
 }
 
+/**
+ * Compliant Lambda Function.
+ *
+ * See README for usage examples
+ */
 export class Function extends LambdaFunction {
   constructor (scope: Construct, id: string, props: FunctionProps) {
     super(scope, id, props)

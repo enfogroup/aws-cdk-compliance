@@ -10,7 +10,6 @@ export const defaultKeyProps: KeyProps = {
 
 /**
  * Compliant KMS Key.
- * Key rotation will be enabled.
  *
  * See README for usage examples
  */

@@ -10,7 +10,6 @@ export const defaultQueueProps = {
 
 /**
  * Compliant SQS Queue.
- * If a property is poorly set a human readable error will be thrown upon synthesis.
  *
  * See README for usage examples
  */

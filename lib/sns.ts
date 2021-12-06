@@ -3,7 +3,6 @@ import { Construct } from 'constructs'
 
 /**
  * Compliant SNS Topic.
- * The TopicProps key 'masterKey' is required and will be used to encrypt the Topic
  *
  * See README for usage examples
  */
