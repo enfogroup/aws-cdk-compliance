@@ -1,35 +1,18 @@
 import {
   DatabaseCluster as RDSDatabaseCluster,
-  DatabaseClusterProps as RDSDatabaseClusterProps,
+  DatabaseClusterProps,
   DatabaseInstance as RDSDatabaseInstance,
-  DatabaseInstanceProps as RDSDatabaseInstanceProps,
-  InstanceProps as RDSInstanceProps
+  DatabaseInstanceProps as RDSDatabaseInstanceProps
 } from 'aws-cdk-lib/aws-rds'
-import { Construct, Node } from 'constructs'
+import { Construct } from 'constructs'
 
-export enum DatabaseEnvironments {
-  PROD,
-  NONPROD
+export enum DatabaseEnvironment {
+  PRODUCTION,
+  NOT_PRODUCTION
 }
 
 export interface DatabaseInstanceProps extends RDSDatabaseInstanceProps {
-  readonly publiclyAccessible?: false
-  readonly storageEncrypted?: true
-  readonly iamAuthentication?: true
-  readonly autoMinorVersionUpgrade?: true
-  readonly copyTagsToSnapshot?: true
-  readonly deletionProtection?: true
-  readonly environment?: DatabaseEnvironments
-}
-
-interface InternalDatabaseInstanceProps extends DatabaseInstanceProps {
-  readonly publiclyAccessible: false
-  readonly storageEncrypted: true
-  readonly iamAuthentication: true
-  readonly autoMinorVersionUpgrade: true
-  readonly copyTagsToSnapshot: true
-  readonly deletionProtection: true
-  readonly environment: DatabaseEnvironments
+  readonly environment?: DatabaseEnvironment
 }
 
 /**
@@ -43,7 +26,7 @@ export const defaultDatabaseInstanceProps = {
   copyTagsToSnapshot: true,
   deletionProtection: true,
   multiAz: true,
-  environment: DatabaseEnvironments.PROD
+  environment: DatabaseEnvironment.PRODUCTION
 }
 
 /**
@@ -52,57 +35,73 @@ export const defaultDatabaseInstanceProps = {
  * See README for usage examples
  */
 export class DatabaseInstance extends RDSDatabaseInstance {
-  protected environment: DatabaseEnvironments
-  protected multiAz: boolean
-  // eslint-disable-next-line no-useless-constructor
-  constructor (scope: Construct, id: string, props?: DatabaseInstanceProps) {
+  protected calculatedProps: DatabaseInstanceProps
+  constructor (scope: Construct, id: string, props: DatabaseInstanceProps) {
     super(scope, id, {
       ...defaultDatabaseInstanceProps,
       ...props
-    } as InternalDatabaseInstanceProps)
-    this.environment = props?.environment ?? defaultDatabaseInstanceProps.environment
-    this.multiAz = props?.multiAz ?? defaultDatabaseInstanceProps.multiAz
+    })
+    this.calculatedProps = {
+      ...defaultDatabaseInstanceProps,
+      ...props
+    }
 
-    Node.of(this).addValidation({
+    this.node.addValidation({
       validate: () => {
         return [
+          ...this.checkPubliclyAccessible(),
+          ...this.checkStorageEncrypted(),
+          ...this.checkIAMAuthentication(),
+          ...this.checkAutoUpgrade(),
+          ...this.checkCopyTags(),
+          ...this.checkDeletionProtection(),
           ...this.checkMultiAz()
         ]
       }
     })
   }
 
+  protected checkPubliclyAccessible () {
+    return !this.calculatedProps.publiclyAccessible
+      ? []
+      : ['publiclyAccessible must be false']
+  }
+
+  protected checkStorageEncrypted () {
+    return this.calculatedProps.storageEncrypted
+      ? []
+      : ['storageEncrypted must be true']
+  }
+
+  protected checkIAMAuthentication () {
+    return this.calculatedProps.iamAuthentication
+      ? []
+      : ['iamAuthentication must be true']
+  }
+
+  protected checkAutoUpgrade () {
+    return this.calculatedProps.autoMinorVersionUpgrade
+      ? []
+      : ['autoMinorVersionUpgrade must be true']
+  }
+
+  protected checkCopyTags () {
+    return this.calculatedProps.copyTagsToSnapshot
+      ? []
+      : ['copyTagsToSnapshot must be true']
+  }
+
+  protected checkDeletionProtection () {
+    return this.calculatedProps.deletionProtection
+      ? []
+      : ['deletionProtection must be true']
+  }
+
   protected checkMultiAz () {
-    return (this.environment === DatabaseEnvironments.PROD && !this.multiAz)
-      ? ['Prod instances must be multi AZ']
+    return (this.calculatedProps.environment === DatabaseEnvironment.PRODUCTION && !this.calculatedProps.multiAz)
+      ? ['Production instance must be multi AZ']
       : []
   }
-}
-
-export interface InstanceProps extends RDSInstanceProps {
-  readonly publiclyAccessible?: false
-  readonly autoMinorVersionUpgrade?: true
-}
-
-export interface DatabaseClusterProps extends RDSDatabaseClusterProps {
-  readonly storageEncrypted?: true
-  readonly iamAuthentication?: true
-  readonly copyTagsToSnapshot?: true
-  readonly deletionProtection?: true
-  readonly instanceProps: InstanceProps
-}
-
-interface InternalInstanceProps extends InstanceProps {
-  readonly publiclyAccessible: false
-  readonly autoMinorVersionUpgrade: true
-}
-
-interface InternalDatabaseClusterProps extends DatabaseClusterProps {
-  readonly storageEncrypted: true
-  readonly iamAuthentication: true
-  readonly copyTagsToSnapshot: true
-  readonly deletionProtection: true
-  readonly instanceProps: InternalInstanceProps
 }
 
 /**
@@ -125,15 +124,72 @@ export const defaultInstanceProps = {
  * See README for usage examples
  */
 export class DatabaseCluster extends RDSDatabaseCluster {
-  // eslint-disable-next-line no-useless-constructor
-  constructor (scope: Construct, id: string, props?: DatabaseClusterProps) {
+  protected calculatedProps: DatabaseClusterProps
+  constructor (scope: Construct, id: string, props: DatabaseClusterProps) {
     super(scope, id, {
+      ...defaultDatabaseClusterProps,
+      ...props,
+      instanceProps: {
+        ...defaultInstanceProps,
+        ...props.instanceProps
+      }
+    })
+    this.calculatedProps = {
       ...defaultDatabaseClusterProps,
       ...props,
       instanceProps: {
         ...defaultInstanceProps,
         ...props?.instanceProps
       }
-    } as InternalDatabaseClusterProps)
+    }
+
+    this.node.addValidation({
+      validate: () => {
+        return [
+          ...this.checkPubliclyAccessible(),
+          ...this.checkStorageEncrypted(),
+          ...this.checkIAMAuthentication(),
+          ...this.checkAutoUpgrade(),
+          ...this.checkCopyTags(),
+          ...this.checkDeletionProtection()
+        ]
+      }
+    })
+  }
+
+  protected checkStorageEncrypted () {
+    return this.calculatedProps.storageEncrypted
+      ? []
+      : ['storageEncrypted must be true']
+  }
+
+  protected checkIAMAuthentication () {
+    return this.calculatedProps.iamAuthentication
+      ? []
+      : ['iamAuthentication must be true']
+  }
+
+  protected checkCopyTags () {
+    return this.calculatedProps.copyTagsToSnapshot
+      ? []
+      : ['copyTagsToSnapshot must be true']
+  }
+
+  protected checkDeletionProtection () {
+    return this.calculatedProps.deletionProtection
+      ? []
+      : ['deletionProtection must be true']
+  }
+
+  protected checkPubliclyAccessible () {
+    return !this.calculatedProps.instanceProps.publiclyAccessible
+      ? []
+      : ['publiclyAccessible must be false']
+  }
+
+  protected checkAutoUpgrade () {
+    return this.calculatedProps.instanceProps.autoMinorVersionUpgrade
+      ? []
+      : ['autoMinorVersionUpgrade must be true']
   }
 }

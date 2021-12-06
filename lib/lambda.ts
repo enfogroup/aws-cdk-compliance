@@ -1,5 +1,5 @@
 import { Function as LambdaFunction, FunctionProps, Runtime } from 'aws-cdk-lib/aws-lambda'
-import { Construct, Node } from 'constructs'
+import { Construct } from 'constructs'
 
 const getNameFromRuntime = (runtime: Runtime): string => runtime.name
 
@@ -53,10 +53,15 @@ const latestVersions: Record<string, string> = {
   [getNameFromRuntime(Runtime.JAVA_8_CORRETTO)]: 'JAVA_11'
 }
 
+/**
+ * Compliant Lambda Function.
+ *
+ * See README for usage examples
+ */
 export class Function extends LambdaFunction {
   constructor (scope: Construct, id: string, props: FunctionProps) {
     super(scope, id, props)
-    Node.of(this).addValidation({
+    this.node.addValidation({
       validate: () => {
         return [
           ...this.checkRuntime()

@@ -1,5 +1,5 @@
 // to be tested
-import { Topic, TopicProps } from '../lib/sns'
+import { Topic } from '../lib/sns'
 
 // tools
 import '@aws-cdk/assert/jest'
@@ -9,14 +9,12 @@ import { Match, Template } from 'aws-cdk-lib/assertions'
 
 describe('SNS', () => {
   describe('Topic', () => {
-    // bit of a mute test, should look into testing using tsd or similar
     it('should use the KMS Key', () => {
       const stack = new Stack()
-      const props: TopicProps = {
-        masterKey: new Key(stack, 'Key')
-      }
 
-      new Topic(stack, 'Topic', props)
+      new Topic(stack, 'Topic', {
+        masterKey: new Key(stack, 'Key')
+      })
 
       const template = Template.fromStack(stack)
       template.hasResourceProperties('AWS::SNS::Topic', Match.objectLike({
@@ -27,6 +25,14 @@ describe('SNS', () => {
           ]
         }
       }))
+    })
+
+    it('should throw if masterKey is undefined', () => {
+      const stack = new Stack()
+
+      new Topic(stack, 'Topic', {})
+
+      expect(() => Template.fromStack(stack)).toThrow('topic must be encrypted')
     })
   })
 })

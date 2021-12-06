@@ -4,3 +4,19 @@
 # CDK asset staging directory
 .cdk.staging
 cdk.out
+
+# Testing
+test/
+jest.config.js
+
+# Husky
+.husky/
+
+# ESLint
+.eslintrc.json
+
+# Commitlint
+.commitlint.config.js
+
+# Typescript
+tsconfig.*

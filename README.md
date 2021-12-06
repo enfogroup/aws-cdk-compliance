@@ -1,12 +1,12 @@
 # Introduction
 
-Tagging and resource standards using the CDK.
+Tagging and compliant resource using the CDK. This package is yet to hit version 1.x, you might encounter issues.
 
 This package is tied to Enfo and its customers. Enfo is a [Managed Service Provider](https://aws.amazon.com/partners/programs/msp/) for AWS. You can of course use the package without being a customer, but the tags might have no effect depending on your AWS organization setup.
 
 ## Installation
 
-The package should be installed a dependency.
+The package should be installed as a dependency.
 
 ```bash
 npm install @enfo/aws-cdkompliance --save
@@ -19,12 +19,17 @@ If you are an Enfo customer you can enable backups of databases using tags. This
 Enabling backups of a single resource.
 
 ```typescript
-import { enableBackups } from '@enfo/aws-cdkompliance'
-import { Stack } from '@aws-cdk/core'
-import { Table } from 'aws-cdk-lib/aws-dynamodb'
+import { enableBackups, Table } from '@enfo/aws-cdkompliance'
+import { Stack } from 'aws-cdk-lib'
+import { AttributeType } from 'aws-cdk-lib/aws-dynamodb'
 
 const stack = new Stack()
-const myTable = new Table(stack, ...)
+const myTable = new Table(stack, 'Table', { 
+  partitionKey: {
+    name: 'pk',
+    type: AttributeType.STRING
+  }
+})
 enableBackups(myTable)
 ```
 
@@ -32,7 +37,7 @@ Enable backups of an entire stack.
 
 ```typescript
 import { enableBackups } from '@enfo/aws-cdkompliance'
-import { Stack } from '@aws-cdk/core'
+import { Stack } from 'aws-cdk-lib'
 
 const stack = new Stack()
 enableBackups(stack)
@@ -48,10 +53,7 @@ const app = new App()
 enableBackups(app)
 ```
 
-Where backups are stored can be controlled via the second parameter, backupPlan. It defaults to **STANDARD** which FIXME
-FIXME
-FIXME
-FIXME
+Where backups are stored can be controlled via the second parameter, backupPlan. It defaults to **STANDARD** which creates backups in the region in which the resource exists.
 
 ```typescript
 import { enableBackups, BackupPlan } from '@enfo/aws-cdkompliance'
@@ -63,7 +65,7 @@ enableBackups(app, BackupPlan.STOCKHOLM)
 
 ## Resource specific settings
 
-As a part of our compliance reports we send out information about resources that are non-compliant. This package exposes compliant Constructs which are extension of AWS Constructs.
+As a part of our compliance reports we send out information about resources that are non-compliant. This package exposes compliant Constructs which are extension of AWS Constructs. Failure in compliance will result in errors during synthesis.
 
 When possible the default Props used to create the Construct are exposed as well.
 
@@ -71,7 +73,7 @@ When possible the default Props used to create the Construct are exposed as well
 
 The following features are available for Application Load Balancer.
 
-* ApplicationLoadBalancer, compliant Application Load Balancer Construct
+* ApplicationLoadBalancer, compliant Application Load Balancer Construct. Will throw if non-compliant properties are passed
 * defaultApplicationLoadBalancerProps, the ApplicationLoadBalancerProps used to make the Application Load Balancer compliant
 
 Note that access logs need to be added to the construct.
@@ -81,11 +83,11 @@ Note that this construct enables the Drop invalid HTTP headers feature.
 Application Load Balancer creation example.
 
 ```typescript
-import { ApplicationLoadBalancer } from '@enfo/aws-cdkompliance'
-import { Stack } from '@aws-cdk/core'
+import { ApplicationLoadBalancer, Bucket } from '@enfo/aws-cdkompliance'
+import { Stack } from 'aws-cdk-lib'
 import { Vpc } from 'aws-cdk-lib/aws-ec2'
 
-const stack = new Stack()
+const stack = new Stack(undefined, 'Stack', { env: { region: 'eu-west-1' } } )
 const vpc = new Vpc(stack, 'VPC')
 const bucket = new Bucket(stack, 'Bucket')
 const alb = new ApplicationLoadBalancer(stack, 'ALB', { vpc })
@@ -96,18 +98,21 @@ alb.logAccessLogs(bucket)
 
 The following features are available for CloudFront.
 
-* Distribution, compliant CloudFront Distribution Construct
+* Distribution, compliant CloudFront Distribution Construct. Will throw if non-compliant properties are passed
 * defaultDistributionProps, the DistributionProps used to make the distribution compliant
 
 CloudFront Distribution creation example.
 
 ```typescript
-import { CloudFront } from '@enfo/aws-cdkompliance'
+import { Distribution } from '@enfo/aws-cdkompliance'
 import { ViewerProtocolPolicy } from 'aws-cdk-lib/aws-cloudfront'
 import { HttpOrigin } from 'aws-cdk-lib/aws-cloudfront-origins'
-import { Stack } from '@aws-cdk/core'
+import { Stack } from 'aws-cdk-lib'
 
 const stack = new Stack()
+
+// define WebACL
+
 new Distribution(stack, 'Distribution', {
   defaultBehavior: {
     origin: new HttpOrigin('example.com'),
@@ -128,7 +133,7 @@ Table creation example without billingMode specified. Will default to PAY_PER_RE
 
 ```typescript
 import { Table } from '@enfo/aws-cdkompliance'
-import { Stack } from '@aws-cdk/core'
+import { Stack } from 'aws-cdk-lib'
 import { AttributeType, BillingMode } from 'aws-cdk-lib/aws-dynamodb'
 
 const stack = new Stack()
@@ -144,7 +149,7 @@ Table creation example using PROVISIONED. The Table will be tagged to suppress w
 
 ```typescript
 import { Table } from '@enfo/aws-cdkompliance'
-import { Stack } from '@aws-cdk/core'
+import { Stack } from 'aws-cdk-lib'
 import { AttributeType, BillingMode } from 'aws-cdk-lib/aws-dynamodb'
 
 const stack = new Stack()
@@ -161,8 +166,7 @@ new Table(stack, 'Table', {
 
 The following features are available for KMS.
 
-* Key, compliant KMS Key Construct
-* KeyProps, modified version of KeyProps which enforces compliance
+* Key, compliant KMS Key Construct. Will throw if non-compliant properties are passed
 * defaultKeyProps, the KeyProps used to enforce compliance if you don't supply your own
 
 While we do not enforce *alias* on KeyProps we do recommend that you set it.
@@ -171,7 +175,7 @@ Key creation example
 
 ```typescript
 import { Key } from '@enfo/aws-cdkompliance'
-import { Stack } from '@aws-cdk/core'
+import { Stack } from 'aws-cdk-lib'
 
 const stack = new Stack()
 new Key(stack, 'Key', { alias: 'my-key' })
@@ -190,7 +194,7 @@ Function creation example
 ```typescript
 import { Function } from '@enfo/aws-cdkompliance'
 import { Code, Runtime } from 'aws-cdk-lib/aws-lambda'
-import { Stack } from '@aws-cdk/core'
+import { Stack } from 'aws-cdk-lib'
 
 const stack = new Stack()
 new Function(stack, 'Function', {
@@ -200,21 +204,21 @@ new Function(stack, 'Function', {
 })
 ```
 
-Trying to create a Function with a runtime which is not the latest
+### Logs
+
+The following features are available for Logs.
+
+* LogGroup, compliant Log Group Key Construct. Will throw if non-compliant properties are passed
+* defaultLogGroupProps, the LogGroupProps used to enforce compliance if you don't supply your own
+
+LogGroup creation example
 
 ```typescript
-import { Function } from '@enfo/aws-cdkompliance'
-import { Code, Runtime } from 'aws-cdk-lib/aws-lambda'
-import { Stack } from '@aws-cdk/core'
+import { LogGroup } from '@enfo/aws-cdkompliance'
+import { Stack } from 'aws-cdk-lib'
 
 const stack = new Stack()
-new Function(stack, 'Function', {
-  runtime: Runtime.NODEJS_12_X,
-  handler: 'handler',
-  code: Code.fromInline('myCode')
-})
-
-// throws "Lambda runtime must be latest runtime available for language. Found nodejs12.x, please use NODEJS_14_X instead"
+new LogGroup(stack, 'LogGroup')
 ```
 
 ### RDS
@@ -224,7 +228,7 @@ The following features are available for RDS
 * DatabaseCluster, compliant DatabaseCluster Construct
 * defaultDatabaseClusterProps, the DatabaseClusterProps used to make the DatabaseCluster compliant
 * defaultInstanceProps, the InstanceProps used to make the DatabaseCluster compliant
-* DatabaseEnvironments, to indicate the how a DatabaseInstance will be used
+* DatabaseEnvironment, to indicate the how a DatabaseInstance will be used
 * DatabaseInstance, compliant DatabaseInstance Construct
 * defaultDatabaseInstanceProps, the DatabaseInstanceProps used to make the DatabaseInstance compliant
 
@@ -232,13 +236,13 @@ DatabaseCluster creation example.
 
 ```typescript
 import { DatabaseCluster } from '@enfo/aws-cdkompliance'
-import { Stack } from '@aws-cdk/core'
+import { Stack } from 'aws-cdk-lib'
 import { Vpc } from 'aws-cdk-lib/aws-ec2'
 import { AuroraPostgresEngineVersion, DatabaseClusterEngine } from 'aws-cdk-lib/aws-rds'
 
 const stack = new Stack()
 const vpc = new Vpc(stack, 'VPC')
-new DatabaseCluster(stack, 'DB', {
+new DatabaseCluster(stack, 'DatabaseCluster', {
   engine: DatabaseClusterEngine.auroraPostgres({ version: AuroraPostgresEngineVersion.VER_13_4 }),
   instanceProps: {
     vpc
@@ -246,22 +250,22 @@ new DatabaseCluster(stack, 'DB', {
 })
 ```
 
-Note that DatabaseInstance defaults to MultiAZ, and you need to set `environment: NONPROD` to be able to set MultiAZ to false.
+Note that DatabaseInstance defaults to MultiAZ, and you need to set `environment: NOT_PRODUCTION` to be able to set MultiAZ to false.
 
 DatabaseInstance creation example.
 
 ```typescript
-import { DatabaseEnvironments, DatabaseInstance } from '@enfo/aws-cdkompliance'
-import { Stack } from '@aws-cdk/core'
+import { DatabaseEnvironment, DatabaseInstance } from '@enfo/aws-cdkompliance'
+import { Stack } from 'aws-cdk-lib'
 import { Vpc } from 'aws-cdk-lib/aws-ec2'
 import { DatabaseInstanceEngine, PostgresEngineVersion } from 'aws-cdk-lib/aws-rds'
 
 const stack = new Stack()
 const vpc = new Vpc(stack, 'VPC')
-new DatabaseInstance(stack, 'DB', {
+new DatabaseInstance(stack, 'Database', {
   vpc,
   engine: DatabaseInstanceEngine.postgres({ version: PostgresEngineVersion.VER_13_4 }),
-  environment: DatabaseEnvironments.NONPROD,
+  environment: DatabaseEnvironment.NOT_PRODUCTION,
   multiAz: false
 })
 ```
@@ -271,7 +275,6 @@ new DatabaseInstance(stack, 'DB', {
 The following features are available for S3.
 
 * Bucket, compliant S3 Bucket Construct
-* BucketProps, modified version of BucketProps which enforces compliance
 * defaultBucketProps, the BucketProps used to enforce compliance if you don't supply your own
 
 
@@ -279,7 +282,7 @@ Bucket creation example
 
 ```typescript
 import { Bucket } from '@enfo/aws-cdkompliance'
-import { Stack } from '@aws-cdk/core'
+import { Stack } from 'aws-cdk-lib'
 
 const stack = new Stack()
 new Bucket(stack, 'MyBucket', { bucketName: 'my-bucket' })
@@ -289,37 +292,33 @@ new Bucket(stack, 'MyBucket', { bucketName: 'my-bucket' })
 
 The following features are available for SNS. SNS requires a KMS Key Construct to be compliant.
 
-* Topic, compliant SNS Topic Construct
-* TopicProps, modified version of TopicProps with the required keys for making the Topic compliant set to required
+* Topic, compliant SNS Topic Construct. Will throw if non-compliant properties are passed
 
 Topic creation example. Please note that it uses our KMS Key Construct to ensure the Key is compliant as well.
 
 ```typescript
-import { Key, Topic, TopicProps } from '@enfo/aws-cdkompliance'
-import { Stack } from '@aws-cdk/core'
+import { Key, Topic } from '@enfo/aws-cdkompliance'
+import { Stack } from 'aws-cdk-lib'
 
 const stack = new Stack()
-const props: TopicProps = {
-  masterKey: new Key(stack, 'Key'),
-  // other values you want to set
-}
-new Topic(stack, 'Topic', props)
+new Topic(stack, 'Topic', {
+  masterKey: new Key(stack, 'Key')
+})
 ```
 
 ### SQS
 
 The following features are available for SQS.
 
-* Queue, compliant SQS Queue Construct
-* QueueProps, modified version of QueueProps with the required keys for making the Queue compliant set to required, and only compliant values allowed
+* Queue, compliant SQS Queue Construct. Will throw if non-compliant properties are passed
 * defaultQueueProps, the QueueProps used to make the queue compliant
 
 Queue creation example.
 
 ```typescript
 import { Queue } from '@enfo/aws-cdkompliance'
-import { Stack } from '@aws-cdk/core'
+import { Stack } from 'aws-cdk-lib'
 
 const stack = new Stack()
-new Queue(stack, 'Queue', { fifo: false })
+new Queue(stack, 'Queue', { queueName: 'my-queue' })
 ```

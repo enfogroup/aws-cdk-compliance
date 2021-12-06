@@ -2,6 +2,7 @@
 !*.config.js
 *.d.ts
 node_modules
+tsconfig.tsbuildinfo
 
 # CDK asset staging directory
 .cdk.staging
