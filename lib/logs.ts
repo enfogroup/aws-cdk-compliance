@@ -38,7 +38,7 @@ export class LogGroup extends CWLogGroup {
     })
   }
 
-  private checkRetention (): string[] {
+  protected checkRetention (): string[] {
     return this.calculatedProps.retention
       ? []
       : ['retention must be set']

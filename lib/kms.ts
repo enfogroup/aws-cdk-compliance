@@ -35,7 +35,7 @@ export class Key extends KMSKey {
     })
   }
 
-  private checkEncryption () {
+  protected checkEncryption () {
     return this.calculatedProps.enableKeyRotation
       ? []
       : ['enableKeyRotation must be true']

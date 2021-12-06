@@ -54,36 +54,36 @@ export class Distribution extends CFDistribution {
     })
   }
 
-  private checkRootObject (): string[] {
+  protected checkRootObject (): string[] {
     return this.calculatedProps.defaultRootObject
       ? []
       : ['defaultRootObject must be set']
   }
 
-  private checkLogging (): string[] {
+  protected checkLogging (): string[] {
     return this.calculatedProps.enableLogging
       ? []
       : ['logging must be enabled']
   }
 
-  private checkWebAcl (): string[] {
+  protected checkWebAcl (): string[] {
     return this.calculatedProps.webAclId
       ? []
       : ['must be associated with a web acl']
   }
 
-  private checkProtocolPolicies (): string[] {
+  protected checkProtocolPolicies (): string[] {
     return [
       ...this.checkDefaultBehaviorProtocolPolicy(),
       ...this.checkAdditionalBehaviorsProtocolPolicies()
     ]
   }
 
-  private checkDefaultBehaviorProtocolPolicy (): string[] {
+  protected checkDefaultBehaviorProtocolPolicy (): string[] {
     return this.checkProtocolPolicy(this.calculatedProps.defaultBehavior.viewerProtocolPolicy)
   }
 
-  private checkAdditionalBehaviorsProtocolPolicies (): string[] {
+  protected checkAdditionalBehaviorsProtocolPolicies (): string[] {
     if (!this.calculatedProps.additionalBehaviors) {
       return []
     }
@@ -92,7 +92,7 @@ export class Distribution extends CFDistribution {
     }).flat()
   }
 
-  private checkProtocolPolicy (policy: ViewerProtocolPolicy | undefined): string[] {
+  protected checkProtocolPolicy (policy: ViewerProtocolPolicy | undefined): string[] {
     return policy !== undefined && policy !== ViewerProtocolPolicy.ALLOW_ALL
       ? []
       : ['ViewerProtocolPolicy must not be undefined nor "ALLOW_ALL"']

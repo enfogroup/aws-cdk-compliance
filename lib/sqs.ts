@@ -35,7 +35,7 @@ export class Queue extends SQSQueue {
     })
   }
 
-  private checkEncryption () {
+  protected checkEncryption () {
     return (!this.calculatedProps.encryption || this.calculatedProps.encryption === QueueEncryption.UNENCRYPTED)
       ? ['queue must be encrypted']
       : []

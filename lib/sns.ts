@@ -22,7 +22,7 @@ export class Topic extends SNSTopic {
     })
   }
 
-  private checkMasterKey (): string[] {
+  protected checkMasterKey (): string[] {
     return !this.calculatedProps.masterKey
       ? ['topic must be encrypted']
       : []
