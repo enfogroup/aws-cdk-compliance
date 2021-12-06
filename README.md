@@ -199,23 +199,6 @@ new Function(stack, 'Function', {
 })
 ```
 
-Trying to create a Function with a runtime which is not the latest
-
-```typescript
-import { Function } from '@enfo/aws-cdkompliance'
-import { Code, Runtime } from 'aws-cdk-lib/aws-lambda'
-import { Stack } from 'aws-cdk-lib'
-
-const stack = new Stack()
-new Function(stack, 'Function', {
-  runtime: Runtime.NODEJS_12_X,
-  handler: 'handler',
-  code: Code.fromInline('myCode')
-})
-
-// throws "Lambda runtime must be latest runtime available for language. Found nodejs12.x, please use NODEJS_14_X instead"
-```
-
 ### Logs
 
 The following features are available for Logs.
