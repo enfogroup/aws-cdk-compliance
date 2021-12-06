@@ -4,3 +4,10 @@
 # CDK asset staging directory
 .cdk.staging
 cdk.out
+
+# Testing
+test/
+jest.config.js
+
+# Husky
+.husky/
