@@ -20,7 +20,7 @@
     "build:watch": "jsii --watch",
     "package": "jsii-pacmak",
     "clean": "rm lib/*.js lib/*.d.ts test/*.js test/*.d.ts",
-    "test": "jest",
+    "test": "jest --runInBand",
     "lint": "npx eslint 'lib/**/*.ts' 'test/**/*.ts'",
     "lint:fix": "npx eslint --fix 'lib/**/*.ts' 'test/**/*.ts'"
   },
