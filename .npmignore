@@ -11,3 +11,12 @@ jest.config.js
 
 # Husky
 .husky/
+
+# ESLint
+.eslintrc.json
+
+# Commitlint
+.commitlint.config.js
+
+# Typescript
+tsconfig.*
