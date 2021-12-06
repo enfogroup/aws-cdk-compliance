@@ -15,13 +15,13 @@ export const defaultQueueProps = {
  * See README for usage examples
  */
 export class Queue extends SQSQueue {
-  myProps: QueueProps
+  protected calculatedProps: QueueProps
   constructor (scope: Construct, id: string, props?: QueueProps) {
     super(scope, id, {
       ...defaultQueueProps,
       ...props
     })
-    this.myProps = {
+    this.calculatedProps = {
       ...defaultQueueProps,
       ...props
     }
@@ -36,7 +36,7 @@ export class Queue extends SQSQueue {
   }
 
   private checkEncryption () {
-    return (!this.myProps.encryption || this.myProps.encryption === QueueEncryption.UNENCRYPTED)
+    return (!this.calculatedProps.encryption || this.calculatedProps.encryption === QueueEncryption.UNENCRYPTED)
       ? ['queue must be encrypted']
       : []
   }

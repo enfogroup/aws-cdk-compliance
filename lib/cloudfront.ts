@@ -23,7 +23,7 @@ export const defaultDistributionProps = {
  * See README for usage examples
  */
 export class Distribution extends CFDistribution {
-  myProps: DistributionProps
+  protected calculatedProps: DistributionProps
   constructor (scope: Construct, id: string, props: DistributionProps) {
     super(scope, id, {
       ...defaultDistributionProps,
@@ -33,7 +33,7 @@ export class Distribution extends CFDistribution {
         ...props.defaultBehavior
       }
     })
-    this.myProps = {
+    this.calculatedProps = {
       ...defaultDistributionProps,
       ...props,
       defaultBehavior: {
@@ -55,19 +55,19 @@ export class Distribution extends CFDistribution {
   }
 
   private checkRootObject (): string[] {
-    return this.myProps.defaultRootObject
+    return this.calculatedProps.defaultRootObject
       ? []
       : ['defaultRootObject must be set']
   }
 
   private checkLogging (): string[] {
-    return this.myProps.enableLogging
+    return this.calculatedProps.enableLogging
       ? []
       : ['logging must be enabled']
   }
 
   private checkWebAcl (): string[] {
-    return this.myProps.webAclId
+    return this.calculatedProps.webAclId
       ? []
       : ['must be associated with a web acl']
   }
@@ -80,14 +80,14 @@ export class Distribution extends CFDistribution {
   }
 
   private checkDefaultBehaviorProtocolPolicy (): string[] {
-    return this.checkProtocolPolicy(this.myProps.defaultBehavior.viewerProtocolPolicy)
+    return this.checkProtocolPolicy(this.calculatedProps.defaultBehavior.viewerProtocolPolicy)
   }
 
   private checkAdditionalBehaviorsProtocolPolicies (): string[] {
-    if (!this.myProps.additionalBehaviors) {
+    if (!this.calculatedProps.additionalBehaviors) {
       return []
     }
-    return Object.values(this.myProps.additionalBehaviors).map((behavior: BehaviorOptions): string[] => {
+    return Object.values(this.calculatedProps.additionalBehaviors).map((behavior: BehaviorOptions): string[] => {
       return this.checkProtocolPolicy(behavior.viewerProtocolPolicy)
     }).flat()
   }

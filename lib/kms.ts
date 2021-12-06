@@ -15,13 +15,13 @@ export const defaultKeyProps: KeyProps = {
  * See README for usage examples
  */
 export class Key extends KMSKey {
-  myProps: KeyProps
+  protected calculatedProps: KeyProps
   constructor (scope: Construct, id: string, props?: KeyProps) {
     super(scope, id, {
       ...defaultKeyProps,
       ...props
     })
-    this.myProps = {
+    this.calculatedProps = {
       ...defaultKeyProps,
       ...props
     }
@@ -36,7 +36,7 @@ export class Key extends KMSKey {
   }
 
   private checkEncryption () {
-    return this.myProps.enableKeyRotation
+    return this.calculatedProps.enableKeyRotation
       ? []
       : ['enableKeyRotation must be true']
   }

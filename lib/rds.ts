@@ -35,13 +35,13 @@ export const defaultDatabaseInstanceProps = {
  * See README for usage examples
  */
 export class DatabaseInstance extends RDSDatabaseInstance {
-  myProps: DatabaseInstanceProps
+  protected calculatedProps: DatabaseInstanceProps
   constructor (scope: Construct, id: string, props: DatabaseInstanceProps) {
     super(scope, id, {
       ...defaultDatabaseInstanceProps,
       ...props
     })
-    this.myProps = {
+    this.calculatedProps = {
       ...defaultDatabaseInstanceProps,
       ...props
     }
@@ -62,43 +62,43 @@ export class DatabaseInstance extends RDSDatabaseInstance {
   }
 
   protected checkPubliclyAccessible () {
-    return !this.myProps.publiclyAccessible
+    return !this.calculatedProps.publiclyAccessible
       ? []
       : ['publiclyAccessible must be false']
   }
 
   protected checkStorageEncrypted () {
-    return this.myProps.storageEncrypted
+    return this.calculatedProps.storageEncrypted
       ? []
       : ['storageEncrypted must be true']
   }
 
   protected checkIAMAuthentication () {
-    return this.myProps.iamAuthentication
+    return this.calculatedProps.iamAuthentication
       ? []
       : ['iamAuthentication must be true']
   }
 
   protected checkAutoUpgrade () {
-    return this.myProps.autoMinorVersionUpgrade
+    return this.calculatedProps.autoMinorVersionUpgrade
       ? []
       : ['autoMinorVersionUpgrade must be true']
   }
 
   protected checkCopyTags () {
-    return this.myProps.copyTagsToSnapshot
+    return this.calculatedProps.copyTagsToSnapshot
       ? []
       : ['copyTagsToSnapshot must be true']
   }
 
   protected checkDeletionProtection () {
-    return this.myProps.deletionProtection
+    return this.calculatedProps.deletionProtection
       ? []
       : ['deletionProtection must be true']
   }
 
   protected checkMultiAz () {
-    return (this.myProps.environment === DatabaseEnvironment.PRODUCTION && !this.myProps.multiAz)
+    return (this.calculatedProps.environment === DatabaseEnvironment.PRODUCTION && !this.calculatedProps.multiAz)
       ? ['Production instance must be multi AZ']
       : []
   }
@@ -124,7 +124,7 @@ export const defaultInstanceProps = {
  * See README for usage examples
  */
 export class DatabaseCluster extends RDSDatabaseCluster {
-  myProps: DatabaseClusterProps
+  protected calculatedProps: DatabaseClusterProps
   constructor (scope: Construct, id: string, props: DatabaseClusterProps) {
     super(scope, id, {
       ...defaultDatabaseClusterProps,
@@ -134,7 +134,7 @@ export class DatabaseCluster extends RDSDatabaseCluster {
         ...props.instanceProps
       }
     })
-    this.myProps = {
+    this.calculatedProps = {
       ...defaultDatabaseClusterProps,
       ...props,
       instanceProps: {
@@ -158,37 +158,37 @@ export class DatabaseCluster extends RDSDatabaseCluster {
   }
 
   protected checkStorageEncrypted () {
-    return this.myProps.storageEncrypted
+    return this.calculatedProps.storageEncrypted
       ? []
       : ['storageEncrypted must be true']
   }
 
   protected checkIAMAuthentication () {
-    return this.myProps.iamAuthentication
+    return this.calculatedProps.iamAuthentication
       ? []
       : ['iamAuthentication must be true']
   }
 
   protected checkCopyTags () {
-    return this.myProps.copyTagsToSnapshot
+    return this.calculatedProps.copyTagsToSnapshot
       ? []
       : ['copyTagsToSnapshot must be true']
   }
 
   protected checkDeletionProtection () {
-    return this.myProps.deletionProtection
+    return this.calculatedProps.deletionProtection
       ? []
       : ['deletionProtection must be true']
   }
 
   protected checkPubliclyAccessible () {
-    return !this.myProps.instanceProps.publiclyAccessible
+    return !this.calculatedProps.instanceProps.publiclyAccessible
       ? []
       : ['publiclyAccessible must be false']
   }
 
   protected checkAutoUpgrade () {
-    return this.myProps.instanceProps.autoMinorVersionUpgrade
+    return this.calculatedProps.instanceProps.autoMinorVersionUpgrade
       ? []
       : ['autoMinorVersionUpgrade must be true']
   }

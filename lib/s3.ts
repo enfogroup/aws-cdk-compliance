@@ -26,13 +26,13 @@ export const defaultBucketProps: BucketProps = {
  * See README for usage examples
  */
 export class Bucket extends S3Bucket {
-  myProps: BucketProps
+  protected calculatedProps: BucketProps
   constructor (scope: Construct, id: string, props?: BucketProps) {
     super(scope, id, {
       ...defaultBucketProps,
       ...props
     })
-    this.myProps = {
+    this.calculatedProps = {
       ...defaultBucketProps,
       ...props
     }
@@ -49,19 +49,19 @@ export class Bucket extends S3Bucket {
   }
 
   protected checkSsl () {
-    return this.myProps.enforceSSL
+    return this.calculatedProps.enforceSSL
       ? []
       : ['enforceSSL must be true']
   }
 
   protected checkPublicAccess () {
-    return this.myProps.blockPublicAccess !== BlockPublicAccess.BLOCK_ALL
+    return this.calculatedProps.blockPublicAccess !== BlockPublicAccess.BLOCK_ALL
       ? ['blockPublicAccess must be BLOCK_ALL']
       : []
   }
 
   protected checkEncryption () {
-    return (!this.myProps.encryption || this.myProps.encryption === BucketEncryption.UNENCRYPTED)
+    return (!this.calculatedProps.encryption || this.calculatedProps.encryption === BucketEncryption.UNENCRYPTED)
       ? ['bucket must be encrypted']
       : []
   }

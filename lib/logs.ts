@@ -18,13 +18,13 @@ export const defaultLogGroupProps = {
  * See README for usage examples
  */
 export class LogGroup extends CWLogGroup {
-  myProps: LogGroupProps
+  protected calculatedProps: LogGroupProps
   constructor (scope: Construct, id: string, props?: LogGroupProps) {
     super(scope, id, {
       ...defaultLogGroupProps,
       ...props
     })
-    this.myProps = {
+    this.calculatedProps = {
       ...defaultLogGroupProps,
       ...props
     }
@@ -39,7 +39,7 @@ export class LogGroup extends CWLogGroup {
   }
 
   private checkRetention (): string[] {
-    return this.myProps.retention
+    return this.calculatedProps.retention
       ? []
       : ['retention must be set']
   }

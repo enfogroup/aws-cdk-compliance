@@ -17,7 +17,7 @@ export const defaultApplicationLoadBalancerProps = {
  * See README for usage examples
  */
 export class ApplicationLoadBalancer extends LBApplicationLoadBalancer {
-  myProps: ApplicationLoadBalancerProps
+  protected calculatedProps: ApplicationLoadBalancerProps
   protected internalAttributes: Record<string, string> = {}
   constructor (scope: Construct, id: string, props: ApplicationLoadBalancerProps) {
     super(scope, id, {
@@ -25,7 +25,7 @@ export class ApplicationLoadBalancer extends LBApplicationLoadBalancer {
       ...props
     })
 
-    this.myProps = {
+    this.calculatedProps = {
       ...defaultApplicationLoadBalancerProps,
       ...props
     }
@@ -61,7 +61,7 @@ export class ApplicationLoadBalancer extends LBApplicationLoadBalancer {
   }
 
   protected checkDeletionProtection () {
-    return this.myProps.deletionProtection
+    return this.calculatedProps.deletionProtection
       ? []
       : ['deletionProtection must be enabled']
   }
