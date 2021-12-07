@@ -107,18 +107,26 @@ CloudFront Distribution creation example.
 import { Distribution } from '@enfo/aws-cdkompliance'
 import { ViewerProtocolPolicy } from 'aws-cdk-lib/aws-cloudfront'
 import { HttpOrigin } from 'aws-cdk-lib/aws-cloudfront-origins'
+import { CfnWebACL } from 'aws-cdk-lib/aws-wafv2'
 import { Stack } from 'aws-cdk-lib'
 
 const stack = new Stack()
-
-// define WebACL
+const webAcl = new CfnWebACL(stack, 'WebACL', {
+  scope: 'CLOUDFRONT',
+  defaultAction: { allow: {} },
+  visibilityConfig: {
+    cloudWatchMetricsEnabled: false,
+    metricName: 'metricName',
+    sampledRequestsEnabled: false,
+  }
+})
 
 new Distribution(stack, 'Distribution', {
   defaultBehavior: {
     origin: new HttpOrigin('example.com'),
     viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS
   },
-  webAclId: 'some-id',
+  webAclId: webAcl.attrId
 })
 ```
 
