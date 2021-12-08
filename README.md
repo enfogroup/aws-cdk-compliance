@@ -1,8 +1,10 @@
 # Introduction
 
-Tagging and compliant resource using the CDK. This package is yet to hit version 1.x, you might encounter issues.
+**This package is yet to hit version 1.x, you might encounter issues.**
 
-This package is tied to Enfo and its customers. Enfo is a [Managed Service Provider](https://aws.amazon.com/partners/programs/msp/) for AWS. You can of course use the package without being a customer, but the tags might have no effect depending on your AWS organization setup.
+Compliant resource Constructs and tagging using the CDK. The compliant Constructs make it easier to reduce your number of Security Hub security findings. If you are using CloudFormation rather than the CDK you can check the [unit tests](https://github.com/enfogroup/aws-cdk-compliance/tree/master/test) on the source repository to get an idea of what you need to fix.
+
+The tagging part of this package is tied to Enfo and its customers. [Enfo](https://insights.enfo.se/cloud-and-application-development) is a [Managed Service Provider](https://aws.amazon.com/partners/programs/msp/) for AWS. You can of course use the package without being a customer, but the tags might have no effect depending on your AWS organization setup.
 
 ## Installation
 
@@ -12,60 +14,9 @@ The package should be installed as a dependency.
 npm install @enfo/aws-cdkompliance --save
 ```
 
-## Tagging
+## Compliant resource Constructs
 
-If you are an Enfo customer you can enable backups of databases using tags. This can easily be achieved by using the function **enableBackups**. This function can be applied on a Resource, Stack or App level.
-
-Enabling backups of a single resource.
-
-```typescript
-import { enableBackups, Table } from '@enfo/aws-cdkompliance'
-import { Stack } from 'aws-cdk-lib'
-import { AttributeType } from 'aws-cdk-lib/aws-dynamodb'
-
-const stack = new Stack()
-const myTable = new Table(stack, 'Table', { 
-  partitionKey: {
-    name: 'pk',
-    type: AttributeType.STRING
-  }
-})
-enableBackups(myTable)
-```
-
-Enable backups of an entire stack.
-
-```typescript
-import { enableBackups } from '@enfo/aws-cdkompliance'
-import { Stack } from 'aws-cdk-lib'
-
-const stack = new Stack()
-enableBackups(stack)
-```
-
-Enable backups of an entire app.
-
-```typescript
-import { enableBackups } from '@enfo/aws-cdkompliance'
-import { App } from '@aws-cdk/core'
-
-const app = new App()
-enableBackups(app)
-```
-
-Where backups are stored can be controlled via the second parameter, backupPlan. It defaults to **STANDARD** which creates backups in the region in which the resource exists.
-
-```typescript
-import { enableBackups, BackupPlan } from '@enfo/aws-cdkompliance'
-import { App } from '@aws-cdk/core'
-
-const app = new App()
-enableBackups(app, BackupPlan.STOCKHOLM)
-```
-
-## Resource specific settings
-
-As a part of our compliance reports we send out information about resources that are non-compliant. This package exposes compliant Constructs which are extension of AWS Constructs. Failure in compliance will result in errors during synthesis.
+In Security Hub you can find a list of security findings. We refer to resources with such findings as non-compliant. This package exposes compliant Constructs which are extensions of CDK Constructs. They have been modified to throw errors during CDK synthesis should you try to use a poorly set Construct property. Most Constructs require no input from you and will be compliant by default.
 
 When possible the default Props used to create the Construct are exposed as well.
 
@@ -329,4 +280,57 @@ import { Stack } from 'aws-cdk-lib'
 
 const stack = new Stack()
 new Queue(stack, 'Queue', { queueName: 'my-queue' })
+```
+
+## Tagging
+
+If you are an Enfo customer you can enable backups of databases using tags. This can easily be achieved by using the function **enableBackups**. This function can be applied on a Resource, Stack or App level.
+
+If you are not an Enfo customer can achieve backups by reading this [AWS guide](https://docs.aws.amazon.com/aws-backup/latest/devguide/assigning-resources.html).
+
+Enabling backups of a single resource.
+
+```typescript
+import { enableBackups, Table } from '@enfo/aws-cdkompliance'
+import { Stack } from 'aws-cdk-lib'
+import { AttributeType } from 'aws-cdk-lib/aws-dynamodb'
+
+const stack = new Stack()
+const myTable = new Table(stack, 'Table', { 
+  partitionKey: {
+    name: 'pk',
+    type: AttributeType.STRING
+  }
+})
+enableBackups(myTable)
+```
+
+Enable backups of an entire stack.
+
+```typescript
+import { enableBackups } from '@enfo/aws-cdkompliance'
+import { Stack } from 'aws-cdk-lib'
+
+const stack = new Stack()
+enableBackups(stack)
+```
+
+Enable backups of an entire app.
+
+```typescript
+import { enableBackups } from '@enfo/aws-cdkompliance'
+import { App } from '@aws-cdk/core'
+
+const app = new App()
+enableBackups(app)
+```
+
+Where backups are stored can be controlled via the second parameter, backupPlan. It defaults to **STANDARD** which creates backups in the region in which the resource exists.
+
+```typescript
+import { enableBackups, BackupPlan } from '@enfo/aws-cdkompliance'
+import { App } from '@aws-cdk/core'
+
+const app = new App()
+enableBackups(app, BackupPlan.STOCKHOLM)
 ```
