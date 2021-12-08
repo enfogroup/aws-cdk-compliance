@@ -6,9 +6,21 @@ import { Construct } from 'constructs'
  * Available Backup plans. Availability depends on your agreement with Enfo
  */
 export enum BackupPlan {
+  /**
+   * Creates backups in the region of the resource
+   */
   STANDARD = 'Standard',
+  /**
+   * Creates backups in eu-north-1, the Stockholm region
+   */
   STOCKHOLM = 'StandardCrossRegionStockholm',
+  /**
+   * Creates backups in eu-west-1, the Ireland region
+   */
   IRELAND = 'StandardCrossRegionIreland',
+  /**
+   * Creates backups in eu-central-1, the Frankfurt region
+   */
   FRANKFURT = 'StandardCrossRegionFrankfurt'
 }
 
