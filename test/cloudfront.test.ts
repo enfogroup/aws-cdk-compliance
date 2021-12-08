@@ -5,6 +5,7 @@ import { Distribution } from '../lib/cloudfront'
 import '@aws-cdk/assert/jest'
 import { ViewerProtocolPolicy } from 'aws-cdk-lib/aws-cloudfront'
 import { HttpOrigin } from 'aws-cdk-lib/aws-cloudfront-origins'
+import { CfnWebACL } from 'aws-cdk-lib/aws-wafv2'
 import { Stack } from 'aws-cdk-lib'
 import { Match, Template } from 'aws-cdk-lib/assertions'
 
@@ -12,12 +13,21 @@ describe('CloudFront', () => {
   describe('Distribution', () => {
     it('should have sane defaults', () => {
       const stack = new Stack()
+      const webAcl = new CfnWebACL(stack, 'WebACL', {
+        scope: 'CLOUDFRONT',
+        defaultAction: { allow: {} },
+        visibilityConfig: {
+          cloudWatchMetricsEnabled: false,
+          metricName: 'metricName',
+          sampledRequestsEnabled: false
+        }
+      })
 
       new Distribution(stack, 'Distribution', {
         defaultBehavior: {
           origin: new HttpOrigin('example.com')
         },
-        webAclId: 'some-id'
+        webAclId: webAcl.attrId
       })
 
       const template = Template.fromStack(stack)
@@ -30,7 +40,9 @@ describe('CloudFront', () => {
           Logging: {
             Bucket: {}
           },
-          WebACLId: 'some-id'
+          WebACLId: {
+            'Fn::GetAtt': ['WebACL', 'Id']
+          }
         }
       }))
     })
