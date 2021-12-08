@@ -284,6 +284,10 @@ new Queue(stack, 'Queue', { queueName: 'my-queue' })
 
 ## Tagging
 
+This section largely caters to Enfo customers. If you are not an Enfo customer you can still achieve the functionality described for enableBackups.
+
+### enableBackups
+
 If you are an Enfo customer you can enable backups of databases using tags. This can easily be achieved by using the function **enableBackups**. This function can be applied on a Resource, Stack or App level.
 
 If you are not an Enfo customer can achieve backups by reading this [AWS guide](https://docs.aws.amazon.com/aws-backup/latest/devguide/assigning-resources.html).
@@ -333,4 +337,25 @@ import { App } from '@aws-cdk/core'
 
 const app = new App()
 enableBackups(app, BackupPlan.STOCKHOLM)
+```
+
+### allowBillingModeProvisioned
+
+If you have an existing DynamoDB table using BillingMode.PROVISIONED we will raise an alarm as billingMode.PAY_PER_REQUEST is preferred. If you have a good reason for using PROVISIONED and find yourself in a situation where you can use our Table Construct you can use **allowBillingModeProvisioned** to tag the Table as okay.
+
+Tagging example
+
+```typescript
+import { allowBillingModeProvisioned } from '@enfo/aws-cdkompliance'
+import { Table, AttributeType } from 'aws-cdk-lib/aws-dynamodb' // not an Enfo Construct 
+import { Stack } from 'aws-cdk-lib'
+
+const stack = new Stack()
+const myTable = new Table(stack, 'Table', {
+  partitionKey: {
+    name: 'pk',
+    type: AttributeType.STRING
+  }
+})
+allowBillingModeProvisioned(myTable)
 ```
