@@ -6,8 +6,17 @@ import {
 } from 'aws-cdk-lib/aws-rds'
 import { Construct } from 'constructs'
 
+/**
+ * Used to state whether or not this database should be considered a production database or not
+ */
 export enum DatabaseEnvironment {
+  /**
+   * When used the database must be deployed to multiple Availability Zones
+   */
   PRODUCTION,
+  /**
+   * When used the database can be deployed to a single Availability Zone
+   */
   NOT_PRODUCTION
 }
 

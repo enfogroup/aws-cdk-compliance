@@ -42,6 +42,9 @@ export class ApplicationLoadBalancer extends LBApplicationLoadBalancer {
     })
   }
 
+  /**
+   * @ignore
+   */
   public setAttribute (key: string, value?: string) {
     if (!this.internalAttributes) {
       this.internalAttributes = {}
