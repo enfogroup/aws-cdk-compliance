@@ -323,7 +323,7 @@ Enable backups of an entire app.
 
 ```typescript
 import { enableBackups } from '@enfo/aws-cdkompliance'
-import { App } from '@aws-cdk/core'
+import { App } from 'aws-cdk-lib'
 
 const app = new App()
 enableBackups(app)
@@ -333,7 +333,7 @@ Where backups are stored can be controlled via the second parameter, backupPlan.
 
 ```typescript
 import { enableBackups, BackupPlan } from '@enfo/aws-cdkompliance'
-import { App } from '@aws-cdk/core'
+import { App } from 'aws-cdk-lib'
 
 const app = new App()
 enableBackups(app, BackupPlan.STOCKHOLM)
