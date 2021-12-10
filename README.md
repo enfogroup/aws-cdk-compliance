@@ -159,7 +159,9 @@ The following features are available for Lambda.
 
 * Function, compliant Lambda Function Construct
 
-The Function Construct blocks use of runtimes which is not the latest for a given language. If you try to instantiate a Function using an old runtime it will throw. Custom runtimes are not affected.
+The following Security Hub findings are managed by the Function Construct.
+
+* [[Lambda.2] Lambda functions should use supported runtimes](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-lambda-2), hard enforced. We limit the supported runtimes to only the latest for each language. Custom runtimes are also fine
 
 Function creation example
 
