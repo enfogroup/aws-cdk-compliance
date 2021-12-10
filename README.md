@@ -27,9 +27,11 @@ The following features are available for Application Load Balancer.
 * ApplicationLoadBalancer, compliant Application Load Balancer Construct. Will throw if non-compliant properties are passed
 * defaultApplicationLoadBalancerProps, the ApplicationLoadBalancerProps used to make the Application Load Balancer compliant
 
-Note that access logs need to be added to the construct.
+The following Security Hub findings are managed by the ApplicationLoadBalancer Construct.
 
-Note that this construct enables the Drop invalid HTTP headers feature.
+* [[ELB.4] Application load balancers should be configured to drop HTTP headers](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-elb-4)
+* [[ELB.5] Application and Classic Load Balancers logging should be enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-elb-5)
+* [[ELB.6] Application Load Balancer deletion protection should be enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-elb-6)
 
 Application Load Balancer creation example.
 
