@@ -54,6 +54,12 @@ The following features are available for CloudFront.
 * Distribution, compliant CloudFront Distribution Construct. Will throw if non-compliant properties are passed
 * defaultDistributionProps, the DistributionProps used to make the distribution compliant
 
+The following Security Hub findings are managed by the Distribution Construct.
+
+* [[CloudFront.1] CloudFront distributions should have a default root object configured](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-cloudfront-1)
+* [[CloudFront.5] CloudFront distributions should have logging enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-cloudfront-5)
+* [[CloudFront.6] CloudFront distributions should have AWS WAF enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-cloudfront-6)
+
 CloudFront Distribution creation example.
 
 ```typescript
