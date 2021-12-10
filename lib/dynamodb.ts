@@ -10,9 +10,10 @@ import { allowBillingModeProvisioned } from './tags'
  */
 export class Table extends DynamoDBTable {
   constructor (scope: Construct, id: string, props: TableProps) {
-    const { billingMode = BillingMode.PAY_PER_REQUEST, ...rest } = props
+    const { billingMode = BillingMode.PAY_PER_REQUEST, pointInTimeRecovery = true, ...rest } = props
     super(scope, id, {
       billingMode,
+      pointInTimeRecovery,
       ...rest
     })
 

@@ -83,9 +83,14 @@ new Distribution(stack, 'Distribution', {
 
 ### DynamoDB
 
-For DynamoDB we do not have strict compliance requirements. We do however strongly recommend using billing mode PAY_PER_REQUEST. If a Table is created with billing mode PROVISIONED an alarm will be triggered. This can be bypassed by tagging the resource. We expose a Construct which defaults to using PAY_PER_REQUEST. If you use PROVISIONED it will suppress warnings. Please make sure that you are aware of the cost impact of using PROVISIONED. The following features are available for DynamoDB.
+For DynamoDB we do not have strict compliance requirements. We do however have recommendations:
 
-* Table, Construct defaulting to using BillingMode.PAY_PER_REQUEST. Will suppress warnings if you use PROVISIONED
+* We strongly recommend using billing mode PAY_PER_REQUEST. If a Table is created with billing mode PROVISIONED an alarm will be triggered. This can be bypassed by tagging the resource. We expose a Construct which defaults to using PAY_PER_REQUEST. If you use PROVISIONED it will suppress warnings. Please make sure that you are aware of the cost impact of using PROVISIONED. The following features are available for DynamoDB
+* Security Hub considers not having point in time recovery enabled to be a finding. We are not as keen to consider tables without it enabled non-compliant. A non-critical table can grow large. Our Table Construct defaults to enabling it, but you can disable it and suppress the finding in Security Hub
+
+The following features are available for DynamoDB.
+
+* Table, Construct defaulting to using BillingMode.PAY_PER_REQUEST and point in time recovery enabled
 * allowBillingModeProvisioned, function for tagging DynamoDB to suppress warnings on PROVISIONED
 
 Table creation example without billingMode specified. Will default to PAY_PER_REQUEST. The Table will not be tagged to suppress warnings. The same will happen if billingMode is set to PAY_PER_REQUEST.

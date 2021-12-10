@@ -68,5 +68,32 @@ describe('DynamoDB', () => {
         ]
       })
     })
+
+    it('should enable point in time recovery by default', () => {
+      const stack = new Stack()
+
+      new Table(stack, 'Table', {
+        partitionKey
+      })
+
+      expect(stack).toHaveResource('AWS::DynamoDB::Table', {
+        PointInTimeRecoverySpecification: {
+          PointInTimeRecoveryEnabled: true
+        }
+      })
+    })
+
+    it('should be possible to disable point in time recovery', () => {
+      const stack = new Stack()
+
+      new Table(stack, 'Table', {
+        partitionKey,
+        pointInTimeRecovery: false
+      })
+
+      expect(stack).toHaveResource('AWS::DynamoDB::Table', {
+        PointInTimeRecoverySpecification: ABSENT
+      })
+    })
   })
 })
