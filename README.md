@@ -27,9 +27,11 @@ The following features are available for Application Load Balancer.
 * ApplicationLoadBalancer, compliant Application Load Balancer Construct. Will throw if non-compliant properties are passed
 * defaultApplicationLoadBalancerProps, the ApplicationLoadBalancerProps used to make the Application Load Balancer compliant
 
-Note that access logs need to be added to the construct.
+The following Security Hub findings are managed by the ApplicationLoadBalancer Construct.
 
-Note that this construct enables the Drop invalid HTTP headers feature.
+* [[ELB.4] Application load balancers should be configured to drop HTTP headers](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-elb-4)
+* [[ELB.5] Application and Classic Load Balancers logging should be enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-elb-5)
+* [[ELB.6] Application Load Balancer deletion protection should be enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-elb-6)
 
 Application Load Balancer creation example.
 
@@ -51,6 +53,12 @@ The following features are available for CloudFront.
 
 * Distribution, compliant CloudFront Distribution Construct. Will throw if non-compliant properties are passed
 * defaultDistributionProps, the DistributionProps used to make the distribution compliant
+
+The following Security Hub findings are managed by the Distribution Construct.
+
+* [[CloudFront.1] CloudFront distributions should have a default root object configured](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-cloudfront-1)
+* [[CloudFront.5] CloudFront distributions should have logging enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-cloudfront-5)
+* [[CloudFront.6] CloudFront distributions should have AWS WAF enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-cloudfront-6)
 
 CloudFront Distribution creation example.
 
@@ -83,15 +91,15 @@ new Distribution(stack, 'Distribution', {
 
 ### DynamoDB
 
-For DynamoDB we do not have strict compliance requirements. We do however have recommendations:
-
-* We strongly recommend using billing mode PAY_PER_REQUEST. If a Table is created with billing mode PROVISIONED an alarm will be triggered. This can be bypassed by tagging the resource. We expose a Construct which defaults to using PAY_PER_REQUEST. If you use PROVISIONED it will suppress warnings. Please make sure that you are aware of the cost impact of using PROVISIONED. The following features are available for DynamoDB
-* Security Hub considers not having point in time recovery enabled to be a finding. We are not as keen to consider tables without it enabled non-compliant. A non-critical table can grow large. Our Table Construct defaults to enabling it, but you can disable it and suppress the finding in Security Hub
-
 The following features are available for DynamoDB.
 
 * Table, Construct defaulting to using BillingMode.PAY_PER_REQUEST and point in time recovery enabled
 * allowBillingModeProvisioned, function for tagging DynamoDB to suppress warnings on PROVISIONED
+
+The following Security Hub findings are managed by the Table Construct.
+
+* [[DynamoDB.1] DynamoDB tables should automatically scale capacity with demand](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-dynamodb-1), softly enforced
+* [[DynamoDB.2] DynamoDB tables should have point-in-time recovery enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-dynamodb-2), enabled by default in the Construct. Can be disabled and the findings suppress
 
 Table creation example without billingMode specified. Will default to PAY_PER_REQUEST. The Table will not be tagged to suppress warnings. The same will happen if billingMode is set to PAY_PER_REQUEST.
 
@@ -151,7 +159,9 @@ The following features are available for Lambda.
 
 * Function, compliant Lambda Function Construct
 
-The Function Construct blocks use of runtimes which is not the latest for a given language. If you try to instantiate a Function using an old runtime it will throw. Custom runtimes are not affected.
+The following Security Hub findings are managed by the Function Construct.
+
+* [[Lambda.2] Lambda functions should use supported runtimes](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-lambda-2), hard enforced. We limit the supported runtimes to only the latest for each language. Custom runtimes are also fine
 
 Function creation example
 
@@ -172,9 +182,11 @@ new Function(stack, 'Function', {
 
 The following features are available for Lambda NodeJS.
 
-* NodejsFunction, compliant NodeJS Lambda Function Construct
+* NodejsFunction, compliant NodeJS Lambda NodejsFunction Construct
 
-The NodejsFunction Construct blocks use of runtimes which is not the latest node runtime. If you try to instantiate a Function using an old runtime it will throw. Custom runtimes are not affected.
+The following Security Hub findings are managed by the NodejsFunction Construct.
+
+* [[Lambda.2] Lambda functions should use supported runtimes](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-lambda-2), hard enforced. We limit the supported runtimes to only the latest for each language. Custom runtimes are also fine
 
 NodejsFunction creation example
 
@@ -217,6 +229,14 @@ The following features are available for RDS
 * DatabaseInstance, compliant DatabaseInstance Construct
 * defaultDatabaseInstanceProps, the DatabaseInstanceProps used to make the DatabaseInstance compliant
 
+The following Security Hub findings are managed by the DatabaseCluster Construct.
+
+* [[RDS.4] RDS cluster snapshots and database snapshots should be encrypted at rest](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-4)
+* [[RDS.7] RDS clusters should have deletion protection enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-7)
+* [[RDS.12] IAM authentication should be configured for RDS clusters](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-12)
+* [[RDS.13] RDS automatic minor version upgrades should be enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-13)
+* [[RDS.16] RDS DB clusters should be configured to copy tags to snapshots](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-16)
+
 DatabaseCluster creation example.
 
 ```typescript
@@ -234,6 +254,17 @@ new DatabaseCluster(stack, 'DatabaseCluster', {
   }
 })
 ```
+
+The following Security Hub findings are managed by the DatabaseInstance Construct.
+
+* [[RDS.2] RDS DB instances should prohibit public access, determined by the PubliclyAccessible configuration](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-2)
+* [[RDS.3] RDS DB instances should have encryption at rest enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-3)
+* [[RDS.4] RDS cluster snapshots and database snapshots should be encrypted at rest](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-4)
+* [[RDS.5] RDS DB instances should be configured with multiple Availability Zones](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-5)
+* [[RDS.8] RDS DB instances should have deletion protection enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-8)
+* [[RDS.10] IAM authentication should be configured for RDS instances](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-10)
+* [[RDS.13] RDS automatic minor version upgrades should be enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-13)
+* [[RDS.17] RDS DB instances should be configured to copy tags to snapshots](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-17)
 
 Note that DatabaseInstance defaults to MultiAZ, and you need to set `environment: NOT_PRODUCTION` to be able to set MultiAZ to false.
 
@@ -262,6 +293,15 @@ The following features are available for S3.
 * Bucket, compliant S3 Bucket Construct
 * defaultBucketProps, the BucketProps used to enforce compliance if you don't supply your own
 
+The following Security Hub findings are managed by the Bucket Construct.
+
+* [[S3.1] S3 Block Public Access setting should be enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-s3-1)
+* [[S3.2] S3 buckets should prohibit public read access](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-s3-2)
+* [[S3.3] S3 buckets should prohibit public write access](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-s3-3)
+* [[S3.4] S3 buckets should have server-side encryption enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-s3-4)
+* [[S3.5] S3 buckets should require requests to use Secure Socket Layer](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-s3-5)
+* [[S3.8] S3 Block Public Access setting should be enabled at the bucket level](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-s3-8)
+
 
 Bucket creation example
 
@@ -279,7 +319,11 @@ The following features are available for SNS. SNS requires a KMS Key Construct t
 
 * Topic, compliant SNS Topic Construct. Will throw if non-compliant properties are passed
 
-Topic creation example. Please note that it uses our KMS Key Construct to ensure the Key is compliant as well.
+The following Security Hub findings are managed by the Topic Construct.
+
+* [[SNS.1] SNS topics should be encrypted at rest using AWS KMS](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-sns-1)
+
+Topic creation example
 
 ```typescript
 import { Key, Topic } from '@enfo/aws-cdkompliance'
@@ -297,6 +341,10 @@ The following features are available for SQS.
 
 * Queue, compliant SQS Queue Construct. Will throw if non-compliant properties are passed
 * defaultQueueProps, the QueueProps used to make the queue compliant
+
+The following Security Hub findings are managed by the Queue Construct.
+
+* [[SQS.1] Amazon SQS queues should be encrypted at rest](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-sqs-1)
 
 Queue creation example.
 
