@@ -182,9 +182,9 @@ new Function(stack, 'Function', {
 
 The following features are available for Lambda NodeJS.
 
-* NodejsFunction, compliant NodeJS Lambda Function Construct
+* NodejsFunction, compliant NodeJS Lambda NodejsFunction Construct
 
-The following Security Hub findings are managed by the Function Construct.
+The following Security Hub findings are managed by the NodejsFunction Construct.
 
 * [[Lambda.2] Lambda functions should use supported runtimes](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-lambda-2), hard enforced. We limit the supported runtimes to only the latest for each language. Custom runtimes are also fine
 
