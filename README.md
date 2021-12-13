@@ -206,6 +206,14 @@ The following features are available for RDS
 * DatabaseInstance, compliant DatabaseInstance Construct
 * defaultDatabaseInstanceProps, the DatabaseInstanceProps used to make the DatabaseInstance compliant
 
+The following Security Hub findings are managed by the DatabaseCluster Construct.
+
+* [[RDS.4] RDS cluster snapshots and database snapshots should be encrypted at rest](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-4)
+* [[RDS.7] RDS clusters should have deletion protection enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-7)
+* [[RDS.12] IAM authentication should be configured for RDS clusters](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-12)
+* [[RDS.13] RDS automatic minor version upgrades should be enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-13)
+* [[RDS.16] RDS DB clusters should be configured to copy tags to snapshots](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-16)
+
 DatabaseCluster creation example.
 
 ```typescript
@@ -223,6 +231,17 @@ new DatabaseCluster(stack, 'DatabaseCluster', {
   }
 })
 ```
+
+The following Security Hub findings are managed by the DatabaseInstance Construct.
+
+* [[RDS.2] RDS DB instances should prohibit public access, determined by the PubliclyAccessible configuration](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-2)
+* [[RDS.3] RDS DB instances should have encryption at rest enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-3)
+* [[RDS.4] RDS cluster snapshots and database snapshots should be encrypted at rest](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-4)
+* [[RDS.5] RDS DB instances should be configured with multiple Availability Zones](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-5)
+* [[RDS.8] RDS DB instances should have deletion protection enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-8)
+* [[RDS.10] IAM authentication should be configured for RDS instances](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-10)
+* [[RDS.13] RDS automatic minor version upgrades should be enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-13)
+* [[RDS.17] RDS DB instances should be configured to copy tags to snapshots](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-17)
 
 Note that DatabaseInstance defaults to MultiAZ, and you need to set `environment: NOT_PRODUCTION` to be able to set MultiAZ to false.
 
