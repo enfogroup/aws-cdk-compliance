@@ -319,7 +319,11 @@ The following features are available for SNS. SNS requires a KMS Key Construct t
 
 * Topic, compliant SNS Topic Construct. Will throw if non-compliant properties are passed
 
-Topic creation example. Please note that it uses our KMS Key Construct to ensure the Key is compliant as well.
+The following Security Hub findings are managed by the Topic Construct.
+
+* [[SNS.1] SNS topics should be encrypted at rest using AWS KMS](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-sns-1)
+
+Topic creation example
 
 ```typescript
 import { Key, Topic } from '@enfo/aws-cdkompliance'
@@ -337,6 +341,10 @@ The following features are available for SQS.
 
 * Queue, compliant SQS Queue Construct. Will throw if non-compliant properties are passed
 * defaultQueueProps, the QueueProps used to make the queue compliant
+
+The following Security Hub findings are managed by the Queue Construct.
+
+* [[SQS.1] Amazon SQS queues should be encrypted at rest](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-sqs-1)
 
 Queue creation example.
 
