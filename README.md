@@ -178,6 +178,27 @@ new Function(stack, 'Function', {
 })
 ```
 
+### Lambda NodeJS
+
+The following features are available for Lambda NodeJS.
+
+* NodejsFunction, compliant NodeJS Lambda Function Construct
+
+The NodejsFunction Construct blocks use of runtimes which is not the latest node runtime. If you try to instantiate a Function using an old runtime it will throw. Custom runtimes are not affected.
+
+NodejsFunction creation example
+
+```typescript
+import { NodejsFunction } from '@enfo/aws-cdkompliance'
+import { Stack } from 'aws-cdk-lib'
+
+const stack = new Stack()
+new NodejsFunction(stack, 'Function', {
+  handler: 'handler',
+  entry: path.join(__dirname, '../src/hello-world.ts')
+})
+```
+
 ### Logs
 
 The following features are available for Logs.
