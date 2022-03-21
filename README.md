@@ -370,7 +370,7 @@ Enable backups of an entire stack.
 ```typescript
 import { enableBackups } from '@enfo/aws-cdkompliance'
 import { Stack } from 'aws-cdk-lib'
-fp
+
 const stack = new Stack()
 enableBackups(stack)
 ```
@@ -393,4 +393,32 @@ import { App } from 'aws-cdk-lib'
 
 const app = new App()
 enableBackups(app, BackupPlan.STOCKHOLM)
+```
+
+### exemptBucketFromBlockPublicAutoFix
+
+Buckets in an AWS account managed by Enfo will automatically have [[S3.1] S3 Block Public Access setting should be enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-s3-1) fixed. If you do no want this to happen you can use this tagging function to exempt the bucket.
+
+```typescript
+import { exemptBucketFromBlockPublicAutoFix } from '@enfo/aws-cdkompliance'
+import { Bucket } from 'aws-cdk-lib/aws-s3'
+import { Stack } from 'aws-cdk-lib'
+
+const stack = new Stack()
+const bucket = new Bucket(stack)
+exemptBucketFromBlockPublicAutoFix(bucket)
+```
+
+### exemptBucketFromSslAutoFix
+
+Buckets in an AWS account managed by Enfo will automatically have [[S3.4] S3 buckets should have server-side encryption enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-s3-4) fixed. If you do no want this to happen you can use this tagging function to exempt the bucket.
+
+```typescript
+import { exemptBucketFromSslAutoFix } from '@enfo/aws-cdkompliance'
+import { Bucket } from 'aws-cdk-lib/aws-s3'
+import { Stack } from 'aws-cdk-lib'
+
+const stack = new Stack()
+const bucket = new Bucket(stack)
+exemptBucketFromSslAutoFix(bucket)
 ```
