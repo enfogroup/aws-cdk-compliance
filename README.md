@@ -116,23 +116,6 @@ new Table(stack, 'Table', {
 })
 ```
 
-Table creation example using PROVISIONED.
-
-```typescript
-import { Table } from '@enfo/aws-cdkompliance'
-import { Stack } from 'aws-cdk-lib'
-import { AttributeType, BillingMode } from 'aws-cdk-lib/aws-dynamodb'
-
-const stack = new Stack()
-new Table(stack, 'Table', {
-  partitionKey: {
-    name: 'pk',
-    type: AttributeType.STRING
-  },
-  billingMode: BillingMode.PROVISIONED
-})
-```
-
 ### KMS
 
 The following features are available for KMS.
@@ -387,7 +370,7 @@ Enable backups of an entire stack.
 ```typescript
 import { enableBackups } from '@enfo/aws-cdkompliance'
 import { Stack } from 'aws-cdk-lib'
-
+fp
 const stack = new Stack()
 enableBackups(stack)
 ```
