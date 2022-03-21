@@ -94,7 +94,6 @@ new Distribution(stack, 'Distribution', {
 The following features are available for DynamoDB.
 
 * Table, Construct defaulting to using BillingMode.PAY_PER_REQUEST and point in time recovery enabled
-* allowBillingModeProvisioned, function for tagging DynamoDB to suppress warnings on PROVISIONED
 
 The following Security Hub findings are managed by the Table Construct.
 
@@ -117,7 +116,7 @@ new Table(stack, 'Table', {
 })
 ```
 
-Table creation example using PROVISIONED. The Table will be tagged to suppress warnings.
+Table creation example using PROVISIONED.
 
 ```typescript
 import { Table } from '@enfo/aws-cdkompliance'
@@ -411,25 +410,4 @@ import { App } from 'aws-cdk-lib'
 
 const app = new App()
 enableBackups(app, BackupPlan.STOCKHOLM)
-```
-
-### allowBillingModeProvisioned
-
-If you have an existing DynamoDB table using BillingMode.PROVISIONED we will raise an alarm as billingMode.PAY_PER_REQUEST is preferred. If you have a good reason for using PROVISIONED and find yourself in a situation where you can use our Table Construct you can use **allowBillingModeProvisioned** to tag the Table as okay.
-
-Tagging example
-
-```typescript
-import { allowBillingModeProvisioned } from '@enfo/aws-cdkompliance'
-import { Table, AttributeType } from 'aws-cdk-lib/aws-dynamodb' // not an Enfo Construct 
-import { Stack } from 'aws-cdk-lib'
-
-const stack = new Stack()
-const myTable = new Table(stack, 'Table', {
-  partitionKey: {
-    name: 'pk',
-    type: AttributeType.STRING
-  }
-})
-allowBillingModeProvisioned(myTable)
 ```
