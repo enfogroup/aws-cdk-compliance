@@ -29,13 +29,13 @@
     "package": "jsii-pacmak",
     "clean": "rm -f lib/*.js lib/*.d.ts test/*.js test/*.d.ts",
     "test": "npm run clean && jest --runInBand",
-    "lint": "npx eslint 'lib/**/*.ts' 'test/**/*.ts'",
-    "lint:fix": "npx eslint --fix 'lib/**/*.ts' 'test/**/*.ts'"
+    "lint": "npx eslint --ext .ts .",
+    "lint:fix": "npx eslint --fix --ext .ts ."
   },
   "devDependencies": {
     "@aws-cdk/assert": "^2.0.0",
-    "@commitlint/cli": "^15.0.0",
-    "@commitlint/config-conventional": "^15.0.0",
+    "@commitlint/cli": "^16.2.3",
+    "@commitlint/config-conventional": "^16.2.1",
     "@types/jest": "^27.0.3",
     "@types/node": "^16.11.11",
     "@typescript-eslint/eslint-plugin": "^5.5.0",
