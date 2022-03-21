@@ -99,28 +99,6 @@ describe('Tags', () => {
     })
   })
 
-  describe('exemptBucketFromSslAutoFix', () => {
-    it('should tag an S3 bucket as exempt', () => {
-      const stack = new Stack()
-      const bucket = new Bucket(stack, 'Bucket')
-
-      expect(stack).toHaveResource('AWS::S3::Bucket', {
-        Tags: ABSENT
-      })
-
-      exemptBucketFromSslAutoFix(bucket)
-
-      expect(stack).toHaveResource('AWS::S3::Bucket', {
-        Tags: [
-          {
-            Key: 'SecureTransportAutomation',
-            Value: 'Exempt'
-          }
-        ]
-      })
-    })
-  })
-
   describe('exemptBucketFromBlockPublicAutoFix', () => {
     it('should tag an S3 bucket as exempt', () => {
       const stack = new Stack()
@@ -136,6 +114,28 @@ describe('Tags', () => {
         Tags: [
           {
             Key: 'BlockPublicAccessAutomation',
+            Value: 'Exempt'
+          }
+        ]
+      })
+    })
+  })
+
+  describe('exemptBucketFromSslAutoFix', () => {
+    it('should tag an S3 bucket as exempt', () => {
+      const stack = new Stack()
+      const bucket = new Bucket(stack, 'Bucket')
+
+      expect(stack).toHaveResource('AWS::S3::Bucket', {
+        Tags: ABSENT
+      })
+
+      exemptBucketFromSslAutoFix(bucket)
+
+      expect(stack).toHaveResource('AWS::S3::Bucket', {
+        Tags: [
+          {
+            Key: 'SecureTransportAutomation',
             Value: 'Exempt'
           }
         ]
