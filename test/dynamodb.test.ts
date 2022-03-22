@@ -51,24 +51,6 @@ describe('DynamoDB', () => {
       })
     })
 
-    it('should tag the resource if billing mode is PROVISIONED', () => {
-      const stack = new Stack()
-
-      new Table(stack, 'Table', {
-        partitionKey,
-        billingMode: BillingMode.PROVISIONED
-      })
-
-      expect(stack).toHaveResource('AWS::DynamoDB::Table', {
-        Tags: [
-          {
-            Key: 'BillingMode',
-            Value: 'Provisioned'
-          }
-        ]
-      })
-    })
-
     it('should enable point in time recovery by default', () => {
       const stack = new Stack()
 

@@ -29,35 +29,32 @@
     "package": "jsii-pacmak",
     "clean": "rm -f lib/*.js lib/*.d.ts test/*.js test/*.d.ts",
     "test": "npm run clean && jest --runInBand",
-    "lint": "npx eslint 'lib/**/*.ts' 'test/**/*.ts'",
-    "lint:fix": "npx eslint --fix 'lib/**/*.ts' 'test/**/*.ts'"
+    "lint": "npx eslint --ext .ts .",
+    "lint:fix": "npx eslint --fix --ext .ts ."
   },
   "devDependencies": {
     "@aws-cdk/assert": "^2.0.0",
-    "@commitlint/cli": "^15.0.0",
-    "@commitlint/config-conventional": "^15.0.0",
+    "@commitlint/cli": "^16.2.3",
+    "@commitlint/config-conventional": "^16.2.1",
     "@types/jest": "^27.0.3",
-    "@types/node": "^16.11.11",
+    "@types/node": "^17.0.21",
     "@typescript-eslint/eslint-plugin": "^5.5.0",
     "@typescript-eslint/parser": "^5.5.0",
     "aws-cdk": "^2.0.0",
-    "aws-cdk-lib": "2.0.0",
-    "constructs": "10.0.10",
+    "aws-cdk-lib": "^2.17.0",
+    "constructs": "^10.0.91",
     "eslint": "^8.4.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^5.2.0",
+    "eslint-plugin-promise": "^6.0.0",
     "husky": "^7.0.4",
     "jest": "^27.4.3",
     "jsii": "^1.46.0",
     "jsii-pacmak": "^1.46.0",
-    "pinst": "^2.1.6",
+    "pinst": "^3.0.0",
     "ts-jest": "^27.1.0",
     "typescript": "^4.5.2"
-  },
-  "dependencies": {
-    "aws-cdk-lib": "^2.0.0"
   },
   "peerDependencies": {
     "aws-cdk-lib": "^2.0.0",
@@ -67,5 +64,8 @@
   "jsii": {
     "outdir": ".dist",
     "versionFormat": "full"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.0.0"
   }
 }

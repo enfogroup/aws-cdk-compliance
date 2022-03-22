@@ -1,8 +1,6 @@
 import { BillingMode, Table as DynamoDBTable, TableProps } from 'aws-cdk-lib/aws-dynamodb'
 import { Construct } from 'constructs'
 
-import { allowBillingModeProvisioned } from './tags'
-
 /**
  * Compliant DynamoDB Table.
  *
@@ -16,9 +14,5 @@ export class Table extends DynamoDBTable {
       pointInTimeRecovery,
       ...rest
     })
-
-    if (billingMode === BillingMode.PROVISIONED) {
-      allowBillingModeProvisioned(this)
-    }
   }
 }
