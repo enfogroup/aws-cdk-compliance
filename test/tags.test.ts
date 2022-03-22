@@ -1,5 +1,5 @@
 // to be tested
-import { BackupPlan, enableBackups } from '../lib'
+import { BackupPlan, enableBackups, exemptBucketFromBlockPublicAutoFix, exemptBucketFromSslAutoFix } from '../lib'
 
 // tools
 import '@aws-cdk/assert/jest'
@@ -93,6 +93,50 @@ describe('Tags', () => {
           {
             Key: 'BackupPlan',
             Value: BackupPlan.IRELAND
+          }
+        ]
+      })
+    })
+  })
+
+  describe('exemptBucketFromBlockPublicAutoFix', () => {
+    it('should tag an S3 bucket as exempt', () => {
+      const stack = new Stack()
+      const bucket = new Bucket(stack, 'Bucket')
+
+      expect(stack).toHaveResource('AWS::S3::Bucket', {
+        Tags: ABSENT
+      })
+
+      exemptBucketFromBlockPublicAutoFix(bucket)
+
+      expect(stack).toHaveResource('AWS::S3::Bucket', {
+        Tags: [
+          {
+            Key: 'BlockPublicAccessAutomation',
+            Value: 'Exempt'
+          }
+        ]
+      })
+    })
+  })
+
+  describe('exemptBucketFromSslAutoFix', () => {
+    it('should tag an S3 bucket as exempt', () => {
+      const stack = new Stack()
+      const bucket = new Bucket(stack, 'Bucket')
+
+      expect(stack).toHaveResource('AWS::S3::Bucket', {
+        Tags: ABSENT
+      })
+
+      exemptBucketFromSslAutoFix(bucket)
+
+      expect(stack).toHaveResource('AWS::S3::Bucket', {
+        Tags: [
+          {
+            Key: 'SecureTransportAutomation',
+            Value: 'Exempt'
           }
         ]
       })
