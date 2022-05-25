@@ -342,6 +342,34 @@ new Queue(stack, 'Queue', { queueName: 'my-queue' })
 
 This section largely caters to Enfo customers. If you are not an Enfo customer you can still achieve the functionality described for enableBackups.
 
+### StackTags
+
+StackTags is a Typescript interface which describes the necessary tags on a Stack. Usage example:
+
+```typescript
+const app = new cdk.App()
+const tags = {
+  Owner: 'john.smith@example.com',
+  Project: 'My project',
+  ProjectKey: 'MP',
+  CostCenter: '12345',
+  SetupRequest: 'KEY-123',
+  ManagedBy: 'cdk',
+  Repo: 'https://bitbucket.org/example/my-cool-repo/',
+  Environment: 'Production',
+  SLA: 'Weekday',
+  Account: '111122223333',
+}
+
+new ExampleStack(app, 'some-name', {
+  env: { 
+    account: '11112222333',
+    region: 'eu-west-1'
+  },
+  tags
+})
+```
+
 ### enableBackups
 
 If you are an Enfo customer you can enable backups of databases using tags. This can easily be achieved by using the function **enableBackups**. This function can be applied on a Resource, Stack or App level.
