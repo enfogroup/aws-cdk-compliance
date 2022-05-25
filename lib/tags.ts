@@ -87,8 +87,17 @@ export enum AccountEnvironment {
   ALL = 'ALL'
 }
 
+/**
+ * Available Service Level Agreements
+ */
 export enum SLA {
+  /**
+   * Monday-Friday 07:00-17:00 CET
+   */
   WEEKDAY = 'Weekday',
+  /**
+   * 24/7
+   */
   TWENTY_FOUR_SEVEN = '24/7'
 }
 
