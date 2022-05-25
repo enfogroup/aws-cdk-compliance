@@ -1,6 +1,6 @@
 {
   "name": "@enfo/aws-cdkompliance",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Tagging and compliant resources using the CDK",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -23,7 +23,7 @@
   "scripts": {
     "prepublishOnly": "npx pinst --disable",
     "postpublish": "npx pinst --enable",
-    "postinstall": "npx husky install",
+    "_postinstall": "npx husky install",
     "build": "jsii",
     "build:watch": "jsii --watch",
     "package": "jsii-pacmak",
