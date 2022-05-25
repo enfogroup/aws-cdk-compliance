@@ -72,3 +72,85 @@ export const exemptBucketFromBlockPublicAutoFix = (bucket: Bucket): void => {
 export const exemptBucketFromSslAutoFix = (bucket: Bucket): void => {
   Tags.of(bucket).add('SecureTransportAutomation', ExemptionValue)
 }
+
+/**
+ * Possible account environments
+ */
+export enum AccountEnvironment {
+  DEVELOPMENT = 'Development',
+  STAGE = 'Stage',
+  TEST = 'Test',
+  ACCEPTANCE_TEST = 'AcceptanceTest',
+  SYSTEM_TEST = 'SystemTest',
+  PRODUCTION = 'Production',
+  OPS = 'Ops',
+  ALL = 'ALL'
+}
+
+export enum SLA {
+  WEEKDAY = 'Weekday',
+  TWENTY_FOUR_SEVEN = '24/7'
+}
+
+/**
+ * Standard tags which should be applied to all resources in an Enfo account
+ */
+export interface StackTags {
+  /**
+   * Email of assigned owner
+   */
+  Owner: string
+  /**
+   * Name of the customer, from an Enfo perspective. This is optional if the whole account belongs to the same customer.
+   */
+  Customer?: string
+  /**
+   * Name of the project
+   */
+  Project: string
+  /**
+   * Project identifier in JIRA
+   */
+  ProjectKey: string
+  /**
+   * Cost center or business unit identification information, which is relevant for cost allocation purposes.
+   * Format of value is customer specific. Multiple values can be specified if there are multiple levels in a hierarchy for cost allocation.
+   * First value then is the top level and the following levels further down in the hierarchy.
+   */
+  CostCenter: string
+  /**
+   * Issue in JIRA which was the reason for this resource to be set up or created.
+   * For example KEY-123
+   */
+  SetupRequest: string
+  /**
+   * The AWS account number
+   */
+  Account: string
+  /**
+   * Name of environment that this resource belongs to.
+   * If it belongs to multiple environments multiple values may be specified.
+   * Multiple values are specified as a string with comma separation between environments. For example 'Development,Test'
+   */
+  Environment: AccountEnvironment | string
+  /**
+   * Name of the resource, which may be added for extra description.
+   * Do not include any key metadata in the Name tag only, use separate tags for that!
+   * The Name tag shall never be required to obtain key information about a resource.
+   * The primary purpose is to provide an easy human readable identifier.
+   */
+  Name?: string
+  /**
+   * How was this resource created and how does one manage it
+   * Hard set to 'cdk' for this Interface
+   */
+  ManagedBy: 'cdk'
+  /**
+   * The repo containing the mechanism defined in ManagedBy.
+   */
+  Repo?: string
+  /**
+   * Service level agreement
+   */
+  SLA: SLA
+}
