@@ -159,7 +159,15 @@ export interface StackTags {
    */
   Repo?: string
   /**
+   * The commit hash used for the deploy
+   */
+  Commit?: string
+  /**
    * Service level agreement
    */
   SLA: SLA
+  /**
+   * ISO-8601
+   */
+  LastUpdated?: string
 }

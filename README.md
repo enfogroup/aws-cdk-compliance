@@ -347,8 +347,13 @@ This section largely caters to Enfo customers. If you are not an Enfo customer y
 StackTags is a Typescript interface which describes the necessary tags on a Stack. Usage example:
 
 ```typescript
-const app = new cdk.App()
-const tags = {
+import { StackTags } from '@enfo/aws-cdkompliance'
+import { App } from 'aws-cdk-lib'
+import { ExampleStack } from '../some/path'
+
+const app = new App()
+
+const tags: StackTags = {
   Owner: 'john.smith@example.com',
   Project: 'My project',
   ProjectKey: 'MP',
@@ -359,6 +364,42 @@ const tags = {
   Environment: 'Production',
   SLA: 'Weekday',
   Account: '111122223333',
+  LastUpdated: new Date().toISOString(),
+}
+
+new ExampleStack(app, 'some-name', {
+  env: { 
+    account: '11112222333',
+    region: 'eu-west-1'
+  },
+  tags
+})
+```
+
+When using Bitbucket Pipelines you can get the Repo and Commit fields like this:
+
+```typescript
+import { StackTags } from '@enfo/aws-cdkompliance'
+import { App } from 'aws-cdk-lib'
+import { ExampleStack } from '../some/path'
+
+const app = new App()
+
+const { BITBUCKET_GIT_HTTP_ORIGIN, BITBUCKET_COMMIT } = process.env
+const tags: StackTags = {
+  Owner: 'john.smith@example.com',
+  Project: 'My project',
+  ProjectKey: 'MP',
+  CostCenter: '12345',
+  SetupRequest: 'KEY-123',
+  ManagedBy: 'cdk',
+  Repo: 'https://bitbucket.org/example/my-cool-repo/',
+  Environment: 'Production',
+  SLA: 'Weekday',
+  Account: '111122223333',
+  LastUpdated: new Date().toISOString(),
+  Repo: BITBUCKET_GIT_HTTP_ORIGIN || 'DEV_DEPLOY',
+  Commit: BITBUCKET_COMMIT || 'DEV_DEPLOY',
 }
 
 new ExampleStack(app, 'some-name', {
