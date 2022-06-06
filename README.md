@@ -1,7 +1,5 @@
 # Introduction
 
-**This package is yet to hit version 1.x, you might encounter issues.**
-
 Compliant resource Constructs and tagging using the CDK. The compliant Constructs make it easier to reduce your number of Security Hub security findings. If you are using CloudFormation rather than the CDK you can check the [unit tests](https://github.com/enfogroup/aws-cdk-compliance/tree/master/test) on the source repository to get an idea of what you need to fix.
 
 The tagging part of this package is tied to Enfo and its customers. [Enfo](https://insights.enfo.se/cloud-and-application-development) is a [Managed Service Provider](https://aws.amazon.com/partners/programs/msp/) for AWS. You can of course use the package without being a customer, but the tags might have no effect depending on your AWS organization setup.
@@ -154,7 +152,7 @@ import { Stack } from 'aws-cdk-lib'
 
 const stack = new Stack()
 new Function(stack, 'Function', {
-  runtime: Runtime.NODEJS_14_X,
+  runtime: Runtime.NODEJS_16_X,
   handler: 'handler',
   code: Code.fromInline('myCode')
 })
