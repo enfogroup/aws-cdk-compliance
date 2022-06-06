@@ -4371,7 +4371,7 @@
           },
           "locationInModule": {
             "filename": "lib/lambda-nodejs.ts",
-            "line": 53
+            "line": 57
           },
           "name": "checkRuntime",
           "protected": true,
@@ -4608,6 +4608,6 @@
       "symbolId": "lib/sns:Topic"
     }
   },
-  "version": "1.0.0",
-  "fingerprint": "2nONMilGPI3a9Cze57pw7A+nT86gtLsWa8BJlGRJkdo="
+  "version": "1.1.0",
+  "fingerprint": "mJb33qNkk16n1AxmebMCyE1Mm+m8t3uECmStcqkS7bI="
 }
