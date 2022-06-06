@@ -40,7 +40,11 @@ const latestVersions: Record<string, string> = {
  */
 export class NodejsFunction extends LambdaNodejsFunction {
   constructor (scope: Construct, id: string, props: NodejsFunctionProps) {
-    super(scope, id, props)
+    const { runtime = Runtime.NODEJS_16_X, ...rest } = props
+    super(scope, id, {
+      runtime,
+      ...rest
+    })
     this.node.addValidation({
       validate: () => {
         return [

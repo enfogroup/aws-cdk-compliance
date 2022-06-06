@@ -15,12 +15,12 @@ describe('Lambda NodeJS', () => {
 
       new NodejsFunction(stack, 'Function', {
         handler: 'handler',
-        entry: path.join(__dirname, 'hello-world.ts'),
-        runtime: Runtime.NODEJS_16_X
+        entry: path.join(__dirname, 'hello-world.ts')
       })
 
       expect(stack).toHaveResource('AWS::Lambda::Function', {
-        Handler: 'index.handler'
+        Handler: 'index.handler',
+        Runtime: 'nodejs16.x'
       })
     })
 
