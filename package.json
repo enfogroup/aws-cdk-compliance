@@ -43,7 +43,7 @@
     "aws-cdk": "^2.27.0",
     "aws-cdk-lib": "2.27.0",
     "aws-sdk": "^2.1148.0",
-    "constructs": "10.0.10",
+    "constructs": "10.1.28",
     "eslint": "^8.4.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.25.3",
@@ -59,7 +59,7 @@
   },
   "peerDependencies": {
     "aws-cdk-lib": "^2.27.0",
-    "constructs": "^10.0.10"
+    "constructs": "^10.1.28"
   },
   "stability": "stable",
   "jsii": {
