@@ -11,7 +11,7 @@ const getNameFromRuntime = (runtime: Runtime): string => runtime.name
  * Valid runtimes, does not contain custom runtimes
  */
 export const validRuntimes = [
-  Runtime.NODEJS_14_X
+  Runtime.NODEJS_16_X
 ]
 
 const blackList: string[] = [
@@ -20,16 +20,17 @@ const blackList: string[] = [
   Runtime.NODEJS_6_10,
   Runtime.NODEJS_8_10,
   Runtime.NODEJS_10_X,
-  Runtime.NODEJS_12_X
+  Runtime.NODEJS_14_X
 ].map(getNameFromRuntime)
 
 const latestVersions: Record<string, string> = {
-  [getNameFromRuntime(Runtime.NODEJS)]: 'NODEJS_14_X',
-  [getNameFromRuntime(Runtime.NODEJS_4_3)]: 'NODEJS_14_X',
-  [getNameFromRuntime(Runtime.NODEJS_6_10)]: 'NODEJS_14_X',
-  [getNameFromRuntime(Runtime.NODEJS_8_10)]: 'NODEJS_14_X',
-  [getNameFromRuntime(Runtime.NODEJS_10_X)]: 'NODEJS_14_X',
-  [getNameFromRuntime(Runtime.NODEJS_12_X)]: 'NODEJS_14_X'
+  [getNameFromRuntime(Runtime.NODEJS)]: 'NODEJS_16_X',
+  [getNameFromRuntime(Runtime.NODEJS_4_3)]: 'NODEJS_16_X',
+  [getNameFromRuntime(Runtime.NODEJS_6_10)]: 'NODEJS_16_X',
+  [getNameFromRuntime(Runtime.NODEJS_8_10)]: 'NODEJS_16_X',
+  [getNameFromRuntime(Runtime.NODEJS_10_X)]: 'NODEJS_16_X',
+  [getNameFromRuntime(Runtime.NODEJS_12_X)]: 'NODEJS_16_X',
+  [getNameFromRuntime(Runtime.NODEJS_14_X)]: 'NODEJS_16_X'
 }
 
 /**
@@ -39,7 +40,11 @@ const latestVersions: Record<string, string> = {
  */
 export class NodejsFunction extends LambdaNodejsFunction {
   constructor (scope: Construct, id: string, props: NodejsFunctionProps) {
-    super(scope, id, props)
+    const { runtime = Runtime.NODEJS_16_X, ...rest } = props
+    super(scope, id, {
+      runtime,
+      ...rest
+    })
     this.node.addValidation({
       validate: () => {
         return [

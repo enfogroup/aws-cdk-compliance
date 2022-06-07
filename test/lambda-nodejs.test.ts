@@ -20,7 +20,7 @@ describe('Lambda NodeJS', () => {
 
       expect(stack).toHaveResource('AWS::Lambda::Function', {
         Handler: 'index.handler',
-        Runtime: 'nodejs14.x'
+        Runtime: 'nodejs16.x'
       })
     })
 
@@ -28,12 +28,12 @@ describe('Lambda NodeJS', () => {
       const stack = new Stack()
 
       new NodejsFunction(stack, 'Function', {
-        runtime: Runtime.NODEJS_12_X,
+        runtime: Runtime.NODEJS_14_X,
         handler: 'handler',
         entry: path.join(__dirname, 'hello-world.ts')
       })
 
-      expect(() => { Template.fromStack(stack) }).toThrow('Lambda runtime must be latest runtime available for language. Found nodejs12.x, please use NODEJS_14_X instead')
+      expect(() => { Template.fromStack(stack) }).toThrow('Lambda runtime must be latest runtime available for language. Found nodejs14.x, please use NODEJS_16_X instead')
     })
   })
 })

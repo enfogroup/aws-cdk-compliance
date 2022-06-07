@@ -7,8 +7,8 @@
     ]
   },
   "dependencies": {
-    "aws-cdk-lib": "^2.0.0",
-    "constructs": "^10.0.10"
+    "aws-cdk-lib": "^2.27.0",
+    "constructs": "^10.1.28"
   },
   "dependencyClosure": {
     "aws-cdk-lib": {
@@ -101,6 +101,19 @@
             },
             "python": {
               "module": "aws_cdk.aws_amplify"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_amplifyuibuilder": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.AmplifyUIBuilder"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.amplifyuibuilder"
+            },
+            "python": {
+              "module": "aws_cdk.aws_amplifyuibuilder"
             }
           }
         },
@@ -361,6 +374,19 @@
             },
             "python": {
               "module": "aws_cdk.aws_batch"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_billingconductor": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.BillingConductor"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.billingconductor"
+            },
+            "python": {
+              "module": "aws_cdk.aws_billingconductor"
             }
           }
         },
@@ -1080,6 +1106,19 @@
             }
           }
         },
+        "aws-cdk-lib.aws_emrserverless": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.EMRServerless"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.emrserverless"
+            },
+            "python": {
+              "module": "aws_cdk.aws_emrserverless"
+            }
+          }
+        },
         "aws-cdk-lib.aws_events": {
           "targets": {
             "dotnet": {
@@ -1119,6 +1158,19 @@
             }
           }
         },
+        "aws-cdk-lib.aws_evidently": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.Evidently"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.evidently"
+            },
+            "python": {
+              "module": "aws_cdk.aws_evidently"
+            }
+          }
+        },
         "aws-cdk-lib.aws_finspace": {
           "targets": {
             "dotnet": {
@@ -1155,6 +1207,19 @@
             },
             "python": {
               "module": "aws_cdk.aws_fms"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_forecast": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.Forecast"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.forecast"
+            },
+            "python": {
+              "module": "aws_cdk.aws_forecast"
             }
           }
         },
@@ -1340,6 +1405,19 @@
             }
           }
         },
+        "aws-cdk-lib.aws_inspectorv2": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.InspectorV2"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.inspectorv2"
+            },
+            "python": {
+              "module": "aws_cdk.aws_inspectorv2"
+            }
+          }
+        },
         "aws-cdk-lib.aws_iot": {
           "targets": {
             "dotnet": {
@@ -1444,6 +1522,19 @@
             }
           }
         },
+        "aws-cdk-lib.aws_iottwinmaker": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.IoTTwinMaker"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.iottwinmaker"
+            },
+            "python": {
+              "module": "aws_cdk.aws_iottwinmaker"
+            }
+          }
+        },
         "aws-cdk-lib.aws_iotwireless": {
           "targets": {
             "dotnet": {
@@ -1467,6 +1558,19 @@
             },
             "python": {
               "module": "aws_cdk.aws_ivs"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_kafkaconnect": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.KafkaConnect"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.kafkaconnect"
+            },
+            "python": {
+              "module": "aws_cdk.aws_kafkaconnect"
             }
           }
         },
@@ -1509,6 +1613,19 @@
             }
           }
         },
+        "aws-cdk-lib.aws_kinesisanalyticsv2": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.KinesisAnalyticsV2"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.kinesisanalyticsv2"
+            },
+            "python": {
+              "module": "aws_cdk.aws_kinesisanalyticsv2"
+            }
+          }
+        },
         "aws-cdk-lib.aws_kinesisfirehose": {
           "targets": {
             "dotnet": {
@@ -1519,6 +1636,19 @@
             },
             "python": {
               "module": "aws_cdk.aws_kinesisfirehose"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_kinesisvideo": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.KinesisVideo"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.kinesisvideo"
+            },
+            "python": {
+              "module": "aws_cdk.aws_kinesisvideo"
             }
           }
         },
@@ -1597,6 +1727,19 @@
             },
             "python": {
               "module": "aws_cdk.aws_lambda_nodejs"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_lex": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.Lex"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.lex"
+            },
+            "python": {
+              "module": "aws_cdk.aws_lex"
             }
           }
         },
@@ -1795,6 +1938,19 @@
             }
           }
         },
+        "aws-cdk-lib.aws_mediatailor": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.MediaTailor"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.mediatailor"
+            },
+            "python": {
+              "module": "aws_cdk.aws_mediatailor"
+            }
+          }
+        },
         "aws-cdk-lib.aws_memorydb": {
           "targets": {
             "dotnet": {
@@ -1938,6 +2094,19 @@
             }
           }
         },
+        "aws-cdk-lib.aws_personalize": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.Personalize"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.personalize"
+            },
+            "python": {
+              "module": "aws_cdk.aws_personalize"
+            }
+          }
+        },
         "aws-cdk-lib.aws_pinpoint": {
           "targets": {
             "dotnet": {
@@ -2029,6 +2198,19 @@
             }
           }
         },
+        "aws-cdk-lib.aws_refactorspaces": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.RefactorSpaces"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.refactorspaces"
+            },
+            "python": {
+              "module": "aws_cdk.aws_refactorspaces"
+            }
+          }
+        },
         "aws-cdk-lib.aws_rekognition": {
           "targets": {
             "dotnet": {
@@ -2039,6 +2221,19 @@
             },
             "python": {
               "module": "aws_cdk.aws_rekognition"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_resiliencehub": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.ResilienceHub"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.resiliencehub"
+            },
+            "python": {
+              "module": "aws_cdk.aws_resiliencehub"
             }
           }
         },
@@ -2143,6 +2338,19 @@
             },
             "python": {
               "module": "aws_cdk.aws_route53resolver"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_rum": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.RUM"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.rum"
+            },
+            "python": {
+              "module": "aws_cdk.aws_rum"
             }
           }
         },
@@ -2523,6 +2731,19 @@
             }
           }
         },
+        "aws-cdk-lib.aws_voiceid": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.VoiceID"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.voiceid"
+            },
+            "python": {
+              "module": "aws_cdk.aws_voiceid"
+            }
+          }
+        },
         "aws-cdk-lib.aws_waf": {
           "targets": {
             "dotnet": {
@@ -2717,11 +2938,24 @@
               "module": "aws_cdk.region_info"
             }
           }
+        },
+        "aws-cdk-lib.triggers": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.Triggers"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.triggers"
+            },
+            "python": {
+              "module": "aws_cdk.triggers"
+            }
+          }
         }
       },
       "targets": {
         "dotnet": {
-          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/main/logo/default-256-dark.png",
           "namespace": "Amazon.CDK",
           "packageId": "Amazon.CDK.Lib"
         },
@@ -2773,10 +3007,10 @@
   },
   "description": "Tagging and compliant resources using the CDK",
   "docs": {
-    "stability": "experimental"
+    "stability": "stable"
   },
   "homepage": "https://github.com/enfogroup/aws-cdk-compliance.git",
-  "jsiiVersion": "1.55.1 (build 07d2d90)",
+  "jsiiVersion": "1.59.0 (build eb02c92)",
   "keywords": [
     "aws",
     "cdk",
@@ -2795,7 +3029,7 @@
   },
   "name": "@enfo/aws-cdkompliance",
   "readme": {
-    "markdown": "# Introduction\n\n**This package is yet to hit version 1.x, you might encounter issues.**\n\nCompliant resource Constructs and tagging using the CDK. The compliant Constructs make it easier to reduce your number of Security Hub security findings. If you are using CloudFormation rather than the CDK you can check the [unit tests](https://github.com/enfogroup/aws-cdk-compliance/tree/master/test) on the source repository to get an idea of what you need to fix.\n\nThe tagging part of this package is tied to Enfo and its customers. [Enfo](https://insights.enfo.se/cloud-and-application-development) is a [Managed Service Provider](https://aws.amazon.com/partners/programs/msp/) for AWS. You can of course use the package without being a customer, but the tags might have no effect depending on your AWS organization setup.\n\n## Installation\n\nThe package should be installed as a dependency.\n\n```bash\nnpm install @enfo/aws-cdkompliance --save\n```\n\n## Compliant resource Constructs\n\nIn Security Hub you can find a list of security findings. We refer to resources with such findings as non-compliant. This package exposes compliant Constructs which are extensions of CDK Constructs. They have been modified to throw errors during CDK synthesis should you try to use a poorly set Construct property. Most Constructs require no input from you and will be compliant by default.\n\nWhen possible the default Props used to create the Construct are exposed as well.\n\n### Application Load Balancer\n\nThe following features are available for Application Load Balancer.\n\n* ApplicationLoadBalancer, compliant Application Load Balancer Construct. Will throw if non-compliant properties are passed\n* defaultApplicationLoadBalancerProps, the ApplicationLoadBalancerProps used to make the Application Load Balancer compliant\n\nThe following Security Hub findings are managed by the ApplicationLoadBalancer Construct.\n\n* [[ELB.4] Application load balancers should be configured to drop HTTP headers](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-elb-4)\n* [[ELB.5] Application and Classic Load Balancers logging should be enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-elb-5)\n* [[ELB.6] Application Load Balancer deletion protection should be enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-elb-6)\n\nApplication Load Balancer creation example.\n\n```typescript\nimport { ApplicationLoadBalancer, Bucket } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\nimport { Vpc } from 'aws-cdk-lib/aws-ec2'\n\nconst stack = new Stack(undefined, 'Stack', { env: { region: 'eu-west-1' } } )\nconst vpc = new Vpc(stack, 'VPC')\nconst bucket = new Bucket(stack, 'Bucket')\nconst alb = new ApplicationLoadBalancer(stack, 'ALB', { vpc })\nalb.logAccessLogs(bucket)\n```\n\n### CloudFront\n\nThe following features are available for CloudFront.\n\n* Distribution, compliant CloudFront Distribution Construct. Will throw if non-compliant properties are passed\n* defaultDistributionProps, the DistributionProps used to make the distribution compliant\n\nThe following Security Hub findings are managed by the Distribution Construct.\n\n* [[CloudFront.1] CloudFront distributions should have a default root object configured](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-cloudfront-1)\n* [[CloudFront.5] CloudFront distributions should have logging enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-cloudfront-5)\n* [[CloudFront.6] CloudFront distributions should have AWS WAF enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-cloudfront-6)\n\nCloudFront Distribution creation example.\n\n```typescript\nimport { Distribution } from '@enfo/aws-cdkompliance'\nimport { ViewerProtocolPolicy } from 'aws-cdk-lib/aws-cloudfront'\nimport { HttpOrigin } from 'aws-cdk-lib/aws-cloudfront-origins'\nimport { CfnWebACL } from 'aws-cdk-lib/aws-wafv2'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nconst webAcl = new CfnWebACL(stack, 'WebACL', {\n  scope: 'CLOUDFRONT',\n  defaultAction: { allow: {} },\n  visibilityConfig: {\n    cloudWatchMetricsEnabled: false,\n    metricName: 'metricName',\n    sampledRequestsEnabled: false,\n  }\n})\n\nnew Distribution(stack, 'Distribution', {\n  defaultBehavior: {\n    origin: new HttpOrigin('example.com'),\n    viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS\n  },\n  webAclId: webAcl.attrId\n})\n```\n\n### DynamoDB\n\nThe following features are available for DynamoDB.\n\n* Table, Construct defaulting to using BillingMode.PAY_PER_REQUEST and point in time recovery enabled\n\nThe following Security Hub findings are managed by the Table Construct.\n\n* [[DynamoDB.1] DynamoDB tables should automatically scale capacity with demand](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-dynamodb-1), softly enforced\n* [[DynamoDB.2] DynamoDB tables should have point-in-time recovery enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-dynamodb-2), enabled by default in the Construct. Can be disabled and the findings suppress\n\nTable creation example without billingMode specified. Will default to PAY_PER_REQUEST. The Table will not be tagged to suppress warnings. The same will happen if billingMode is set to PAY_PER_REQUEST.\n\n```typescript\nimport { Table } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\nimport { AttributeType, BillingMode } from 'aws-cdk-lib/aws-dynamodb'\n\nconst stack = new Stack()\nnew Table(stack, 'Table', {\n  partitionKey: {\n    name: 'pk',\n    type: AttributeType.STRING\n  }\n})\n```\n\n### KMS\n\nThe following features are available for KMS.\n\n* Key, compliant KMS Key Construct. Will throw if non-compliant properties are passed\n* defaultKeyProps, the KeyProps used to enforce compliance if you don't supply your own\n\nWhile we do not enforce *alias* on KeyProps we do recommend that you set it.\n\nKey creation example\n\n```typescript\nimport { Key } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nnew Key(stack, 'Key', { alias: 'my-key' })\n```\n\n### Lambda\n\nThe following features are available for Lambda.\n\n* Function, compliant Lambda Function Construct\n\nThe following Security Hub findings are managed by the Function Construct.\n\n* [[Lambda.2] Lambda functions should use supported runtimes](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-lambda-2), hard enforced. We limit the supported runtimes to only the latest for each language. Custom runtimes are also fine\n\nFunction creation example\n\n```typescript\nimport { Function } from '@enfo/aws-cdkompliance'\nimport { Code, Runtime } from 'aws-cdk-lib/aws-lambda'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nnew Function(stack, 'Function', {\n  runtime: Runtime.NODEJS_14_X,\n  handler: 'handler',\n  code: Code.fromInline('myCode')\n})\n```\n\n### Lambda NodeJS\n\nThe following features are available for Lambda NodeJS.\n\n* NodejsFunction, compliant NodeJS Lambda NodejsFunction Construct\n\nThe following Security Hub findings are managed by the NodejsFunction Construct.\n\n* [[Lambda.2] Lambda functions should use supported runtimes](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-lambda-2), hard enforced. We limit the supported runtimes to only the latest for each language. Custom runtimes are also fine\n\nNodejsFunction creation example\n\n```typescript\nimport { NodejsFunction } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nnew NodejsFunction(stack, 'Function', {\n  handler: 'handler',\n  entry: path.join(__dirname, '../src/hello-world.ts')\n})\n```\n\n### Logs\n\nThe following features are available for Logs.\n\n* LogGroup, compliant Log Group Key Construct. Will throw if non-compliant properties are passed\n* defaultLogGroupProps, the LogGroupProps used to enforce compliance if you don't supply your own\n\nLogGroup creation example\n\n```typescript\nimport { LogGroup } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nnew LogGroup(stack, 'LogGroup')\n```\n\n### RDS\n\nThe following features are available for RDS\n\n* DatabaseCluster, compliant DatabaseCluster Construct\n* defaultDatabaseClusterProps, the DatabaseClusterProps used to make the DatabaseCluster compliant\n* defaultInstanceProps, the InstanceProps used to make the DatabaseCluster compliant\n* DatabaseEnvironment, to indicate the how a DatabaseInstance will be used\n* DatabaseInstance, compliant DatabaseInstance Construct\n* defaultDatabaseInstanceProps, the DatabaseInstanceProps used to make the DatabaseInstance compliant\n\nThe following Security Hub findings are managed by the DatabaseCluster Construct.\n\n* [[RDS.4] RDS cluster snapshots and database snapshots should be encrypted at rest](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-4)\n* [[RDS.7] RDS clusters should have deletion protection enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-7)\n* [[RDS.12] IAM authentication should be configured for RDS clusters](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-12)\n* [[RDS.13] RDS automatic minor version upgrades should be enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-13)\n* [[RDS.16] RDS DB clusters should be configured to copy tags to snapshots](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-16)\n\nDatabaseCluster creation example.\n\n```typescript\nimport { DatabaseCluster } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\nimport { Vpc } from 'aws-cdk-lib/aws-ec2'\nimport { AuroraPostgresEngineVersion, DatabaseClusterEngine } from 'aws-cdk-lib/aws-rds'\n\nconst stack = new Stack()\nconst vpc = new Vpc(stack, 'VPC')\nnew DatabaseCluster(stack, 'DatabaseCluster', {\n  engine: DatabaseClusterEngine.auroraPostgres({ version: AuroraPostgresEngineVersion.VER_13_4 }),\n  instanceProps: {\n    vpc\n  }\n})\n```\n\nThe following Security Hub findings are managed by the DatabaseInstance Construct.\n\n* [[RDS.2] RDS DB instances should prohibit public access, determined by the PubliclyAccessible configuration](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-2)\n* [[RDS.3] RDS DB instances should have encryption at rest enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-3)\n* [[RDS.4] RDS cluster snapshots and database snapshots should be encrypted at rest](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-4)\n* [[RDS.5] RDS DB instances should be configured with multiple Availability Zones](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-5)\n* [[RDS.8] RDS DB instances should have deletion protection enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-8)\n* [[RDS.10] IAM authentication should be configured for RDS instances](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-10)\n* [[RDS.13] RDS automatic minor version upgrades should be enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-13)\n* [[RDS.17] RDS DB instances should be configured to copy tags to snapshots](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-17)\n\nNote that DatabaseInstance defaults to MultiAZ, and you need to set `environment: NOT_PRODUCTION` to be able to set MultiAZ to false.\n\nDatabaseInstance creation example.\n\n```typescript\nimport { DatabaseEnvironment, DatabaseInstance } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\nimport { Vpc } from 'aws-cdk-lib/aws-ec2'\nimport { DatabaseInstanceEngine, PostgresEngineVersion } from 'aws-cdk-lib/aws-rds'\n\nconst stack = new Stack()\nconst vpc = new Vpc(stack, 'VPC')\nnew DatabaseInstance(stack, 'Database', {\n  vpc,\n  engine: DatabaseInstanceEngine.postgres({ version: PostgresEngineVersion.VER_13_4 }),\n  environment: DatabaseEnvironment.NOT_PRODUCTION,\n  multiAz: false\n})\n```\n\n### S3\n\nThe following features are available for S3.\n\n* Bucket, compliant S3 Bucket Construct\n* defaultBucketProps, the BucketProps used to enforce compliance if you don't supply your own\n\nThe following Security Hub findings are managed by the Bucket Construct.\n\n* [[S3.1] S3 Block Public Access setting should be enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-s3-1)\n* [[S3.2] S3 buckets should prohibit public read access](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-s3-2)\n* [[S3.3] S3 buckets should prohibit public write access](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-s3-3)\n* [[S3.4] S3 buckets should have server-side encryption enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-s3-4)\n* [[S3.5] S3 buckets should require requests to use Secure Socket Layer](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-s3-5)\n* [[S3.8] S3 Block Public Access setting should be enabled at the bucket level](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-s3-8)\n\n\nBucket creation example\n\n```typescript\nimport { Bucket } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nnew Bucket(stack, 'MyBucket', { bucketName: 'my-bucket' })\n```\n\n### SNS\n\nThe following features are available for SNS. SNS requires a KMS Key Construct to be compliant.\n\n* Topic, compliant SNS Topic Construct. Will throw if non-compliant properties are passed\n\nThe following Security Hub findings are managed by the Topic Construct.\n\n* [[SNS.1] SNS topics should be encrypted at rest using AWS KMS](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-sns-1)\n\nTopic creation example\n\n```typescript\nimport { Key, Topic } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nnew Topic(stack, 'Topic', {\n  masterKey: new Key(stack, 'Key')\n})\n```\n\n### SQS\n\nThe following features are available for SQS.\n\n* Queue, compliant SQS Queue Construct. Will throw if non-compliant properties are passed\n* defaultQueueProps, the QueueProps used to make the queue compliant\n\nThe following Security Hub findings are managed by the Queue Construct.\n\n* [[SQS.1] Amazon SQS queues should be encrypted at rest](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-sqs-1)\n\nQueue creation example.\n\n```typescript\nimport { Queue } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nnew Queue(stack, 'Queue', { queueName: 'my-queue' })\n```\n\n## Tagging\n\nThis section largely caters to Enfo customers. If you are not an Enfo customer you can still achieve the functionality described for enableBackups.\n\n### enableBackups\n\nIf you are an Enfo customer you can enable backups of databases using tags. This can easily be achieved by using the function **enableBackups**. This function can be applied on a Resource, Stack or App level.\n\nIf you are not an Enfo customer can achieve backups by reading this [AWS guide](https://docs.aws.amazon.com/aws-backup/latest/devguide/assigning-resources.html).\n\nEnabling backups of a single resource.\n\n```typescript\nimport { enableBackups, Table } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\nimport { AttributeType } from 'aws-cdk-lib/aws-dynamodb'\n\nconst stack = new Stack()\nconst myTable = new Table(stack, 'Table', {\n  partitionKey: {\n    name: 'pk',\n    type: AttributeType.STRING\n  }\n})\nenableBackups(myTable)\n```\n\nEnable backups of an entire stack.\n\n```typescript\nimport { enableBackups } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nenableBackups(stack)\n```\n\nEnable backups of an entire app.\n\n```typescript\nimport { enableBackups } from '@enfo/aws-cdkompliance'\nimport { App } from 'aws-cdk-lib'\n\nconst app = new App()\nenableBackups(app)\n```\n\nWhere backups are stored can be controlled via the second parameter, backupPlan. It defaults to **STANDARD** which creates backups in the region in which the resource exists.\n\n```typescript\nimport { enableBackups, BackupPlan } from '@enfo/aws-cdkompliance'\nimport { App } from 'aws-cdk-lib'\n\nconst app = new App()\nenableBackups(app, BackupPlan.STOCKHOLM)\n```\n\n### exemptBucketFromBlockPublicAutoFix\n\nBuckets in an AWS account managed by Enfo will automatically have [[S3.1] S3 Block Public Access setting should be enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-s3-1) fixed. If you do no want this to happen you can use this tagging function to exempt the bucket.\n\n```typescript\nimport { exemptBucketFromBlockPublicAutoFix } from '@enfo/aws-cdkompliance'\nimport { Bucket } from 'aws-cdk-lib/aws-s3'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nconst bucket = new Bucket(stack)\nexemptBucketFromBlockPublicAutoFix(bucket)\n```\n\n### exemptBucketFromSslAutoFix\n\nBuckets in an AWS account managed by Enfo will automatically have [[S3.4] S3 buckets should have server-side encryption enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-s3-4) fixed. If you do no want this to happen you can use this tagging function to exempt the bucket.\n\n```typescript\nimport { exemptBucketFromSslAutoFix } from '@enfo/aws-cdkompliance'\nimport { Bucket } from 'aws-cdk-lib/aws-s3'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nconst bucket = new Bucket(stack)\nexemptBucketFromSslAutoFix(bucket)\n```\n"
+    "markdown": "# Introduction\n\nCompliant resource Constructs and tagging using the CDK. The compliant Constructs make it easier to reduce your number of Security Hub security findings. If you are using CloudFormation rather than the CDK you can check the [unit tests](https://github.com/enfogroup/aws-cdk-compliance/tree/master/test) on the source repository to get an idea of what you need to fix.\n\nThe tagging part of this package is tied to Enfo and its customers. [Enfo](https://insights.enfo.se/cloud-and-application-development) is a [Managed Service Provider](https://aws.amazon.com/partners/programs/msp/) for AWS. You can of course use the package without being a customer, but the tags might have no effect depending on your AWS organization setup.\n\n## Installation\n\nThe package should be installed as a dependency.\n\n```bash\nnpm install @enfo/aws-cdkompliance --save\n```\n\n## Compliant resource Constructs\n\nIn Security Hub you can find a list of security findings. We refer to resources with such findings as non-compliant. This package exposes compliant Constructs which are extensions of CDK Constructs. They have been modified to throw errors during CDK synthesis should you try to use a poorly set Construct property. Most Constructs require no input from you and will be compliant by default.\n\nWhen possible the default Props used to create the Construct are exposed as well.\n\n### Application Load Balancer\n\nThe following features are available for Application Load Balancer.\n\n* ApplicationLoadBalancer, compliant Application Load Balancer Construct. Will throw if non-compliant properties are passed\n* defaultApplicationLoadBalancerProps, the ApplicationLoadBalancerProps used to make the Application Load Balancer compliant\n\nThe following Security Hub findings are managed by the ApplicationLoadBalancer Construct.\n\n* [[ELB.4] Application load balancers should be configured to drop HTTP headers](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-elb-4)\n* [[ELB.5] Application and Classic Load Balancers logging should be enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-elb-5)\n* [[ELB.6] Application Load Balancer deletion protection should be enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-elb-6)\n\nApplication Load Balancer creation example.\n\n```typescript\nimport { ApplicationLoadBalancer, Bucket } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\nimport { Vpc } from 'aws-cdk-lib/aws-ec2'\n\nconst stack = new Stack(undefined, 'Stack', { env: { region: 'eu-west-1' } } )\nconst vpc = new Vpc(stack, 'VPC')\nconst bucket = new Bucket(stack, 'Bucket')\nconst alb = new ApplicationLoadBalancer(stack, 'ALB', { vpc })\nalb.logAccessLogs(bucket)\n```\n\n### CloudFront\n\nThe following features are available for CloudFront.\n\n* Distribution, compliant CloudFront Distribution Construct. Will throw if non-compliant properties are passed\n* defaultDistributionProps, the DistributionProps used to make the distribution compliant\n\nThe following Security Hub findings are managed by the Distribution Construct.\n\n* [[CloudFront.1] CloudFront distributions should have a default root object configured](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-cloudfront-1)\n* [[CloudFront.5] CloudFront distributions should have logging enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-cloudfront-5)\n* [[CloudFront.6] CloudFront distributions should have AWS WAF enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-cloudfront-6)\n\nCloudFront Distribution creation example.\n\n```typescript\nimport { Distribution } from '@enfo/aws-cdkompliance'\nimport { ViewerProtocolPolicy } from 'aws-cdk-lib/aws-cloudfront'\nimport { HttpOrigin } from 'aws-cdk-lib/aws-cloudfront-origins'\nimport { CfnWebACL } from 'aws-cdk-lib/aws-wafv2'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nconst webAcl = new CfnWebACL(stack, 'WebACL', {\n  scope: 'CLOUDFRONT',\n  defaultAction: { allow: {} },\n  visibilityConfig: {\n    cloudWatchMetricsEnabled: false,\n    metricName: 'metricName',\n    sampledRequestsEnabled: false,\n  }\n})\n\nnew Distribution(stack, 'Distribution', {\n  defaultBehavior: {\n    origin: new HttpOrigin('example.com'),\n    viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS\n  },\n  webAclId: webAcl.attrId\n})\n```\n\n### DynamoDB\n\nThe following features are available for DynamoDB.\n\n* Table, Construct defaulting to using BillingMode.PAY_PER_REQUEST and point in time recovery enabled\n\nThe following Security Hub findings are managed by the Table Construct.\n\n* [[DynamoDB.1] DynamoDB tables should automatically scale capacity with demand](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-dynamodb-1), softly enforced\n* [[DynamoDB.2] DynamoDB tables should have point-in-time recovery enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-dynamodb-2), enabled by default in the Construct. Can be disabled and the findings suppress\n\nTable creation example without billingMode specified. Will default to PAY_PER_REQUEST. The Table will not be tagged to suppress warnings. The same will happen if billingMode is set to PAY_PER_REQUEST.\n\n```typescript\nimport { Table } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\nimport { AttributeType, BillingMode } from 'aws-cdk-lib/aws-dynamodb'\n\nconst stack = new Stack()\nnew Table(stack, 'Table', {\n  partitionKey: {\n    name: 'pk',\n    type: AttributeType.STRING\n  }\n})\n```\n\n### KMS\n\nThe following features are available for KMS.\n\n* Key, compliant KMS Key Construct. Will throw if non-compliant properties are passed\n* defaultKeyProps, the KeyProps used to enforce compliance if you don't supply your own\n\nWhile we do not enforce *alias* on KeyProps we do recommend that you set it.\n\nKey creation example\n\n```typescript\nimport { Key } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nnew Key(stack, 'Key', { alias: 'my-key' })\n```\n\n### Lambda\n\nThe following features are available for Lambda.\n\n* Function, compliant Lambda Function Construct\n\nThe following Security Hub findings are managed by the Function Construct.\n\n* [[Lambda.2] Lambda functions should use supported runtimes](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-lambda-2), hard enforced. We limit the supported runtimes to only the latest for each language. Custom runtimes are also fine\n\nFunction creation example\n\n```typescript\nimport { Function } from '@enfo/aws-cdkompliance'\nimport { Code, Runtime } from 'aws-cdk-lib/aws-lambda'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nnew Function(stack, 'Function', {\n  runtime: Runtime.NODEJS_16_X,\n  handler: 'handler',\n  code: Code.fromInline('myCode')\n})\n```\n\n### Lambda NodeJS\n\nThe following features are available for Lambda NodeJS.\n\n* NodejsFunction, compliant NodeJS Lambda NodejsFunction Construct\n\nThe following Security Hub findings are managed by the NodejsFunction Construct.\n\n* [[Lambda.2] Lambda functions should use supported runtimes](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-lambda-2), hard enforced. We limit the supported runtimes to only the latest for each language. Custom runtimes are also fine\n\nNodejsFunction creation example\n\n```typescript\nimport { NodejsFunction } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nnew NodejsFunction(stack, 'Function', {\n  handler: 'handler',\n  entry: path.join(__dirname, '../src/hello-world.ts')\n})\n```\n\n### Logs\n\nThe following features are available for Logs.\n\n* LogGroup, compliant Log Group Key Construct. Will throw if non-compliant properties are passed\n* defaultLogGroupProps, the LogGroupProps used to enforce compliance if you don't supply your own\n\nLogGroup creation example\n\n```typescript\nimport { LogGroup } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nnew LogGroup(stack, 'LogGroup')\n```\n\n### RDS\n\nThe following features are available for RDS\n\n* DatabaseCluster, compliant DatabaseCluster Construct\n* defaultDatabaseClusterProps, the DatabaseClusterProps used to make the DatabaseCluster compliant\n* defaultInstanceProps, the InstanceProps used to make the DatabaseCluster compliant\n* DatabaseEnvironment, to indicate the how a DatabaseInstance will be used\n* DatabaseInstance, compliant DatabaseInstance Construct\n* defaultDatabaseInstanceProps, the DatabaseInstanceProps used to make the DatabaseInstance compliant\n\nThe following Security Hub findings are managed by the DatabaseCluster Construct.\n\n* [[RDS.4] RDS cluster snapshots and database snapshots should be encrypted at rest](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-4)\n* [[RDS.7] RDS clusters should have deletion protection enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-7)\n* [[RDS.12] IAM authentication should be configured for RDS clusters](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-12)\n* [[RDS.13] RDS automatic minor version upgrades should be enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-13)\n* [[RDS.16] RDS DB clusters should be configured to copy tags to snapshots](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-16)\n\nDatabaseCluster creation example.\n\n```typescript\nimport { DatabaseCluster } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\nimport { Vpc } from 'aws-cdk-lib/aws-ec2'\nimport { AuroraPostgresEngineVersion, DatabaseClusterEngine } from 'aws-cdk-lib/aws-rds'\n\nconst stack = new Stack()\nconst vpc = new Vpc(stack, 'VPC')\nnew DatabaseCluster(stack, 'DatabaseCluster', {\n  engine: DatabaseClusterEngine.auroraPostgres({ version: AuroraPostgresEngineVersion.VER_13_4 }),\n  instanceProps: {\n    vpc\n  }\n})\n```\n\nThe following Security Hub findings are managed by the DatabaseInstance Construct.\n\n* [[RDS.2] RDS DB instances should prohibit public access, determined by the PubliclyAccessible configuration](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-2)\n* [[RDS.3] RDS DB instances should have encryption at rest enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-3)\n* [[RDS.4] RDS cluster snapshots and database snapshots should be encrypted at rest](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-4)\n* [[RDS.5] RDS DB instances should be configured with multiple Availability Zones](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-5)\n* [[RDS.8] RDS DB instances should have deletion protection enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-8)\n* [[RDS.10] IAM authentication should be configured for RDS instances](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-10)\n* [[RDS.13] RDS automatic minor version upgrades should be enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-13)\n* [[RDS.17] RDS DB instances should be configured to copy tags to snapshots](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-rds-17)\n\nNote that DatabaseInstance defaults to MultiAZ, and you need to set `environment: NOT_PRODUCTION` to be able to set MultiAZ to false.\n\nDatabaseInstance creation example.\n\n```typescript\nimport { DatabaseEnvironment, DatabaseInstance } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\nimport { Vpc } from 'aws-cdk-lib/aws-ec2'\nimport { DatabaseInstanceEngine, PostgresEngineVersion } from 'aws-cdk-lib/aws-rds'\n\nconst stack = new Stack()\nconst vpc = new Vpc(stack, 'VPC')\nnew DatabaseInstance(stack, 'Database', {\n  vpc,\n  engine: DatabaseInstanceEngine.postgres({ version: PostgresEngineVersion.VER_13_4 }),\n  environment: DatabaseEnvironment.NOT_PRODUCTION,\n  multiAz: false\n})\n```\n\n### S3\n\nThe following features are available for S3.\n\n* Bucket, compliant S3 Bucket Construct\n* defaultBucketProps, the BucketProps used to enforce compliance if you don't supply your own\n\nThe following Security Hub findings are managed by the Bucket Construct.\n\n* [[S3.1] S3 Block Public Access setting should be enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-s3-1)\n* [[S3.2] S3 buckets should prohibit public read access](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-s3-2)\n* [[S3.3] S3 buckets should prohibit public write access](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-s3-3)\n* [[S3.4] S3 buckets should have server-side encryption enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-s3-4)\n* [[S3.5] S3 buckets should require requests to use Secure Socket Layer](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-s3-5)\n* [[S3.8] S3 Block Public Access setting should be enabled at the bucket level](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-s3-8)\n\n\nBucket creation example\n\n```typescript\nimport { Bucket } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nnew Bucket(stack, 'MyBucket', { bucketName: 'my-bucket' })\n```\n\n### SNS\n\nThe following features are available for SNS. SNS requires a KMS Key Construct to be compliant.\n\n* Topic, compliant SNS Topic Construct. Will throw if non-compliant properties are passed\n\nThe following Security Hub findings are managed by the Topic Construct.\n\n* [[SNS.1] SNS topics should be encrypted at rest using AWS KMS](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-sns-1)\n\nTopic creation example\n\n```typescript\nimport { Key, Topic } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nnew Topic(stack, 'Topic', {\n  masterKey: new Key(stack, 'Key')\n})\n```\n\n### SQS\n\nThe following features are available for SQS.\n\n* Queue, compliant SQS Queue Construct. Will throw if non-compliant properties are passed\n* defaultQueueProps, the QueueProps used to make the queue compliant\n\nThe following Security Hub findings are managed by the Queue Construct.\n\n* [[SQS.1] Amazon SQS queues should be encrypted at rest](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-sqs-1)\n\nQueue creation example.\n\n```typescript\nimport { Queue } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nnew Queue(stack, 'Queue', { queueName: 'my-queue' })\n```\n\n## Tagging\n\nThis section largely caters to Enfo customers. If you are not an Enfo customer you can still achieve the functionality described for enableBackups.\n\n### enableBackups\n\nIf you are an Enfo customer you can enable backups of databases using tags. This can easily be achieved by using the function **enableBackups**. This function can be applied on a Resource, Stack or App level.\n\nIf you are not an Enfo customer can achieve backups by reading this [AWS guide](https://docs.aws.amazon.com/aws-backup/latest/devguide/assigning-resources.html).\n\nEnabling backups of a single resource.\n\n```typescript\nimport { enableBackups, Table } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\nimport { AttributeType } from 'aws-cdk-lib/aws-dynamodb'\n\nconst stack = new Stack()\nconst myTable = new Table(stack, 'Table', {\n  partitionKey: {\n    name: 'pk',\n    type: AttributeType.STRING\n  }\n})\nenableBackups(myTable)\n```\n\nEnable backups of an entire stack.\n\n```typescript\nimport { enableBackups } from '@enfo/aws-cdkompliance'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nenableBackups(stack)\n```\n\nEnable backups of an entire app.\n\n```typescript\nimport { enableBackups } from '@enfo/aws-cdkompliance'\nimport { App } from 'aws-cdk-lib'\n\nconst app = new App()\nenableBackups(app)\n```\n\nWhere backups are stored can be controlled via the second parameter, backupPlan. It defaults to **STANDARD** which creates backups in the region in which the resource exists.\n\n```typescript\nimport { enableBackups, BackupPlan } from '@enfo/aws-cdkompliance'\nimport { App } from 'aws-cdk-lib'\n\nconst app = new App()\nenableBackups(app, BackupPlan.STOCKHOLM)\n```\n\n### exemptBucketFromBlockPublicAutoFix\n\nBuckets in an AWS account managed by Enfo will automatically have [[S3.1] S3 Block Public Access setting should be enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-s3-1) fixed. If you do no want this to happen you can use this tagging function to exempt the bucket.\n\n```typescript\nimport { exemptBucketFromBlockPublicAutoFix } from '@enfo/aws-cdkompliance'\nimport { Bucket } from 'aws-cdk-lib/aws-s3'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nconst bucket = new Bucket(stack)\nexemptBucketFromBlockPublicAutoFix(bucket)\n```\n\n### exemptBucketFromSslAutoFix\n\nBuckets in an AWS account managed by Enfo will automatically have [[S3.4] S3 buckets should have server-side encryption enabled](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-s3-4) fixed. If you do no want this to happen you can use this tagging function to exempt the bucket.\n\n```typescript\nimport { exemptBucketFromSslAutoFix } from '@enfo/aws-cdkompliance'\nimport { Bucket } from 'aws-cdk-lib/aws-s3'\nimport { Stack } from 'aws-cdk-lib'\n\nconst stack = new Stack()\nconst bucket = new Bucket(stack)\nexemptBucketFromSslAutoFix(bucket)\n```\n"
   },
   "repository": {
     "type": "git",
@@ -2813,13 +3047,13 @@
       "base": "aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationLoadBalancer",
       "docs": {
         "remarks": "See README for usage examples",
-        "stability": "experimental",
+        "stability": "stable",
         "summary": "Compliant ALB."
       },
       "fqn": "@enfo/aws-cdkompliance.ApplicationLoadBalancer",
       "initializer": {
         "docs": {
-          "stability": "experimental"
+          "stability": "stable"
         },
         "locationInModule": {
           "filename": "lib/elasticloadbalancingv2.ts",
@@ -2854,7 +3088,7 @@
       "methods": [
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/elasticloadbalancingv2.ts",
@@ -2875,7 +3109,7 @@
         },
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/elasticloadbalancingv2.ts",
@@ -2896,7 +3130,7 @@
         },
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/elasticloadbalancingv2.ts",
@@ -2920,7 +3154,7 @@
             "custom": {
               "ignore": "true"
             },
-            "stability": "experimental",
+            "stability": "stable",
             "summary": "Set a non-standard attribute on the load balancer."
           },
           "locationInModule": {
@@ -2950,7 +3184,7 @@
       "properties": [
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/elasticloadbalancingv2.ts",
@@ -2964,7 +3198,7 @@
         },
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/elasticloadbalancingv2.ts",
@@ -2988,7 +3222,7 @@
       "assembly": "@enfo/aws-cdkompliance",
       "docs": {
         "remarks": "Availability depends on your agreement with Enfo",
-        "stability": "experimental",
+        "stability": "stable",
         "summary": "Available Backup plans."
       },
       "fqn": "@enfo/aws-cdkompliance.BackupPlan",
@@ -3000,28 +3234,28 @@
       "members": [
         {
           "docs": {
-            "stability": "experimental",
+            "stability": "stable",
             "summary": "Creates backups in the region of the resource."
           },
           "name": "STANDARD"
         },
         {
           "docs": {
-            "stability": "experimental",
+            "stability": "stable",
             "summary": "Creates backups in the region of the resource, and copies of those backups in eu-north-1, the Stockholm region."
           },
           "name": "STOCKHOLM"
         },
         {
           "docs": {
-            "stability": "experimental",
+            "stability": "stable",
             "summary": "Creates backups in the region of the resource, and copies of those backups in eu-west-1, the Ireland region."
           },
           "name": "IRELAND"
         },
         {
           "docs": {
-            "stability": "experimental",
+            "stability": "stable",
             "summary": "Creates backups in the region of the resource, and copies of those backups in eu-central-1, the Frankfurt region."
           },
           "name": "FRANKFURT"
@@ -3035,13 +3269,13 @@
       "base": "aws-cdk-lib.aws_s3.Bucket",
       "docs": {
         "remarks": "See README for usage examples",
-        "stability": "experimental",
+        "stability": "stable",
         "summary": "Compliant S3 Bucket."
       },
       "fqn": "@enfo/aws-cdkompliance.Bucket",
       "initializer": {
         "docs": {
-          "stability": "experimental"
+          "stability": "stable"
         },
         "locationInModule": {
           "filename": "lib/s3.ts",
@@ -3077,7 +3311,7 @@
       "methods": [
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/s3.ts",
@@ -3098,7 +3332,7 @@
         },
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/s3.ts",
@@ -3119,7 +3353,7 @@
         },
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/s3.ts",
@@ -3143,7 +3377,7 @@
       "properties": [
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/s3.ts",
@@ -3163,13 +3397,13 @@
       "base": "aws-cdk-lib.aws_rds.DatabaseCluster",
       "docs": {
         "remarks": "See README for usage examples",
-        "stability": "experimental",
+        "stability": "stable",
         "summary": "Compliant RDS Cluster."
       },
       "fqn": "@enfo/aws-cdkompliance.DatabaseCluster",
       "initializer": {
         "docs": {
-          "stability": "experimental"
+          "stability": "stable"
         },
         "locationInModule": {
           "filename": "lib/rds.ts",
@@ -3204,7 +3438,7 @@
       "methods": [
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/rds.ts",
@@ -3225,7 +3459,7 @@
         },
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/rds.ts",
@@ -3246,7 +3480,7 @@
         },
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/rds.ts",
@@ -3267,7 +3501,7 @@
         },
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/rds.ts",
@@ -3288,7 +3522,7 @@
         },
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/rds.ts",
@@ -3309,7 +3543,7 @@
         },
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/rds.ts",
@@ -3333,7 +3567,7 @@
       "properties": [
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/rds.ts",
@@ -3351,7 +3585,7 @@
     "@enfo/aws-cdkompliance.DatabaseEnvironment": {
       "assembly": "@enfo/aws-cdkompliance",
       "docs": {
-        "stability": "experimental",
+        "stability": "stable",
         "summary": "Used to state whether or not this database should be considered a production database or not."
       },
       "fqn": "@enfo/aws-cdkompliance.DatabaseEnvironment",
@@ -3363,14 +3597,14 @@
       "members": [
         {
           "docs": {
-            "stability": "experimental",
+            "stability": "stable",
             "summary": "When used the database must be deployed to multiple Availability Zones."
           },
           "name": "PRODUCTION"
         },
         {
           "docs": {
-            "stability": "experimental",
+            "stability": "stable",
             "summary": "When used the database can be deployed to a single Availability Zone."
           },
           "name": "NOT_PRODUCTION"
@@ -3384,13 +3618,13 @@
       "base": "aws-cdk-lib.aws_rds.DatabaseInstance",
       "docs": {
         "remarks": "See README for usage examples",
-        "stability": "experimental",
+        "stability": "stable",
         "summary": "Compliant RDS Instance."
       },
       "fqn": "@enfo/aws-cdkompliance.DatabaseInstance",
       "initializer": {
         "docs": {
-          "stability": "experimental"
+          "stability": "stable"
         },
         "locationInModule": {
           "filename": "lib/rds.ts",
@@ -3425,7 +3659,7 @@
       "methods": [
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/rds.ts",
@@ -3446,7 +3680,7 @@
         },
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/rds.ts",
@@ -3467,7 +3701,7 @@
         },
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/rds.ts",
@@ -3488,7 +3722,7 @@
         },
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/rds.ts",
@@ -3509,7 +3743,7 @@
         },
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/rds.ts",
@@ -3530,7 +3764,7 @@
         },
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/rds.ts",
@@ -3551,7 +3785,7 @@
         },
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/rds.ts",
@@ -3575,7 +3809,7 @@
       "properties": [
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/rds.ts",
@@ -3594,7 +3828,7 @@
       "assembly": "@enfo/aws-cdkompliance",
       "datatype": true,
       "docs": {
-        "stability": "experimental"
+        "stability": "stable"
       },
       "fqn": "@enfo/aws-cdkompliance.DatabaseInstanceProps",
       "interfaces": [
@@ -3610,7 +3844,7 @@
         {
           "abstract": true,
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "immutable": true,
           "locationInModule": {
@@ -3631,13 +3865,13 @@
       "base": "aws-cdk-lib.aws_cloudfront.Distribution",
       "docs": {
         "remarks": "See README for usage examples",
-        "stability": "experimental",
+        "stability": "stable",
         "summary": "Compliant CloudFront Distribution."
       },
       "fqn": "@enfo/aws-cdkompliance.Distribution",
       "initializer": {
         "docs": {
-          "stability": "experimental"
+          "stability": "stable"
         },
         "locationInModule": {
           "filename": "lib/cloudfront.ts",
@@ -3672,7 +3906,7 @@
       "methods": [
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/cloudfront.ts",
@@ -3693,7 +3927,7 @@
         },
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/cloudfront.ts",
@@ -3714,7 +3948,7 @@
         },
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/cloudfront.ts",
@@ -3735,7 +3969,7 @@
         },
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/cloudfront.ts",
@@ -3756,7 +3990,7 @@
         },
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/cloudfront.ts",
@@ -3786,7 +4020,7 @@
         },
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/cloudfront.ts",
@@ -3807,7 +4041,7 @@
         },
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/cloudfront.ts",
@@ -3831,7 +4065,7 @@
       "properties": [
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/cloudfront.ts",
@@ -3851,17 +4085,17 @@
       "base": "aws-cdk-lib.aws_lambda.Function",
       "docs": {
         "remarks": "See README for usage examples",
-        "stability": "experimental",
+        "stability": "stable",
         "summary": "Compliant Lambda Function."
       },
       "fqn": "@enfo/aws-cdkompliance.Function",
       "initializer": {
         "docs": {
-          "stability": "experimental"
+          "stability": "stable"
         },
         "locationInModule": {
           "filename": "lib/lambda.ts",
-          "line": 62
+          "line": 64
         },
         "parameters": [
           {
@@ -3887,16 +4121,16 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/lambda.ts",
-        "line": 61
+        "line": 63
       },
       "methods": [
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/lambda.ts",
-            "line": 73
+            "line": 75
           },
           "name": "checkRuntime",
           "protected": true,
@@ -3920,13 +4154,13 @@
       "base": "aws-cdk-lib.aws_kms.Key",
       "docs": {
         "remarks": "See README for usage examples",
-        "stability": "experimental",
+        "stability": "stable",
         "summary": "Compliant KMS Key."
       },
       "fqn": "@enfo/aws-cdkompliance.Key",
       "initializer": {
         "docs": {
-          "stability": "experimental"
+          "stability": "stable"
         },
         "locationInModule": {
           "filename": "lib/kms.ts",
@@ -3962,7 +4196,7 @@
       "methods": [
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/kms.ts",
@@ -3986,7 +4220,7 @@
       "properties": [
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/kms.ts",
@@ -4006,13 +4240,13 @@
       "base": "aws-cdk-lib.aws_logs.LogGroup",
       "docs": {
         "remarks": "See README for usage examples",
-        "stability": "experimental",
+        "stability": "stable",
         "summary": "Compliant Log Group."
       },
       "fqn": "@enfo/aws-cdkompliance.LogGroup",
       "initializer": {
         "docs": {
-          "stability": "experimental"
+          "stability": "stable"
         },
         "locationInModule": {
           "filename": "lib/logs.ts",
@@ -4048,7 +4282,7 @@
       "methods": [
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/logs.ts",
@@ -4072,7 +4306,7 @@
       "properties": [
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/logs.ts",
@@ -4092,17 +4326,17 @@
       "base": "aws-cdk-lib.aws_lambda_nodejs.NodejsFunction",
       "docs": {
         "remarks": "See README for usage examples",
-        "stability": "experimental",
+        "stability": "stable",
         "summary": "Compliant NodeJS Lambda Function."
       },
       "fqn": "@enfo/aws-cdkompliance.NodejsFunction",
       "initializer": {
         "docs": {
-          "stability": "experimental"
+          "stability": "stable"
         },
         "locationInModule": {
           "filename": "lib/lambda-nodejs.ts",
-          "line": 41
+          "line": 42
         },
         "parameters": [
           {
@@ -4128,16 +4362,16 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/lambda-nodejs.ts",
-        "line": 40
+        "line": 41
       },
       "methods": [
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/lambda-nodejs.ts",
-            "line": 52
+            "line": 57
           },
           "name": "checkRuntime",
           "protected": true,
@@ -4161,13 +4395,13 @@
       "base": "aws-cdk-lib.aws_sqs.Queue",
       "docs": {
         "remarks": "See README for usage examples",
-        "stability": "experimental",
+        "stability": "stable",
         "summary": "Compliant SQS Queue."
       },
       "fqn": "@enfo/aws-cdkompliance.Queue",
       "initializer": {
         "docs": {
-          "stability": "experimental"
+          "stability": "stable"
         },
         "locationInModule": {
           "filename": "lib/sqs.ts",
@@ -4203,7 +4437,7 @@
       "methods": [
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/sqs.ts",
@@ -4227,7 +4461,7 @@
       "properties": [
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/sqs.ts",
@@ -4247,13 +4481,13 @@
       "base": "aws-cdk-lib.aws_dynamodb.Table",
       "docs": {
         "remarks": "See README for usage examples",
-        "stability": "experimental",
+        "stability": "stable",
         "summary": "Compliant DynamoDB Table."
       },
       "fqn": "@enfo/aws-cdkompliance.Table",
       "initializer": {
         "docs": {
-          "stability": "experimental"
+          "stability": "stable"
         },
         "locationInModule": {
           "filename": "lib/dynamodb.ts",
@@ -4293,13 +4527,13 @@
       "base": "aws-cdk-lib.aws_sns.Topic",
       "docs": {
         "remarks": "See README for usage examples",
-        "stability": "experimental",
+        "stability": "stable",
         "summary": "Compliant SNS Topic."
       },
       "fqn": "@enfo/aws-cdkompliance.Topic",
       "initializer": {
         "docs": {
-          "stability": "experimental"
+          "stability": "stable"
         },
         "locationInModule": {
           "filename": "lib/sns.ts",
@@ -4334,7 +4568,7 @@
       "methods": [
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/sns.ts",
@@ -4358,7 +4592,7 @@
       "properties": [
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
           "locationInModule": {
             "filename": "lib/sns.ts",
@@ -4374,6 +4608,6 @@
       "symbolId": "lib/sns:Topic"
     }
   },
-  "version": "1.0.0",
-  "fingerprint": "Z29P+XY45OuOTZugzC45JHcT/S+6UKwJas3cRIcIKrQ="
+  "version": "1.1.0",
+  "fingerprint": "mJb33qNkk16n1AxmebMCyE1Mm+m8t3uECmStcqkS7bI="
 }

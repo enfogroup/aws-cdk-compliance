@@ -74,7 +74,9 @@ describe('DynamoDB', () => {
       })
 
       expect(stack).toHaveResource('AWS::DynamoDB::Table', {
-        PointInTimeRecoverySpecification: ABSENT
+        PointInTimeRecoverySpecification: {
+          PointInTimeRecoveryEnabled: false
+        }
       })
     })
   })

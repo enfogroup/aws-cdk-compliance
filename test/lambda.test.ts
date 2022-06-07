@@ -14,7 +14,7 @@ describe('Lambda', () => {
       const stack = new Stack()
 
       new Function(stack, 'Function', {
-        runtime: Runtime.NODEJS_14_X,
+        runtime: Runtime.NODEJS_16_X,
         handler: 'something',
         code: Code.fromInline('magicCode')
       })
@@ -24,7 +24,7 @@ describe('Lambda', () => {
           ZipFile: 'magicCode'
         },
         Handler: 'something',
-        Runtime: 'nodejs14.x'
+        Runtime: 'nodejs16.x'
       })
     })
 
@@ -49,7 +49,7 @@ describe('Lambda', () => {
         code: Code.fromInline('magicCode')
       })
 
-      expect(() => { Template.fromStack(stack) }).toThrow('Lambda runtime must be latest runtime available for language. Found nodejs12.x, please use NODEJS_14_X instead')
+      expect(() => { Template.fromStack(stack) }).toThrow('Lambda runtime must be latest runtime available for language. Found nodejs12.x, please use NODEJS_16_X instead')
     })
 
     it('should throw a relevant error message for bad runtime - Java', () => {
