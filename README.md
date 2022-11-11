@@ -114,6 +114,37 @@ new Table(stack, 'Table', {
 })
 ```
 
+### EC2
+
+The following features are available for EC2.
+
+* Instance, Construct defaulting to reqiring IMDSv2. Will throw if not required.
+
+The following Security Hub findings are managed by the Instance Construct.
+
+* [[EC2.8] EC2 instances should use IMDSv2](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-ec2-8)
+* Will throw if an SSH key is provided, use SSM Session Manager instead
+* Will throw if an old instance type is used (e.g. m1), use current instance types
+
+Instance creation example.
+
+```typescript
+import { Instance } from '@enfo/aws-cdkompliance'
+import { Stack } from 'aws-cdk-lib'
+import { Vpc, InstanceType, MachineImage, AmazonLinuxGeneration, AmazonLinuxCpuType } from 'aws-cdk-lib/aws-ec2'
+
+const stack = new Stack()
+const vpc = new Vpc(stack, 'VPC')
+new Instance(stack, 'Instance', {
+  vpc,
+  instanceType: new InstanceType('t4g.medium'),
+  machineImage: MachineImage.latestAmazonLinux({
+    cpuType: AmazonLinuxCpuType.ARM_64,
+    generation: AmazonLinuxGeneration.AMAZON_LINUX_2
+  })
+})
+```
+
 ### KMS
 
 The following features are available for KMS.
