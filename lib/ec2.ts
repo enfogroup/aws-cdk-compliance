@@ -16,7 +16,7 @@ export const defaultProps = {
  */
 export class Instance extends Ec2Instance {
   protected calculatedProps: InstanceProps
-  constructor (scope: Construct, id: string, props: InstanceProps) {
+  constructor(scope: Construct, id: string, props: InstanceProps) {
     super(scope, id, {
       ...defaultProps,
       ...props
@@ -32,30 +32,26 @@ export class Instance extends Ec2Instance {
           ...this.checkImdsv2(),
           ...this.checkNoSSH(),
           ...this.checkInstanceType()
-          // TODO: only approved AMIs ?
-          // TODO: check that subnetSelection is not PUBLIC ?
-          // TODO: check that volumes are encrypted ?
-          // TODO: check that the IAM role supports SSM ?
         ]
       }
     })
   }
 
-  protected checkImdsv2 () {
+  protected checkImdsv2() {
     return (!this.calculatedProps.requireImdsv2)
-      ? ['IMDSv2 is required']
+      ? [ 'IMDSv2 is required' ]
       : []
   }
 
-  protected checkNoSSH () {
+  protected checkNoSSH() {
     return (this.calculatedProps.keyName)
-      ? ['Use SSM Session Manager rather than SSH']
+      ? [ 'Use SSM Session Manager rather than SSH' ]
       : []
   }
 
-  protected checkInstanceType () {
+  protected checkInstanceType() {
     return (anyPass(Object.values(InstanceClass).map(startsWith))(this.calculatedProps.instanceType.toString()))
       ? []
-      : ['Use current instance types']
+      : [ 'Use current instance types' ]
   }
 }
