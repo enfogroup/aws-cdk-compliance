@@ -14,7 +14,7 @@ describe('Lambda', () => {
       const stack = new Stack()
 
       new Function(stack, 'Function', {
-        runtime: Runtime.NODEJS_16_X,
+        runtime: Runtime.NODEJS_18_X,
         handler: 'something',
         code: Code.fromInline('magicCode')
       })
@@ -24,7 +24,7 @@ describe('Lambda', () => {
           ZipFile: 'magicCode'
         },
         Handler: 'something',
-        Runtime: 'nodejs16.x'
+        Runtime: 'nodejs18.x'
       })
     })
 
@@ -49,7 +49,7 @@ describe('Lambda', () => {
         code: Code.fromInline('magicCode')
       })
 
-      expect(() => { Template.fromStack(stack) }).toThrow('Lambda runtime must be latest runtime available for language. Found nodejs12.x, please use NODEJS_16_X instead')
+      expect(() => { Template.fromStack(stack) }).toThrow('Lambda runtime must be latest runtime available for language. Found nodejs12.x, please use NODEJS_18_X instead')
     })
 
     it('should throw a relevant error message for bad runtime - Java', () => {
@@ -61,7 +61,7 @@ describe('Lambda', () => {
         code: Code.fromBucket(new Bucket(stack, 'Bucket'), 'file.zip')
       })
 
-      expect(() => { Template.fromStack(stack) }).toThrow('Lambda runtime must be latest runtime available for language. Found java8, please use JAVA_11 instead')
+      expect(() => { Template.fromStack(stack) }).toThrow('Lambda runtime must be latest runtime available for language. Found java8, please use JAVA_17 instead')
     })
 
     it('should throw a relevant error message for bad runtime - Python', () => {
@@ -73,7 +73,7 @@ describe('Lambda', () => {
         code: Code.fromInline('magicCode')
       })
 
-      expect(() => { Template.fromStack(stack) }).toThrow('Lambda runtime must be latest runtime available for language. Found python2.7, please use PYTHON_3_9 instead')
+      expect(() => { Template.fromStack(stack) }).toThrow('Lambda runtime must be latest runtime available for language. Found python2.7, please use PYTHON_3_10 instead')
     })
   })
 })
